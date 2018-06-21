@@ -1,0 +1,14 @@
+/**
+ * MLMI Builder
+ */
+
+.acf-repeater.-row .acf-table > tbody > .acf-row > td,
+.acf-repeater.-block .acf-table > tbody > .acf-row > td {
+  border-top-width: 5px;
+  border-top-color: #abc;
+}
+
+.acf-repeater.-row .acf-table > tbody > .acf-row:first-child > td,
+.acf-repeater.-block .acf-table > tbody > .acf-row:first-child > td {
+  border-top-width: 0;
+}
