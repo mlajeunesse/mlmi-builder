@@ -84,6 +84,8 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 
 `mlmi_builder_after_*` : Permet d'ajouter une action (ex: afficher du contenu) à la fin d'un élément `section` ou `row`.
 
+`mlmi_builder_*_output` : Permet d'inclure un gabarit partiel pour afficher un type de contenu personnalisé. Remplacer `*` par le nom de votre type de contenu personnalisé.
+
 ## Affichage de la grille
 
 Pour afficher la grille, il suffit d'appeler la fonction `the_grid()` dans un gabarit Wordpress.

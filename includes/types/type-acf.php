@@ -80,9 +80,7 @@ add_action('after_setup_theme', function()
     /*
     * Content Type: Standard Row
     */
-    $content_type_text_row_column_options = array(
-        'text-center' => __('Centrer le texte', 'mlmi-builder'),
-    );
+    $content_type_text_row_column_options = array();
     $content_type_text_row_column_options = apply_filters('mlmi_builder_column_options', $content_type_text_row_column_options);
     $padding_bottom_options = array(
         'pb-5' => '5',

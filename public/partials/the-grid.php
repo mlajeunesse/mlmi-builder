@@ -1,7 +1,6 @@
-<?php /* MLMI Builder */
-global $post;
-
-if (have_rows('sections', $post->ID)): while (have_rows('sections', $post->ID)) : the_row();
+<?php
+/* MLMI Builder */
+if (have_rows('sections')): while (have_rows('sections')) : the_row();
 	$section_classes = array_filter(array_merge(array("mb-section"), array_map('trim', explode(" ", get_sub_field('section_class')))));
     $section_classes[] = get_sub_field('padding_top');
     $section_classes[] = get_sub_field('padding_bottom');
@@ -103,23 +102,28 @@ if (have_rows('sections', $post->ID)): while (have_rows('sections', $post->ID)) 
 
                 // gallery images
                 $gallery_images = get_sub_field('gallery');
-                $gallery_ids = array();
-                foreach ($gallery_images as $image){
-                    $gallery_ids[] = $image['ID'];
-                }
-                $gallery_ids = implode(',', $gallery_ids);
-                $gallery_attributes = apply_filters('mlmi_builder_gallery_attributes', array(
-                    "link" => "file",
-                    "size" => "medium"
-                ));
 
                 // layout
                 $custom_gallery_row_layout = apply_filters('mlmi_builder_gallery_row_template', 'plugin-template');
                 if ($custom_gallery_row_layout == "plugin-template"):
+                    $gallery_ids = array();
+                    foreach ($gallery_images as $image){
+                        $gallery_ids[] = $image['ID'];
+                    }
+                    $gallery_ids = implode(',', $gallery_ids);
+                    $gallery_attributes = apply_filters('mlmi_builder_gallery_attributes', array(
+                        "link" => "file",
+                        "size" => "medium"
+                    ));
                     require plugin_dir_path( dirname( __FILE__ ) ) . '../public/partials/gallery-row.php';
                 elseif ($custom_gallery_row_layout != false):
                     require locate_template($custom_gallery_row_layout, false, false);
                 endif;
+
+            else:
+
+                // layout
+                do_action('mlmi_builder_'.get_row_layout().'_output');
 
             endif; ?>
 
@@ -133,4 +137,4 @@ if (have_rows('sections', $post->ID)): while (have_rows('sections', $post->ID)) 
 
 </div>
 
-<?php endwhile; endif; /* end MLMI Builder */ ?>
+<?php endwhile; endif; ?>
