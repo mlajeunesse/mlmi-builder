@@ -1,3 +1,5 @@
 
 *.pot~
 *.po~
+
+/vendor/
