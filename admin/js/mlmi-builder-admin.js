@@ -37,7 +37,6 @@ let mlmi_builder = {
 				setTimeout(function(){
 					self.columns(row);
 				}, 250);
-
 			});
 		};
 
@@ -50,12 +49,15 @@ let mlmi_builder = {
 				case '4': case '4-X': case 'X-4-X':
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "100%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "100%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "100%").show();
 					break;
 				case '3-3':
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "50%");
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "50%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "50%").show();
 					$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").css("width", "50%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "50%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").css("width", "50%").show();
 					break;
 				case '2-4':
 				case '1-5':
@@ -63,6 +65,8 @@ let mlmi_builder = {
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "60%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "40%").show();
 					$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").css("width", "60%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "40%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").css("width", "60%").show();
 					break;
 				case '5-1':
 				case '4-2':
@@ -71,16 +75,15 @@ let mlmi_builder = {
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "40%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "60%").show();
 					$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").css("width", "40%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "60%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").css("width", "40%").show();
 					break;
 				case '2-2-2':
-					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "33%");
-					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "34%");
-					$(row).find(".mlmi-builder-column[data-name=col_3]").css("width", "33%");
-					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "33%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").css("width", "34%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_3_option]").css("width", "33%").show();
+					$(row).find(".mlmi-builder-column").css("width", "33.333%");
+					$(row).find(".mlmi-builder-column-option").css("width", "33.333%").show();
 					break;
 			}
+      $(row).find(".one-third").css("width", "33.333%").show();
 		};
 
 		return function()
