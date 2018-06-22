@@ -1,14 +1,13 @@
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: MLMI Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-06-22 14:32+0000\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: \n"
-"Language-Team: \n"
-"Language: \n"
-"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"PO-Revision-Date: 2018-06-22 14:36+0000\n"
+"Last-Translator: Mathieu Lajeunesse <contact@mathieulajeunesse.com>\n"
+"Language-Team: English (United States)\n"
+"Language: en_US\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,166 +15,166 @@ msgstr ""
 
 #: includes/types/type-acf.php:15
 msgid "Rangée"
-msgstr ""
+msgstr "Row"
 
 #: includes/types/type-acf.php:29
 msgid "Clone"
-msgstr ""
+msgstr "Clone"
 
 #: includes/types/type-acf.php:88
 msgid "Centrer le texte"
-msgstr ""
+msgstr "Center text"
 
 #: includes/types/type-acf.php:114
 msgid "Contenu"
-msgstr ""
+msgstr "Content"
 
 #: includes/types/type-acf.php:130 includes/types/type-acf.php:366
 msgid "Colonne 1"
-msgstr ""
+msgstr "Column 1"
 
 #: includes/types/type-acf.php:149 includes/types/type-acf.php:392
 msgid "Colonne 2"
-msgstr ""
+msgstr "Column 2"
 
 #: includes/types/type-acf.php:183 includes/types/type-acf.php:433
 msgid "Colonne 3"
-msgstr ""
+msgstr "Column 3"
 
 #: includes/types/type-acf.php:210
 msgid "Options"
-msgstr ""
+msgstr "Options"
 
 #: includes/types/type-acf.php:226
 msgid "Nombre de colonnes"
-msgstr ""
+msgstr "Number of columns"
 
 #: includes/types/type-acf.php:238
 msgid "1 colonne"
-msgstr ""
+msgstr "1 column"
 
 #: includes/types/type-acf.php:239
 msgid "2 colonnes"
-msgstr ""
+msgstr "2 columns"
 
 #: includes/types/type-acf.php:240
 msgid "3 colonnes"
-msgstr ""
+msgstr "3 columns"
 
 #: includes/types/type-acf.php:252 includes/types/type-acf.php:283
 #: includes/types/type-acf.php:316
 msgid "Configuration des colonnes"
-msgstr ""
+msgstr "Columns setup"
 
 #: includes/types/type-acf.php:272
 msgid "Pleine largeur"
-msgstr ""
+msgstr "Full width"
 
 #: includes/types/type-acf.php:303
 msgid "Moitié-moitié"
-msgstr ""
+msgstr "Half and half"
 
 #: includes/types/type-acf.php:304
 msgid "1 / 2"
-msgstr ""
+msgstr "1 / 2"
 
 #: includes/types/type-acf.php:305
 msgid "2 / 1"
-msgstr ""
+msgstr "2 / 1"
 
 #: includes/types/type-acf.php:336
 msgid "Trois colonnes"
-msgstr ""
+msgstr "Three columns"
 
 #: includes/types/type-acf.php:347
 msgid "ID de la rangée"
-msgstr ""
+msgstr "Row ID"
 
 #: includes/types/type-acf.php:378 includes/types/type-acf.php:419
 #: includes/types/type-acf.php:453
 msgid "Ordre régulier"
-msgstr ""
+msgstr "Standard order"
 
 #: includes/types/type-acf.php:379 includes/types/type-acf.php:420
 #: includes/types/type-acf.php:454
 msgid "En premier"
-msgstr ""
+msgstr "Display first"
 
 #: includes/types/type-acf.php:380 includes/types/type-acf.php:421
 #: includes/types/type-acf.php:455
 msgid "En dernier"
-msgstr ""
+msgstr "Display last"
 
 #: includes/types/type-acf.php:553
 msgid "Classes"
-msgstr ""
+msgstr "Classes"
 
 #: includes/types/type-acf.php:572 includes/types/type-acf.php:901
 msgid "Espacement haut"
-msgstr ""
+msgstr "Padding top"
 
 #: includes/types/type-acf.php:594 includes/types/type-acf.php:923
 msgid "Espacement bas"
-msgstr ""
+msgstr "Padding bottom"
 
 #: includes/types/type-acf.php:653 includes/types/type-acf.php:774
 msgid "Galerie d'images"
-msgstr ""
+msgstr "Gallery"
 
 #: includes/types/type-acf.php:713
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 #: includes/types/type-acf.php:766
 msgid "Rangée standard"
-msgstr ""
+msgstr "Standard Row"
 
 #: includes/types/type-acf.php:770
 msgid "Rangée programmée"
-msgstr ""
+msgstr "Shortcode"
 
 #: includes/types/type-acf.php:813
 msgid "Section"
-msgstr ""
+msgstr "Section"
 
 #: includes/types/type-acf.php:829
 msgid "Rangées"
-msgstr ""
+msgstr "Rows"
 
 #: includes/types/type-acf.php:841
 msgid "Ajouter une rangée"
-msgstr ""
+msgstr "Add Row"
 
 #: includes/types/type-acf.php:847
 msgid "Présentation"
-msgstr ""
+msgstr "Display"
 
 #: includes/types/type-acf.php:863
 msgid "ID de la section"
-msgstr ""
+msgstr "Section ID"
 
 #: includes/types/type-acf.php:882
 msgid "Classes de la section"
-msgstr ""
+msgstr "Section classes"
 
 #. Name of the plugin
 #: includes/types/type-acf.php:963 includes/types/type-acf.php:967
 msgid "MLMI Builder"
-msgstr ""
+msgstr "MLMI Builder"
 
 #: includes/types/type-acf.php:982
 msgid "Ajouter une section"
-msgstr ""
+msgstr "Add Section"
 
 #. Description of the plugin
 msgid "Outil de construction avancé et extensible de pages Wordpress."
-msgstr ""
+msgstr "Customizable page builder tool for Wordpress."
 
 #. URI of the plugin
 #. Author URI of the plugin
 msgid "https://mathieulajeunesse.com"
-msgstr ""
+msgstr "https://mathieulajeunesse.com"
 
 #. Author of the plugin
 msgid "Mathieu Lajeunesse médias interactifs"
-msgstr ""
+msgstr "Mathieu Lajeunesse médias interactifs"
