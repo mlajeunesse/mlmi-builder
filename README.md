@@ -37,6 +37,9 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 `mlmi_builder_padding_top_default` : Option d'espacement (padding-top) sélectionnée par défaut.
 
 ### Ajout et édition des champs
+
+`mlmi_builder_layout_types` : Permet de supprimer et d'ajouter des types de rangées.
+
 `mlmi_builder_section_add_fields` : Permet de définir un `array` de champs à ajouter aux paramètres des sections.
 
 `mlmi_builder_section_add_group` : Permet de définir une `string` correspondant au groupe de champs à ajouter aux sections.
@@ -59,7 +62,27 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 
 `mlmi_builder_content_type_code_row` : Configuration d'une rangée programmée.
 
-`mlmi_builder_layout_types` : Permet de supprimer et d'ajouter des types de rangées.
+### Champs spécifiques
+
+`mlmi_builder_gallery_attributes` : Modifie les attributs par défaut de la galerie Wordpress dans le template par défaut de Wordpress.
+
+### Gabarits personnalisés
+
+`mlmi_builder_code_row_template` : Permet de remplacer le gabarit utilisé pour la rangée programmée. Doit retourner un chemin relatif au dossier `resources` (ex: `/views/partials/custom-template.php`) ou `false` si le gabarit est affiché directement dans le filtre.
+
+`mlmi_builder_gallery_row_template` : Permet de remplacer le gabarit utilisé pour la galerie photos. Doit retourner un chemin relatif au dossier `resources` (ex: `/views/partials/custom-template.php`) ou `false` si le gabarit est affiché directement dans le filtre.
+
+### Attributs HTML
+
+`mlmi_builder_*_attributes` : Permet de modifier la liste d'attributs HTML de l'élément. Les choix d'élément sont `section`, `row`, `column` et `content`.
+
+`mlmi_builder_*_classes` : Permet de modifier la liste des classes de l'élément. Les choix d'élément sont `section`, `row`, `column` et `content`.
+
+### Actions
+
+`mlmi_builder_before_*` : Permet d'ajouter une action (ex: afficher du contenu) au début d'un élément `section` ou `row`.
+
+`mlmi_builder_after_*` : Permet d'ajouter une action (ex: afficher du contenu) à la fin d'un élément `section` ou `row`.
 
 ## Affichage de la grille
 
