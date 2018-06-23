@@ -39,8 +39,36 @@ if (have_rows('sections')): while (have_rows('sections')) : the_row();
             */
     		if (get_row_layout() == "text_row"):
 
-        		$columns = array();
+                // order columns
+                $last_order = array();
+                $middle_order = array();
+                $first_order = array();
 
+                for ($i = 0; $i < $columns_count; $i++):
+                    switch (get_sub_field('col_'.($i+1).'_order')) {
+                        case 'first':
+                            $first_order[] = $i;
+                            break;
+                        case 'last':
+                            $last_order[] = $i;
+                            break;
+                        default:
+                            $middle_order[] = $i;
+                            break;
+                    }
+                endfor;
+
+                // get last column
+                $last_mobile_column = NULL;
+                if (count($last_order)){
+                    $last_mobile_column = $last_order[count($last_order) - 1];
+                } else if (count($middle_order)){
+                    $last_mobile_column = $middle_order[count($middle_order) - 1];
+                } else if (count($first_order)){
+                    $last_mobile_column = $first_order[count($first_order) - 1];
+                }
+
+                // display columns
         		for ($i = 0; $i < $columns_count; $i++):
 
         			// column classes
@@ -50,9 +78,18 @@ if (have_rows('sections')): while (have_rows('sections')) : the_row();
         			$column_classes[] = "col-md-".($columns_sizes[$i]*2);
         			$column_classes[] = "order-md-".($i+1);
                     switch (get_sub_field('col_'.($i+1).'_order')) {
-                        case 'first': $column_classes[] = "order-1"; break;
-                        case 'last': $column_classes[] = "order-3"; break;
-                        default: $column_classes[] = "order-2"; break;
+                        case 'first':
+                            $column_classes[] = "order-1";
+                            break;
+                        case 'last':
+                            $column_classes[] = "order-3";
+                            break;
+                        default:
+                            $column_classes[] = "order-2";
+                            break;
+                    }
+                    if ($last_mobile_column == $i){
+                        $column_classes[] = "sm-last";
                     }
 
         			// column options
