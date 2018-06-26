@@ -66,6 +66,10 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 
 `mlmi_builder_gallery_attributes` : Modifie les attributs par défaut de la galerie Wordpress dans le template par défaut de Wordpress.
 
+`mlmi_builder_use_container` : Si retourne `false`, n'utilisera pas de `<div class="container"></div>` dans cette rangée.
+
+`mlmi_builder_use_row` : Si retourne `false`, n'utilisera pas de `<div class="row"></div>` dans cette rangée.
+
 ### Gabarits personnalisés
 
 `mlmi_builder_code_row_template` : Permet de remplacer le gabarit utilisé pour la rangée programmée. Doit retourner un chemin relatif au dossier `resources` (ex: `/views/partials/custom-template.php`) ou `false` si le gabarit est affiché directement dans le filtre.
@@ -89,3 +93,5 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 ## Affichage de la grille
 
 Pour afficher la grille, il suffit d'appeler la fonction `the_grid()` dans un gabarit Wordpress.
+
+Les gabarits sont à l'intérieur d'un loop `have_rows()` de ACF. Pour cette raison, il faut utiliser la fonction `get_sub_field()` (et non `get_field()`) pour obtenir les valeurs de champs.

@@ -43,14 +43,12 @@ $hidden = array(
 /**
 * Edit layout types.
 * This example removes the "gallery_row" type and creates a new one.
-* Custom layout types must specify a template path.
 */
 add_filter('mlmi_builder_layout_types', function($layout_types){
   unset($layout_types['gallery_row']);
-  $layout_types[] = array(
-    "label" => __('Mon groupe perso', 'gtlpaysagiste'),
-    "group" => "group_5b2d02c090bd8",
-    "template" => "/views/partials/custom-type.blade.php"
+  $layout_types['my_type_name'] = array(
+    "label" => __('My Content Type', 'gtlpaysagiste'),
+    "group" => "group_5b2d02c090bd8"
   );
   return $layout_types;
 }, PHP_INT_MAX);
@@ -174,11 +172,23 @@ add_filter('mlmi_builder_row_attributes', function($attributes){
 * Use container or not?
 * In this example, it is determined that the "code_row" layout won't use the container div.
 */
-add_filter('mlmi_builder_row_use_container', function($use_container){
+add_filter('mlmi_builder_use_container', function($use_container){
   if (get_row_layout() == "code_row"){
     $use_container = false;
   }
   return $use_container;
+}, PHP_INT_MAX);
+```
+```
+/**
+* Use row or not?
+* In this example, it is determined that the "gallery_row" layout won't use the default bootstrap row.
+*/
+add_filter('mlmi_builder_use_row', function($use_row){
+  if (get_row_layout() == "gallery_row"){
+    $use_row = false;
+  }
+  return $use_row;
 }, PHP_INT_MAX);
 ```
 ```
