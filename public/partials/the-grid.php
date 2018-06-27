@@ -7,13 +7,14 @@ $section_classes[] = get_sub_field('padding_bottom');
 $section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
 $section_attributes = apply_filters('mlmi_builder_section_attributes', array( "id" => get_sub_field('section_id') ));
 $section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
+if (have_rows('rows')):
 ?>
 
 <div<?=$section_attributes_output?>>
 
 <?php do_action('mlmi_builder_before_section'); ?>
 
-<?php if (have_rows('rows')): while (have_rows('rows')) : the_row();
+<?php while (have_rows('rows')) : the_row();
 $row_classes = array_filter(array_merge(array("row", get_row_layout()), array_map('trim', explode(" ", get_sub_field('row_class')))));
 $row_classes[] = get_sub_field('padding_top');
 $row_classes[] = get_sub_field('padding_bottom');
@@ -167,10 +168,10 @@ elseif (get_row_layout() == "code_row"):
 			
 		<?php if ($use_row): ?></div><?php endif; ?>
 		<?php if ($use_container): ?></div><?php endif; ?>
-	<?php endwhile; endif; ?>
+	<?php endwhile; ?>
 	
 	<?php do_action('mlmi_builder_after_section'); ?>
 	
 </div>
 
-<?php endwhile; endif; ?>
+<?php endif; endwhile; endif; ?>

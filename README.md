@@ -28,11 +28,11 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 
 ### Espacements
 
-`mlmi_builder_padding_bottom_option` : Liste des options d'espacement (padding-bottom) disponibles.
+`mlmi_builder_padding_bottom_options` : Liste des options d'espacement (padding-bottom) disponibles.
 
 `mlmi_builder_padding_bottom_default` : Option d'espacement (padding-bottom) sélectionnée par défaut.
 
-`mlmi_builder_padding_top_option` : Liste des options d'espacement (padding-top) disponibles.
+`mlmi_builder_padding_top_options` : Liste des options d'espacement (padding-top) disponibles.
 
 `mlmi_builder_padding_top_default` : Option d'espacement (padding-top) sélectionnée par défaut.
 
