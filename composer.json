@@ -1,13 +1,13 @@
 {
-    "name": "mlajeunesse/mlmi-builder",
-    "description": "Outil de construction avancé et extensible de pages Wordpress.",
-    "version" : "0.9.4",
-    "type": "wordpress-plugin",
-    "authors": [
-        {
-            "name": "Mathieu Lajeunesse",
-            "email": "contact@mathieulajeunesse.com"
-        }
-    ],
-    "require": {}
+  "name": "mlajeunesse/mlmi-builder",
+  "description": "Outil de construction avancé et extensible de pages Wordpress.",
+  "version" : "0.9.5",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "Mathieu Lajeunesse",
+      "email": "contact@mathieulajeunesse.com"
+    }
+  ],
+  "require": {}
 }

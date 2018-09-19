@@ -90,6 +90,10 @@ Sauf aux endroits où le format est spécifié, les filtres sont tous appliqués
 
 `mlmi_builder_*_output` : Permet d'inclure un gabarit partiel pour afficher un type de contenu personnalisé. Remplacer `*` par le nom de votre type de contenu personnalisé.
 
+## Fonctions utilitaires
+
+`mlmi_builder_get_grid_content` : Utilitaire permettant d'obtenir toutes les valeurs des rangées `text_row` en une chaîne de caractères (ex: pour des extraits d'articles, à des fins de SEO, etc.).
+
 ## Affichage de la grille
 
 Pour afficher la grille, il suffit d'appeler la fonction `the_grid()` dans un gabarit Wordpress.
