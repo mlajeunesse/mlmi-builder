@@ -117,7 +117,7 @@ if (get_row_layout() == "text_row"):
 		?>
 		<div<?=$column_attributes_output?>>
 		<?php if ($content): ?>
-			<div<?$content_attributes_output?>>
+			<div<?=$content_attributes_output?>>
 			<?=$content?>
 		</div>
 	<?php endif; ?>
