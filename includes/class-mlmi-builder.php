@@ -24,8 +24,8 @@ class MLMI_Builder {
 	 * Define the core functionality of the plugin.
 	 */
 	public function __construct() {
-		if ( defined( 'PLUGIN_NAME_VERSION' ) ) {
-			$this->version = PLUGIN_NAME_VERSION;
+		if ( defined( 'MLMI_BUILDER_VERSION' ) ) {
+			$this->version = MLMI_BUILDER_VERSION;
 		} else {
 			$this->version = '1.0.0';
 		}
