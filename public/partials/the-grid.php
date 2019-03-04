@@ -7,6 +7,7 @@ $section_classes[] = get_sub_field('padding_bottom');
 $section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
 $section_attributes = apply_filters('mlmi_builder_section_attributes', array( "id" => get_sub_field('section_id') ));
 $section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
+$desktop_prefix = apply_filters('mlmi_builder_desktop_class', 'md');
 if (have_rows('rows')):
 ?>
 
@@ -75,8 +76,12 @@ if (get_row_layout() == "text_row"):
 		$column_classes = array();
 		$column_classes[] = "col";
 		$column_classes[] = "col-12";
-		$column_classes[] = "col-md-".($columns_sizes[$i]*2);
-		$column_classes[] = "order-md-".($i+1);
+		if ($columns_sizes[$i] == 2 || $columns_sizes[$i] == 3 || $columns_sizes[$i] == 4) {
+			$column_classes[] = "col-$desktop_prefix-".($columns_sizes[$i]*2);
+		} else if ($columns_sizes[$i] == 5 || $columns_sizes[$i] == 7) {
+			$column_classes[] = "col-$desktop_prefix-".($columns_sizes[$i]);
+		}
+		$column_classes[] = "order-$desktop_prefix-".($i+1);
 		switch (get_sub_field('col_'.($i+1).'_order')) {
 			case 'first':
 			$column_classes[] = "order-1";
@@ -104,7 +109,7 @@ if (get_row_layout() == "text_row"):
 		$content = get_sub_field('col_'.($i+1));
 		if (!$content){
 			$column_classes[] = "d-none";
-			$column_classes[] = "d-md-block";
+			$column_classes[] = "d-$desktop_prefix-block";
 		}
 		
 		// classes

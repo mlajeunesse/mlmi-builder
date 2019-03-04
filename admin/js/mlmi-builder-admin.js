@@ -52,6 +52,8 @@ let mlmi_builder = {
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "100%").show();
 					break;
 				case '3-3':
+				case '5-7':
+				case '7-5':
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "50%");
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "50%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "50%").show();
