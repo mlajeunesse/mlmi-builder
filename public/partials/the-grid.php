@@ -8,14 +8,15 @@ $section_classes = apply_filters('mlmi_builder_section_classes', $section_classe
 $section_attributes = apply_filters('mlmi_builder_section_attributes', array( "id" => get_sub_field('section_id') ));
 $section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
 $desktop_prefix = apply_filters('mlmi_builder_desktop_class', 'md');
-if (have_rows('rows')):
-?>
+do_action('mlmi_builder_before_section');
+if (have_rows('rows')): ?>
 
 <div<?=$section_attributes_output?>>
 
-<?php do_action('mlmi_builder_before_section'); ?>
+<?php do_action('mlmi_builder_begin_section'); ?>
 
 <?php while (have_rows('rows')) : the_row();
+global $row_classes;
 $row_classes = array_filter(array_merge(array("row", get_row_layout()), array_map('trim', explode(" ", get_sub_field('row_class')))));
 $row_classes[] = get_sub_field('padding_top');
 $row_classes[] = get_sub_field('padding_bottom');
@@ -25,12 +26,12 @@ if (get_row_layout() == "text_row"){
 	$columns_sizes = explode("-", $columns_layout);
 	$columns_count = count($columns_sizes);
 }
-$row_attributes = apply_filters('mlmi_builder_row_attributes', array( "id" => get_sub_field('row_id') ));
-$row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
+$row_attributes = apply_filters('mlmi_builder_row_attributes', array("id" => get_sub_field('row_id')));
 $use_container = apply_filters('mlmi_builder_use_container', true);
 $use_row = apply_filters('mlmi_builder_use_row', true);
+$row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
 ?>
-<?php if ($use_container): ?><div class="container">
+<?php if ($use_container): ?><div class="<?=(($use_container === true) ? 'container' : $use_container)?>">
 <?php endif; if ($use_row): ?>
 <div<?=$row_attributes_output?>><?php endif; ?>
 <?php do_action('mlmi_builder_before_row'); ?>
@@ -123,7 +124,7 @@ if (get_row_layout() == "text_row"):
 		<div<?=$column_attributes_output?>>
 		<?php if ($content): ?>
 			<div<?=$content_attributes_output?>>
-			<?=$content?>
+			<?=apply_filters('the_content', $content)?>
 		</div>
 	<?php endif; ?>
 </div>
@@ -175,8 +176,10 @@ elseif (get_row_layout() == "code_row"):
 		<?php if ($use_container): ?></div><?php endif; ?>
 	<?php endwhile; ?>
 	
-	<?php do_action('mlmi_builder_after_section'); ?>
+	<?php do_action('mlmi_builder_end_section'); ?>
 	
 </div>
+
+<?php do_action('mlmi_builder_after_section'); ?>
 
 <?php endif; endwhile; endif; ?>

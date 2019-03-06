@@ -947,6 +947,7 @@ if (function_exists('acf_add_local_field_group')):
     if ($additional_section_group){
       $section_fields[] = array(
         'key' => 'mlmi_builder_cloned_'.$additional_section_group,
+        'name' => 'mlmi_builder_cloned_'.$additional_section_group,
         'type' => 'clone',
         'clone' => array(
           0 => $additional_section_group,
