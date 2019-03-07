@@ -4,7 +4,10 @@
 */
 function the_grid()
 {
+  ob_start();
   require_once plugin_dir_path( dirname( __FILE__ ) ) . '../public/partials/the-grid.php';
+  $grid_output = ob_get_clean();
+  echo apply_filters('mlmi_builder_output', $grid_output);
 }
 
 /*
