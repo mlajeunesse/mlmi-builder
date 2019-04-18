@@ -1,8 +1,14 @@
 <?php
 /* MLMI Builder */
 global $section_classes, $container_classes, $row_classes;
-global $is_first_row, $is_last_row;
+global $is_first_row, $is_last_row, $is_first_section, $is_last_section;
+$sections = get_field('sections');
+$sections_count = $sections ? count($sections) : 0;
+$sections_index = 0;
 if (have_rows('sections')): while (have_rows('sections')) : the_row();
+$sections_index += 1;
+$is_first_section = $sections_index === 1;
+$is_last_section = $sections_index === $sections_count;
 $section_classes = array_filter(array_merge(['mb-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 $section_classes[] = get_sub_field('padding_top');
 $section_classes[] = get_sub_field('padding_bottom');
