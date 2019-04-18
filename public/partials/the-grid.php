@@ -1,23 +1,33 @@
 <?php
 /* MLMI Builder */
+global $section_classes, $container_classes, $row_classes;
 if (have_rows('sections')): while (have_rows('sections')) : the_row();
-$section_classes = array_filter(array_merge(array("mb-section"), array_map('trim', explode(" ", get_sub_field('section_class')))));
+$section_classes = array_filter(array_merge(['mb-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 $section_classes[] = get_sub_field('padding_top');
 $section_classes[] = get_sub_field('padding_bottom');
 $section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
-$section_attributes = apply_filters('mlmi_builder_section_attributes', array( "id" => get_sub_field('section_id') ));
+$use_container = apply_filters('mlmi_builder_use_container', true);
+$wrap_container = apply_filters('mlmi_builder_wrap_container', false);
+$container_class = ($use_container === true) ? 'container' : $use_container;
+$container_classes = apply_filters('mlmi_builder_container_classes', [$container_class]);
+$section_attributes = apply_filters('mlmi_builder_section_attributes', ["id" => get_sub_field('section_id')]);
 $section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
 $desktop_prefix = apply_filters('mlmi_builder_desktop_class', 'md');
 do_action('mlmi_builder_before_section');
+$rows = get_sub_field('rows');
+$rows_count = $rows ? count($rows) : 0;
+$rows_index = 0;
 if (have_rows('rows')): ?>
 
 <div<?=$section_attributes_output?>>
 
 <?php do_action('mlmi_builder_begin_section'); ?>
 
-<?php while (have_rows('rows')) : the_row();
-global $row_classes;
-$row_classes = array_filter(array_merge(array("row", get_row_layout()), array_map('trim', explode(" ", get_sub_field('row_class')))));
+<?php while (have_rows('rows')): the_row();
+$rows_index += 1;
+$is_first_row = $rows_index === 1;
+$is_last_row = $rows_index === $rows_count;
+$row_classes = array_filter(array_merge(["row", get_row_layout()], array_map('trim', explode(" ", get_sub_field('row_class')))));
 $row_classes[] = get_sub_field('padding_top');
 $row_classes[] = get_sub_field('padding_bottom');
 $row_classes = apply_filters('mlmi_builder_row_classes', $row_classes);
@@ -26,13 +36,13 @@ if (get_row_layout() == "text_row"){
 	$columns_sizes = explode("-", $columns_layout);
 	$columns_count = count($columns_sizes);
 }
-$row_attributes = apply_filters('mlmi_builder_row_attributes', array("id" => get_sub_field('row_id')));
-$use_container = apply_filters('mlmi_builder_use_container', true);
+$row_attributes = apply_filters('mlmi_builder_row_attributes', ['id' => get_sub_field('row_id')]);
 $use_row = apply_filters('mlmi_builder_use_row', true);
 $row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
+$container_attributes_output = mlmi_builder_attributes_inline([], $container_classes);
 ?>
-<?php if ($use_container): ?><div class="<?=(($use_container === true) ? 'container' : $use_container)?>">
-<?php endif; if ($use_row): ?>
+<?php if ($use_container && (!$wrap_container || ($wrap_container && $is_first_row))): ?><div<?=$container_attributes_output?>>
+<?php do_action('mlmi_builder_before_container'); endif; if ($use_row): ?>
 <div<?=$row_attributes_output?>><?php endif; ?>
 <?php do_action('mlmi_builder_before_row'); ?>
 <?php
@@ -42,9 +52,9 @@ $row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_cl
 if (get_row_layout() == "text_row"):
 	
 	// order columns
-	$last_order = array();
-	$middle_order = array();
-	$first_order = array();
+	$last_order = [];
+	$middle_order = [];
+	$first_order = [];
 	
 	for ($i = 0; $i < $columns_count; $i++):
 		switch (get_sub_field('col_'.($i+1).'_order')) {
@@ -74,7 +84,7 @@ if (get_row_layout() == "text_row"):
 	for ($i = 0; $i < $columns_count; $i++):
 		
 		// column classes
-		$column_classes = array();
+		$column_classes = [];
 		$column_classes[] = "col";
 		$column_classes[] = "col-12";
 		if ($columns_sizes[$i] == 2 || $columns_sizes[$i] == 3 || $columns_sizes[$i] == 4) {
@@ -100,11 +110,11 @@ if (get_row_layout() == "text_row"):
 		
 		// column options
 		$column_options = get_sub_field('col_'.($i+1).'_option');
-		if (!is_array($column_options)) $column_options = array($column_options);
+		if (!is_array($column_options)) $column_options = [$column_options];
 		$column_classes = array_merge($column_classes, $column_options);
 		
 		// content classes
-		$content_classes = array("text-content");
+		$content_classes = ['text-content'];
 		
 		// content
 		$content = get_sub_field('col_'.($i+1));
@@ -114,10 +124,10 @@ if (get_row_layout() == "text_row"):
 		}
 		
 		// classes
-		$column_attributes = apply_filters('mlmi_builder_column_attributes', array());
+		$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
 		$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
 		$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
-		$content_attributes = apply_filters('mlmi_builder_content_attributes', array());
+		$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
 		$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
 		$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);
 		?>
@@ -135,7 +145,7 @@ elseif (get_row_layout() == "code_row"):
 	
 	$custom_code_row_layout = apply_filters('mlmi_builder_code_row_template', "plugin-template");
 	if ($custom_code_row_layout == "plugin-template"):
-		require plugin_dir_path( dirname( __FILE__ ) ) . '../public/partials/code-row.php';
+		require plugin_dir_path(dirname(__FILE__)).'../public/partials/code-row.php';
 		elseif ($custom_code_row_layout != false):
 			require locate_template($custom_code_row_layout, false, false);
 		endif;
@@ -149,16 +159,16 @@ elseif (get_row_layout() == "code_row"):
 			// layout
 			$custom_gallery_row_layout = apply_filters('mlmi_builder_gallery_row_template', 'plugin-template');
 			if ($custom_gallery_row_layout == "plugin-template"):
-				$gallery_ids = array();
+				$gallery_ids = [];
 				foreach ($gallery_images as $image){
 					$gallery_ids[] = $image['ID'];
 				}
 				$gallery_ids = implode(',', $gallery_ids);
-				$gallery_attributes = apply_filters('mlmi_builder_gallery_attributes', array(
+				$gallery_attributes = apply_filters('mlmi_builder_gallery_attributes', [
 					"link" => "file",
 					"size" => "medium"
-				));
-				require plugin_dir_path( dirname( __FILE__ ) ) . '../public/partials/gallery-row.php';
+				]);
+				require plugin_dir_path(dirname(__FILE__)).'../public/partials/gallery-row.php';
 				elseif ($custom_gallery_row_layout != false):
 					require locate_template($custom_gallery_row_layout, false, false);
 				endif;
@@ -173,10 +183,11 @@ elseif (get_row_layout() == "code_row"):
 			<?php do_action('mlmi_builder_after_row'); ?>
 			
 		<?php if ($use_row): ?></div><?php endif; ?>
-		<?php if ($use_container): ?></div><?php endif; ?>
+		
+		<?php if ($use_container && (!$wrap_container || ($wrap_container && $is_last_row))): do_action('mlmi_builder_after_container'); ?></div><?php endif; ?>
 	<?php endwhile; ?>
 	
-	<?php do_action('mlmi_builder_end_section'); ?>
+	<?php do_action('mlmi_builder_after_section'); ?>
 	
 </div>
 
