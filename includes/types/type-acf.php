@@ -945,16 +945,19 @@ if (function_exists('acf_add_local_field_group')):
     $additional_section_group = apply_filters('mlmi_builder_section_add_group', '');
     $section_fields = array_merge($section_fields, $additional_section_fields);
     if ($additional_section_group){
-      $section_fields[] = array(
-        'key' => 'mlmi_builder_cloned_'.$additional_section_group,
-        'name' => 'mlmi_builder_cloned_'.$additional_section_group,
-        'type' => 'clone',
-        'clone' => array(
-          0 => $additional_section_group,
-        ),
-        'display' => 'seamless',
-        'layout' => 'block',
+      $cloned_fields = array(
+        array(
+          'key' => 'mlmi_builder_cloned_'.$additional_section_group,
+          'name' => 'mlmi_builder_cloned_'.$additional_section_group,
+          'type' => 'clone',
+          'clone' => array(
+            0 => $additional_section_group,
+          ),
+          'display' => 'seamless',
+          'layout' => 'block',
+        )
       );
+      array_splice($section_fields, 3, 0, $cloned_fields);
     }
     
     /*
