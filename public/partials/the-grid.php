@@ -1,6 +1,7 @@
 <?php
 /* MLMI Builder */
 global $section_classes, $container_classes, $row_classes;
+global $is_first_row, $is_last_row;
 if (have_rows('sections')): while (have_rows('sections')) : the_row();
 $section_classes = array_filter(array_merge(['mb-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 $section_classes[] = get_sub_field('padding_top');
@@ -42,136 +43,119 @@ $row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_cl
 $container_attributes_output = mlmi_builder_attributes_inline([], $container_classes);
 ?>
 <?php if ($use_container && (!$wrap_container || ($wrap_container && $is_first_row))): ?><div<?=$container_attributes_output?>>
-<?php do_action('mlmi_builder_before_container'); endif; if ($use_row): ?>
-<div<?=$row_attributes_output?>><?php endif; ?>
-<?php do_action('mlmi_builder_before_row'); ?>
-<?php
-/**
-*   Standard Row
-*/
-if (get_row_layout() == "text_row"):
-	
-	// order columns
-	$last_order = [];
-	$middle_order = [];
-	$first_order = [];
-	
-	for ($i = 0; $i < $columns_count; $i++):
-		switch (get_sub_field('col_'.($i+1).'_order')) {
-			case 'first':
-			$first_order[] = $i;
-			break;
-			case 'last':
-			$last_order[] = $i;
-			break;
-			default:
-			$middle_order[] = $i;
-			break;
-		}
-	endfor;
-	
-	// get last column
-	$last_mobile_column = NULL;
-	if (count($last_order)){
-		$last_mobile_column = $last_order[count($last_order) - 1];
-	} else if (count($middle_order)){
-		$last_mobile_column = $middle_order[count($middle_order) - 1];
-	} else if (count($first_order)){
-		$last_mobile_column = $first_order[count($first_order) - 1];
-	}
-	
-	// display columns
-	for ($i = 0; $i < $columns_count; $i++):
-		
-		// column classes
-		$column_classes = [];
-		$column_classes[] = "col";
-		$column_classes[] = "col-12";
-		if ($columns_sizes[$i] == 2 || $columns_sizes[$i] == 3 || $columns_sizes[$i] == 4) {
-			$column_classes[] = "col-$desktop_prefix-".($columns_sizes[$i]*2);
-		} else if ($columns_sizes[$i] == 5 || $columns_sizes[$i] == 7) {
-			$column_classes[] = "col-$desktop_prefix-".($columns_sizes[$i]);
-		}
-		$column_classes[] = "order-$desktop_prefix-".($i+1);
-		switch (get_sub_field('col_'.($i+1).'_order')) {
-			case 'first':
-			$column_classes[] = "order-1";
-			break;
-			case 'last':
-			$column_classes[] = "order-3";
-			break;
-			default:
-			$column_classes[] = "order-2";
-			break;
-		}
-		if ($last_mobile_column == $i){
-			$column_classes[] = "sm-last";
-		}
-		
-		// column options
-		$column_options = get_sub_field('col_'.($i+1).'_option');
-		if (!is_array($column_options)) $column_options = [$column_options];
-		$column_classes = array_merge($column_classes, $column_options);
-		
-		// content classes
-		$content_classes = ['text-content'];
-		
-		// content
-		$content = get_sub_field('col_'.($i+1));
-		if (!$content){
-			$column_classes[] = "d-none";
-			$column_classes[] = "d-$desktop_prefix-block";
-		}
-		
-		// classes
-		$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
-		$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
-		$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
-		$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
-		$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
-		$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);
-		?>
-		<div<?=$column_attributes_output?>>
-		<?php if ($content): ?>
-			<div<?=$content_attributes_output?>>
-			<?=apply_filters('the_content', $content)?>
-		</div>
-	<?php endif; ?>
-</div>
-<?php endfor;
-
-// Code row
-elseif (get_row_layout() == "code_row"):
-	
-	$custom_code_row_layout = apply_filters('mlmi_builder_code_row_template', "plugin-template");
-	if ($custom_code_row_layout == "plugin-template"):
-		require plugin_dir_path(dirname(__FILE__)).'../public/partials/code-row.php';
-		elseif ($custom_code_row_layout != false):
-			require locate_template($custom_code_row_layout, false, false);
-		endif;
-		
-		// Gallery row
-		elseif (get_row_layout() == "gallery_row"):
+	<?php do_action('mlmi_builder_before_container'); endif; if ($use_row): ?>
+		<div<?=$row_attributes_output?>><?php endif; ?>
+		<?php do_action('mlmi_builder_before_row'); ?>
+		<?php
+		/**
+		*   Standard Row
+		*/
+		if (get_row_layout() == "text_row"):
 			
-			// gallery images
-			$gallery_images = get_sub_field('gallery');
+			// order columns
+			$last_order = [];
+			$middle_order = [];
+			$first_order = [];
 			
-			// layout
-			$custom_gallery_row_layout = apply_filters('mlmi_builder_gallery_row_template', 'plugin-template');
-			if ($custom_gallery_row_layout == "plugin-template"):
-				$gallery_ids = [];
-				foreach ($gallery_images as $image){
-					$gallery_ids[] = $image['ID'];
+			for ($i = 0; $i < $columns_count; $i++):
+				switch (get_sub_field('col_'.($i+1).'_order')) {
+					case 'first':
+					$first_order[] = $i;
+					break;
+					case 'last':
+					$last_order[] = $i;
+					break;
+					default:
+					$middle_order[] = $i;
+					break;
 				}
-				$gallery_ids = implode(',', $gallery_ids);
-				$gallery_attributes = apply_filters('mlmi_builder_gallery_attributes', [
-					"link" => "file",
-					"size" => "medium"
-				]);
-				require plugin_dir_path(dirname(__FILE__)).'../public/partials/gallery-row.php';
-				elseif ($custom_gallery_row_layout != false):
-					require locate_template($custom_gallery_row_layout, false, false);
-				endif;
+			endfor;
+			
+			// get last column
+			$last_mobile_column = NULL;
+			if (count($last_order)){
+				$last_mobile_column = $last_order[count($last_order) - 1];
+			} else if (count($middle_order)){
+				$last_mobile_column = $middle_order[count($middle_order) - 1];
+			} else if (count($first_order)){
+				$last_mobile_column = $first_order[count($first_order) - 1];
+			}
+			
+			// display columns
+			for ($i = 0; $i < $columns_count; $i++):
+				
+				// column classes
+				$column_classes = [];
+				$column_classes[] = "col";
+				$column_classes[] = "col-12";
+				if ($columns_sizes[$i] == 2 || $columns_sizes[$i] == 3 || $columns_sizes[$i] == 4) {
+					$column_classes[] = "col-$desktop_prefix-".($columns_sizes[$i]*2);
+				} else if ($columns_sizes[$i] == 5 || $columns_sizes[$i] == 7) {
+					$column_classes[] = "col-$desktop_prefix-".($columns_sizes[$i]);
+				}
+				$column_classes[] = "order-$desktop_prefix-".($i+1);
+				switch (get_sub_field('col_'.($i+1).'_order')) {
+					case 'first':
+					$column_classes[] = "order-1";
+					break;
+					case 'last':
+					$column_classes[] = "order-3";
+					break;
+					default:
+					$column_classes[] = "order-2";
+					break;
+				}
+				if ($last_mobile_column == $i){
+					$column_classes[] = "sm-last";
+				}
+				
+				// column options
+				$column_options = get_sub_field('col_'.($i+1).'_option');
+				if (!is_array($column_options)) $column_options = [$column_options];
+				$column_classes = array_merge($column_classes, $column_options);
+				
+				// content classes
+				$content_classes = ['text-content'];
+				
+				// content
+				$content = get_sub_field('col_'.($i+1));
+				if (!$content){
+					$column_classes[] = "d-none";
+					$column_classes[] = "d-$desktop_prefix-block";
+				}
+				
+				// classes
+				$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
+				$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
+				$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
+				$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
+				$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
+				$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);
+				?>
+				<div<?=$column_attributes_output?>>
+				<?php if ($content): ?>
+					<div<?=$content_attributes_output?>>
+					<?=apply_filters('the_content', $content)?>
+				</div>
+			<?php endif; ?>
+		</div>
+	<?php endfor;
+	
+	// Code row
+	elseif (get_row_layout() == "code_row"):
+		
+		$custom_code_row_layout = apply_filters('mlmi_builder_code_row_template', "plugin-template");
+		if ($custom_code_row_layout == "plugin-template"):
+			require plugin_dir_path(dirname(__FILE__)).'../public/partials/code-row.php';
+			elseif ($custom_code_row_layout != false):
+				require locate_template($custom_code_row_layout, false, false);
+			endif;
+			
+			// Gallery row
+			elseif (get_row_layout() == "gallery_row"):
+				
+				$gallery_images = get_sub_field('gallery');
+				do_action('mlmi_builder_gallery_row_output', $gallery_images);
 				
 			else:
 				
@@ -182,15 +166,15 @@ elseif (get_row_layout() == "code_row"):
 			
 			<?php do_action('mlmi_builder_after_row'); ?>
 			
-		<?php if ($use_row): ?></div><?php endif; ?>
+			<?php if ($use_row): ?></div><?php endif; ?>
+			
+			<?php if ($use_container && (!$wrap_container || ($wrap_container && $is_last_row))): do_action('mlmi_builder_after_container'); ?></div><?php endif; ?>
+		<?php endwhile; ?>
 		
-		<?php if ($use_container && (!$wrap_container || ($wrap_container && $is_last_row))): do_action('mlmi_builder_after_container'); ?></div><?php endif; ?>
-	<?php endwhile; ?>
+		<?php do_action('mlmi_builder_after_section'); ?>
+		
+	</div>
 	
 	<?php do_action('mlmi_builder_after_section'); ?>
 	
-</div>
-
-<?php do_action('mlmi_builder_after_section'); ?>
-
 <?php endif; endwhile; endif; ?>
