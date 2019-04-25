@@ -13,10 +13,6 @@ $section_classes = array_filter(array_merge(['mb-section'], array_map('trim', ex
 $section_classes[] = get_sub_field('padding_top');
 $section_classes[] = get_sub_field('padding_bottom');
 $section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
-$use_container = apply_filters('mlmi_builder_use_container', true);
-$wrap_container = apply_filters('mlmi_builder_wrap_container', false);
-$container_class = ($use_container === true) ? 'container' : $use_container;
-$container_classes = apply_filters('mlmi_builder_container_classes', [$container_class]);
 $section_attributes = apply_filters('mlmi_builder_section_attributes', ["id" => get_sub_field('section_id')]);
 $section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
 $desktop_prefix = apply_filters('mlmi_builder_desktop_class', 'md');
@@ -46,6 +42,10 @@ if (get_row_layout() == "text_row"){
 $row_attributes = apply_filters('mlmi_builder_row_attributes', ['id' => get_sub_field('row_id')]);
 $use_row = apply_filters('mlmi_builder_use_row', true);
 $row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
+$use_container = apply_filters('mlmi_builder_use_container', true);
+$wrap_container = apply_filters('mlmi_builder_wrap_container', false);
+$container_class = ($use_container === true) ? 'container' : $use_container;
+$container_classes = apply_filters('mlmi_builder_container_classes', [$container_class]);
 $container_attributes_output = mlmi_builder_attributes_inline([], $container_classes);
 ?>
 <?php if ($use_container && (!$wrap_container || ($wrap_container && $is_first_row))): ?><div<?=$container_attributes_output?>>
