@@ -1,6 +1,6 @@
 <?php
 /* MLMI Builder */
-global $section_classes, $container_classes, $row_classes;
+global $section_classes, $section_id, $container_classes, $row_classes;
 global $is_first_row, $is_last_row, $is_first_section, $is_last_section;
 $sections = get_field('sections');
 $sections_count = $sections ? count($sections) : 0;
@@ -13,7 +13,8 @@ $section_classes = array_filter(array_merge(['mb-section'], array_map('trim', ex
 $section_classes[] = get_sub_field('padding_top');
 $section_classes[] = get_sub_field('padding_bottom');
 $section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
-$section_attributes = apply_filters('mlmi_builder_section_attributes', ["id" => get_sub_field('section_id')]);
+$section_id = get_sub_field('section_id');
+$section_attributes = apply_filters('mlmi_builder_section_attributes', ["id" => $section_id]);
 $section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
 $desktop_prefix = apply_filters('mlmi_builder_desktop_class', 'md');
 do_action('mlmi_builder_before_section');
