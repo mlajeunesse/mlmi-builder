@@ -90,9 +90,12 @@ let mlmi_builder = {
 			$(row).find(".mlmi-builder-column-option[data-name=col_1]").addClass('-c0');
 			$(row).find(".mlmi-builder-column-option[data-name=col_2]").removeClass('-c0');
 			$(row).find(".mlmi-builder-column-option[data-name=col_3]").removeClass('-c0');
-			$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").addClass('-c0');
-			$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").removeClass('-c0');
-			$(row).find(".mlmi-builder-column-option[data-name=col_3_option]").removeClass('-c0');
+			$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").addClass('-c0').css('min-height', '');
+			$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").removeClass('-c0').css('min-height', '');
+			$(row).find(".mlmi-builder-column-option[data-name=col_3_order]").removeClass('-c0').css('min-height', '');
+			$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").addClass('-c0').find('.acf-label').remove();
+			$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").removeClass('-c0').find('.acf-label').remove();
+			$(row).find(".mlmi-builder-column-option[data-name=col_3_option]").removeClass('-c0').find('.acf-label').remove();
 			$(row).find(".one-third").css("width", "33.333%").show();
 		};
 		

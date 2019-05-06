@@ -1,7 +1,7 @@
 <?php
 /* MLMI Builder */
 global $section_classes, $section_id, $container_classes, $row_classes;
-global $is_first_row, $is_last_row, $is_first_section, $is_last_section;
+global $is_first_row, $is_last_row, $is_first_section, $is_last_section, $column_index;
 $sections = get_field('sections');
 $sections_count = $sections ? count($sections) : 0;
 $sections_index = 0;
@@ -90,6 +90,7 @@ $container_attributes_output = mlmi_builder_attributes_inline([], $container_cla
 			
 			// display columns
 			for ($i = 0; $i < $columns_count; $i++):
+				$column_index = $i;
 				
 				// column classes
 				$column_classes = [];
