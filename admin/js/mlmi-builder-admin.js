@@ -4,7 +4,6 @@
 let mlmi_builder = {
 	builder: undefined,
 	ready: false,
-	initialized: false,
 };
 
 (function($) {
@@ -17,7 +16,6 @@ let mlmi_builder = {
 		let self = this;
 		
 		self.init = function() {
-			mlmi_builder.initialized = true;
 			let text_rows = self.find(".layout[data-layout=text_row]:not(.acf-clone)");
 			text_rows.each(function(index, element) {
 				self.register(element);
@@ -40,12 +38,12 @@ let mlmi_builder = {
 		};
 		
 		self.columns = function(row) {
-			let cols_config = $(row).find("div.acf-field.cols_config:not(.acf-hidden) input[type=radio]:checked").val();
+			let cols_config = $(row).find("div.acf-field.cols_config input[type=radio]:not(:disabled):checked").val();
+			console.log('ici', $(row).find("div.acf-field.cols_config input[type=radio]:not(:disabled):checked").val());
 			switch (cols_config) {
 				case '6':
 				case '5': case '5-X':
 				case '4': case '4-X': case 'X-4-X': {
-					console.log('yep');
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "100%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "100%").show();
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "100%").show();
@@ -62,14 +60,14 @@ let mlmi_builder = {
 					$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").css("width", "50%").show();
 					break;
 				}
-				case '2-4':
+				case '2-4': case '1-2':
 				case '1-5': {
-					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "40%");
-					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "60%");
-					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "40%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").css("width", "60%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "40%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").css("width", "60%").show();
+					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "40%").addClass('-c0');
+					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "60%").removeClass('-c0');
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "40%").addClass('-c0').show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").css("width", "60%").removeClass('-c0').show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "40%").addClass('-c0').show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_order]").css("width", "60%").removeClass('-c0').show();
 					break;
 				}
 				case '5-1':
@@ -89,19 +87,21 @@ let mlmi_builder = {
 					break;
 				}
 			}
+			$(row).find(".mlmi-builder-column-option[data-name=col_1]").addClass('-c0');
+			$(row).find(".mlmi-builder-column-option[data-name=col_2]").removeClass('-c0');
+			$(row).find(".mlmi-builder-column-option[data-name=col_3]").removeClass('-c0');
+			$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").addClass('-c0');
+			$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").removeClass('-c0');
+			$(row).find(".mlmi-builder-column-option[data-name=col_3_option]").removeClass('-c0');
 			$(row).find(".one-third").css("width", "33.333%").show();
 		};
 		
 		return function() {
 			if (mlmi_builder.ready) {
-				if (mlmi_builder.initialized == false) {
-					self.init();
-				}
+				self.init();
 			}
 			acf.add_action('ready', function() {
-				if (mlmi_builder.initialized == false) {
-					self.init();
-				}
+				self.init();
 			});
 			acf.add_action('append', self.register);
 			acf.add_action('append', self.columns);
@@ -118,7 +118,7 @@ let mlmi_builder = {
 if (typeof acf !== 'undefined') {
 	acf.add_action('ready', function() {
 		mlmi_builder.ready = true;
-		if (mlmi_builder.builder != undefined && mlmi_builder.initialized == false) {
+		if (mlmi_builder.builder != undefined) {
 			mlmi_builder.builder.init();
 		}
 	});
