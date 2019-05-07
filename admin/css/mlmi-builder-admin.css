@@ -1,14 +1,103 @@
 /**
- * MLMI Builder
- */
+* MLMI Builder
+*/
+
+.mlmi-builder-row {
+  padding-right: 2px !important;
+}
+
+.mlmi-builder-row > .acf-label {
+  display: none;
+}
+
+.mlmi-builder-row .layout {
+  border: 3px solid #abc !important;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.mlmi-builder-row .layout > .acf-fc-layout-handle {
+  background: #abc !important;
+  color: #fff !important;
+}
+
+.mlmi-builder-row .layout .layout {
+  border: 1px solid rgba(170, 187, 204, 0.5) !important;
+  box-shadow: 0 0 0 0px #abc !important;
+}
+
+.mlmi-builder-row .layout .layout >  .acf-fc-layout-handle {
+  background: rgba(170, 187, 204, 0.5);
+  color: #555 !important;
+}
+
+.mlmi-builder-row .acf-hl .acf-add-checkbox {
+  margin-top: 0 !important; 
+}
+
+.mlmi-builder-row th.acf-th,
+.mlmi-builder-row .acf-label label {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 400 !important;
+  letter-spacing: .1em;
+}
+
+.mlmi-builder-row .layout .acf-table > tbody > .acf-row > td {
+  border-top-width: 5px;
+}
+
+.mlmi-builder-section .acf-fields>.acf-field {
+  padding: 12px !important;
+}
+
+.mlmi-builder-section .acf-fields>.acf-field.acf-field-code-row-field-shortcode {
+  padding: 6px !important;
+}
+
+.mlmi-builder-section .acf-fields>.acf-field.acf-field-code-row-field-shortcode input[type='text'],
+.mlmi-builder-section .acf-fields>.acf-field.acf-field-code-row-field-shortcode input[type='text']:focus {
+  border: 0;
+  outline: 0;
+  box-shadow: none;
+  text-align: center;
+}
+
+/*
+*  Left aligned tabs
+*/
+
+.mlmi-builder-section .acf-fields.-sidebar {
+  padding: 0 0 0 40px !important
+}
+
+.mlmi-builder-section .acf-fields.-sidebar:before {
+  width: 40px !important;
+}
+
+.mlmi-builder-section .acf-tab-wrap.-left .acf-tab-group {
+  width: 40px !important;
+}
+
+/*
+*  Separator for repeater fields
+*/
 
 .acf-repeater.-row .acf-table > tbody > .acf-row > td,
 .acf-repeater.-block .acf-table > tbody > .acf-row > td {
-  border-top-width: 5px;
-  border-top-color: #abc;
+  border-top-width: 15px;
+  border-top-color: #cba;
 }
 
 .acf-repeater.-row .acf-table > tbody > .acf-row:first-child > td,
 .acf-repeater.-block .acf-table > tbody > .acf-row:first-child > td {
   border-top-width: 0;
+}
+
+/*
+*  Other ACF helper classes
+*/
+
+.no-label.acf-field > .acf-label {
+  display: none !important;
 }

@@ -1,5 +1,5 @@
 /*
-* MLMI Builder — global var :)
+* MLMI Builder
 */
 let mlmi_builder = {
 	builder: undefined,
@@ -16,10 +16,16 @@ let mlmi_builder = {
 		let self = this;
 		
 		self.init = function() {
+			/* Add behavior for standard row */
 			let text_rows = self.find(".layout[data-layout=text_row]:not(.acf-clone)");
 			text_rows.each(function(index, element) {
 				self.register(element);
 				self.columns(element)
+			});
+			
+			/* Always reset to first tab */
+			$('.acf-tab-group').each(function() {
+				$(this).find('li a').first().click();
 			});
 		};
 		
@@ -39,7 +45,6 @@ let mlmi_builder = {
 		
 		self.columns = function(row) {
 			let cols_config = $(row).find("div.acf-field.cols_config input[type=radio]:not(:disabled):checked").val();
-			console.log('ici', $(row).find("div.acf-field.cols_config input[type=radio]:not(:disabled):checked").val());
 			switch (cols_config) {
 				case '6':
 				case '5': case '5-X':
@@ -96,13 +101,10 @@ let mlmi_builder = {
 			$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").addClass('-c0').find('.acf-label').remove();
 			$(row).find(".mlmi-builder-column-option[data-name=col_2_option]").removeClass('-c0').find('.acf-label').remove();
 			$(row).find(".mlmi-builder-column-option[data-name=col_3_option]").removeClass('-c0').find('.acf-label').remove();
-			$(row).find(".one-third").css("width", "33.333%").show();
+		
 		};
 		
 		return function() {
-			if (mlmi_builder.ready) {
-				self.init();
-			}
 			acf.add_action('ready', function() {
 				self.init();
 			});
@@ -116,13 +118,3 @@ let mlmi_builder = {
 		mlmi_builder.builder = $(".mlmi-builder-section").MLMI_Builder();
 	}
 })(jQuery);
-
-/* Synchronize init between jQuery and ACF */
-if (typeof acf !== 'undefined') {
-	acf.add_action('ready', function() {
-		mlmi_builder.ready = true;
-		if (mlmi_builder.builder != undefined) {
-			mlmi_builder.builder.init();
-		}
-	});
-}
