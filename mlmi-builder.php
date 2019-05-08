@@ -4,7 +4,7 @@
 * Plugin Name:       MLMI Builder
 * Plugin URI:        https://mathieulajeunesse.com
 * Description:       Outil de construction avancé et extensible de pages Wordpress.
-* Version:           0.10.1
+* Version:           0.10.2
 * Author:            Mathieu Lajeunesse médias interactifs
 * Author URI:        https://mathieulajeunesse.com
 * Text Domain:       mlmi-builder
@@ -19,7 +19,7 @@ if (!defined('WPINC')) {
 /**
 * Currently plugin version.
 */
-define('MLMI_BUILDER_VERSION', '0.10.1');
+define('MLMI_BUILDER_VERSION', '0.10.2');
 
 /**
 * The code that runs during plugin activation.

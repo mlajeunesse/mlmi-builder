@@ -811,7 +811,7 @@ if (function_exists('acf_add_local_field_group')):
     $section_fields = array(
       array(
         'key' => 'mlmi_builder_tab_section',
-        'label' => '<span class="dashicons dashicons-edit"></span>',
+        'label' => '<span class="dashicons dashicons-editor-table"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
