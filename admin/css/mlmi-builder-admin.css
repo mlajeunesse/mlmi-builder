@@ -26,8 +26,8 @@
   box-shadow: 0 0 0 0px #abc !important;
 }
 
-.mlmi-builder-row .layout .layout >  .acf-fc-layout-handle {
-  background: rgba(170, 187, 204, 0.5);
+.mlmi-builder-row .layout .layout > .acf-fc-layout-handle {
+  background: rgba(170, 187, 204, 0.5) !important;
   color: #555 !important;
 }
 
@@ -36,19 +36,25 @@
 }
 
 .mlmi-builder-row th.acf-th,
-.mlmi-builder-row .acf-label label {
+.mlmi-builder-row .acf-label label,
+.mlmi-builder-section .acf-label label {
   text-transform: uppercase;
   font-size: 11px;
-  font-weight: 400 !important;
+  font-weight: 600 !important;
   letter-spacing: .1em;
 }
 
-.mlmi-builder-row .layout .acf-table > tbody > .acf-row > td {
-  border-top-width: 5px;
+.mlmi-builder-section .acf-label,
+.mlmi-builder-row .acf-label {
+  margin-bottom: 0 !important;
+}
+
+.mlmi-builder-row th.acf-th {
+  padding: 4px 8px;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field {
-  padding: 12px !important;
+  padding: 8px !important;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field.acf-field-code-row-field-shortcode {
@@ -85,13 +91,16 @@
 
 .acf-repeater.-row .acf-table > tbody > .acf-row > td,
 .acf-repeater.-block .acf-table > tbody > .acf-row > td {
-  border-top-width: 15px;
-  border-top-color: #cba;
+  border-top-width: 12px;
 }
 
 .acf-repeater.-row .acf-table > tbody > .acf-row:first-child > td,
 .acf-repeater.-block .acf-table > tbody > .acf-row:first-child > td {
   border-top-width: 0;
+}
+
+.mlmi-builder-row .layout .acf-table > tbody > .acf-row > td {
+  border-top-width: 5px;
 }
 
 /*
@@ -100,4 +109,9 @@
 
 .no-label.acf-field > .acf-label {
   display: none !important;
+}
+
+.switch-tmce,
+.switch-html {
+  border-radius: 3px;
 }
