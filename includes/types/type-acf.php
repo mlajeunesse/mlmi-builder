@@ -30,6 +30,7 @@ function mlmi_builder_create_acf_layout($key, $settings) {
         'type' => 'clone',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -115,6 +116,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'tab',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -131,6 +133,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'wysiwyg',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '33.333',
@@ -150,6 +153,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'wysiwyg',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -184,6 +188,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'wysiwyg',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -211,6 +216,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'tab',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -227,6 +233,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -253,6 +260,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'radio',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -282,6 +290,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'radio',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -311,6 +320,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'radio',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -340,6 +350,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '33.333',
@@ -366,6 +377,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -407,6 +419,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -441,6 +454,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'checkbox',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '33.333',
@@ -462,6 +476,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'checkbox',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -498,6 +513,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'checkbox',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
@@ -527,6 +543,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -546,6 +563,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -565,6 +583,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -587,6 +606,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -646,6 +666,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'gallery',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -706,6 +727,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -806,6 +828,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'tab',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -822,6 +845,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'flexible_content',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -840,6 +864,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'tab',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -856,6 +881,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -875,6 +901,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -894,6 +921,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -916,6 +944,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+			  'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -964,6 +993,7 @@ if (function_exists('acf_add_local_field_group')):
           'type' => 'repeater',
           'instructions' => '',
           'required' => 0,
+  			  'wpml_cf_preferences' => 3,
           'conditional_logic' => 0,
           'wrapper' => [
             'width' => '',
