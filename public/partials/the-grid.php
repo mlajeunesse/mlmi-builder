@@ -54,7 +54,7 @@ $container_attributes_output = mlmi_builder_attributes_inline([], $container_cla
 		<div<?=$row_attributes_output?>><?php endif; ?>
 		<?php do_action('mlmi_builder_before_row'); ?>
 		<?php
-		/**
+		/*
 		*   Standard Row
 		*/
 		if (get_row_layout() == "text_row"):

@@ -1,11 +1,10 @@
 <?php
-/**
+/*
 *   Main output and display function
 */
-function the_grid()
-{
+function the_grid() {
   ob_start();
-  require_once plugin_dir_path( dirname( __FILE__ ) ) . '../public/partials/the-grid.php';
+  require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid.php';
   $grid_output = ob_get_clean();
   echo apply_filters('mlmi_builder_output', $grid_output);
 }
@@ -13,8 +12,7 @@ function the_grid()
 /*
 * Get all text rows content as one text string.
 */
-function mlmi_builder_get_grid_content($post_id)
-{
+function mlmi_builder_get_grid_content($post_id) {
   $grid_content = "";
   if (have_rows('sections')){
     while (have_rows('sections')){
@@ -35,11 +33,10 @@ function mlmi_builder_get_grid_content($post_id)
   return $grid_content;
 }
 
-/**
+/*
 *   Inline attributes for output in the grid.
 */
-function mlmi_builder_attributes_inline($attributes = array(), $classes = array())
-{
+function mlmi_builder_attributes_inline($attributes = [], $classes = []) {
   $attributes_output = "";
   if ($attributes){
     foreach ($attributes as $key => $value) {
