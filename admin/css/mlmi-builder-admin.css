@@ -111,6 +111,18 @@
   display: none !important;
 }
 
+.centered-label.acf-field > .acf-label {
+  margin-top: 7px !important;
+}
+
+.no-group {
+  padding: 0 !important;
+}
+
+.no-group .acf-fields.-border {
+  border: 0;
+}
+
 .switch-tmce,
 .switch-html {
   border-radius: 3px;

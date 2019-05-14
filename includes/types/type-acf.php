@@ -859,7 +859,7 @@ if (function_exists('acf_add_local_field_group')):
       ],
       [
         'key' => 'mlmi_builder_tab_presentation',
-        'label' => '<span class="dashicons dashicons-admin-generic"></span>',
+        'label' => '<span class="dashicons dashicons-desktop"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
