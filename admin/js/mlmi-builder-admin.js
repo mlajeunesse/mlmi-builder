@@ -48,7 +48,8 @@ let mlmi_builder = {
 			switch (cols_config) {
 				case '6':
 				case '5': case '5-X':
-				case '4': case '4-X': case 'X-4-X': {
+				case '4': case 'X-4': case '4-X': case 'X-4-X':
+				case '3': case 'X-3': case '3-X': case 'X-3-X': {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "100%");
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_option]").css("width", "100%").show();
 					$(row).find(".mlmi-builder-column-option[data-name=col_1_order]").css("width", "100%").show();

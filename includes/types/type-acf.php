@@ -988,7 +988,7 @@ if (function_exists('acf_add_local_field_group')):
       'fields' => [
         [
           'key' => 'mlmi_builder_field_sections',
-          'label' => __('MLMI Builder', 'mlmi-builder'),
+          'label' => '',
           'name' => 'sections',
           'type' => 'repeater',
           'instructions' => '',
@@ -997,7 +997,7 @@ if (function_exists('acf_add_local_field_group')):
           'conditional_logic' => 0,
           'wrapper' => [
             'width' => '',
-            'class' => 'mlmi-builder-section',
+            'class' => 'mlmi-builder-section no-label',
             'id' => '',
           ],
           'collapsed' => '',
