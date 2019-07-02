@@ -1,10 +1,24 @@
 <?php
 /*
-*   Main output and display function
+*	Admin notice if ACF Pro is missing.
+*/
+function mlmi_builder_notice_acf_pro_missing() {
+  echo '<div class="error"><p>'.__('Advanced Custom Fields PRO is required to use MLMI Builder.', 'mlmi-builder').'</p></div>';
+}
+
+/*
+* Admin notice if legacy grid is required.
+*/
+function mlmi_builder_notice_use_legacy_grid() {
+  echo '<div class="error"><p>'.__('This website uses the legacy version of MLMI Builder. Please define `MLMI_BUILDER_USE_LEGACY_GRID` to TRUE in `application.php`.', 'mlmi-builder').'</p></div>';
+}
+
+/*
+* Main output and display function
 */
 function the_grid() {
   ob_start();
-  $use_legacy_grid = defined('MLMI_BUILDER_LEGACY_GRID') && MLMI_BUILDER_LEGACY_GRID == true;
+  $use_legacy_grid = defined('MLMI_BUILDER_USE_LEGACY_GRID') && MLMI_BUILDER_USE_LEGACY_GRID == true;
   if ($use_legacy_grid) {
     require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v0.10.php';
   } else {

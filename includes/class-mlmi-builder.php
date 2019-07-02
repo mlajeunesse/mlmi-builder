@@ -28,6 +28,7 @@ class MLMI_Builder {
 		$this->plugin_name = 'mlmi-builder';
 		$this->load_dependencies();
 		$this->set_locale();
+		$this->db_version();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
@@ -36,8 +37,7 @@ class MLMI_Builder {
 	* Load the required dependencies for this plugin.
 	*/
 	private function load_dependencies() {
-		require_once plugin_dir_path(dirname(__FILE__)).'includes/functions/functions.php';
-	  $use_legacy_grid = defined('MLMI_BUILDER_LEGACY_GRID') && MLMI_BUILDER_LEGACY_GRID == true;
+	  $use_legacy_grid = defined('MLMI_BUILDER_USE_LEGACY_GRID') && MLMI_BUILDER_USE_LEGACY_GRID == true;
 		if ($use_legacy_grid) {
 			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf-v0.10.php';
 		} else {
@@ -56,6 +56,16 @@ class MLMI_Builder {
 	private function set_locale() {
 		$plugin_i18n = new MLMI_Builder_i18n();
 		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
+	}
+	
+	/*
+	*	Define plugin version in database
+	*/
+	private function db_version() {
+		$plugin_version = get_option('mlmi_builder_version');
+		if ($plugin_version && $plugin_version < MLMI_BUILDER_VERSION) {
+			update_option('mlmi_builder_version', MLMI_BUILDER_VERSION);
+		}
 	}
 	
 	/*
