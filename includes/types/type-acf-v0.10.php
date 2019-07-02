@@ -1,6 +1,6 @@
 <?php
 /*
-* MLMI Builder
+* MLMI Builder (Legacy Grid)
 * Advanced Custom Fields — Basic fields
 */
 

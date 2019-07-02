@@ -74,18 +74,36 @@ if (function_exists('acf_add_local_field_group')):
     */
     $content_type_text_row_column_options = apply_filters('mlmi_builder_column_options', []);
     $padding_bottom_options = [
-      'pb-5' => '5',
-      'pb-4' => 'Par défaut (4)',
-      'pb-3' => '3',
-      'pb-0' => 'Aucun (0)',
+      'pb-md-15' => '15',
+      'pb-md-12' => '12',
+      'pb-md-10' => '10',
+      'pb-md-9' => '9',
+      'pb-md-8' => '8',
+      'pb-md-7' => '7',
+      'pb-md-6' => '6',
+      'pb-md-5' => '5',
+      'pb-md-4' => '4',
+      'pb-md-3' => '3',
+      'pb-md-2' => '2',
+      'pb-md-1' => '1',
+      'pb-0' => 'Aucun',
     ];
     $padding_bottom_options = apply_filters('mlmi_builder_padding_bottom_options', $padding_bottom_options);
     $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', "pb-0");
     $padding_top_options = [
-      'pt-5' => '5',
-      'pt-4' => 'Par défaut (4)',
-      'pt-3' => '3',
-      'pt-0' => 'Aucun (0)',
+      'pt-md-15' => '15',
+      'pt-md-12' => '12',
+      'pt-md-10' => '10',
+      'pt-md-9' => '9',
+      'pt-md-8' => '8',
+      'pt-md-7' => '7',
+      'pt-md-6' => '6',
+      'pt-md-5' => '5',
+      'pt-md-4' => '4',
+      'pt-md-3' => '3',
+      'pt-md-2' => '2',
+      'pt-md-1' => '1',
+      'pt-0' => 'Aucun',
     ];
     $padding_top_options = apply_filters('mlmi_builder_padding_top_options', $padding_top_options);
     $padding_top_default = apply_filters('mlmi_builder_padding_top_default', "pt-0");
@@ -801,21 +819,7 @@ if (function_exists('acf_add_local_field_group')):
     /*
     *   Locations
     */
-    $builder_location = [
-      [
-        [
-          'param' => 'post_type',
-          'operator' => '==',
-          'value' => 'page',
-        ],
-        [
-          'param' => 'page_template',
-          'operator' => '==',
-          'value' => 'views/grid.blade.php',
-        ],
-      ],
-    ];
-    $builder_location = apply_filters('mlmi_builder_location', $builder_location);
+    $builder_location = apply_filters('mlmi_builder_location', []);
     
     /*
     *   Section fields
