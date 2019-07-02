@@ -4,7 +4,7 @@
 */
 function the_grid() {
   ob_start();
-  $use_legacy_grid = apply_filters('mlmi_builder_use_legacy_grid', false);
+  $use_legacy_grid = defined('MLMI_BUILDER_LEGACY_GRID') && MLMI_BUILDER_LEGACY_GRID == true;
   if ($use_legacy_grid) {
     require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v0.10.php';
   } else {

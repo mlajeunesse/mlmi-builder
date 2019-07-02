@@ -80,7 +80,7 @@ if (function_exists('acf_add_local_field_group')):
       'pb-0' => 'Aucun (0)',
     ];
     $padding_bottom_options = apply_filters('mlmi_builder_padding_bottom_options', $padding_bottom_options);
-    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', "pb-0");
+    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', "pb-4");
     $padding_top_options = [
       'pt-5' => '5',
       'pt-4' => 'Par défaut (4)',
@@ -88,7 +88,7 @@ if (function_exists('acf_add_local_field_group')):
       'pt-0' => 'Aucun (0)',
     ];
     $padding_top_options = apply_filters('mlmi_builder_padding_top_options', $padding_top_options);
-    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', "pt-0");
+    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', "pt-4");
     
     /*
     * Column choices
