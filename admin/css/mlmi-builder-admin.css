@@ -39,9 +39,13 @@
 .mlmi-builder-row .acf-label label,
 .mlmi-builder-section .acf-label label {
   text-transform: uppercase;
+  position: relative;
+  top: 1;
   font-size: 11px;
   font-weight: 600 !important;
-  letter-spacing: .1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .mlmi-builder-section .acf-label,
@@ -54,7 +58,7 @@
 }
 
 .mlmi-builder-section .acf-fields>.acf-field {
-  padding: 8px !important;
+  padding: 5px 9px 7px !important;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field.acf-field-code-row-field-shortcode {
@@ -83,6 +87,14 @@
 
 .mlmi-builder-section .acf-tab-wrap.-left .acf-tab-group {
   width: 40px !important;
+}
+
+/*
+*  Minimum height
+*/
+
+.acf-field-mlmi-builder-field-section-padding-bottom {
+  min-height: 100px;
 }
 
 /*
@@ -126,4 +138,8 @@
 .switch-tmce,
 .switch-html {
   border-radius: 3px;
+}
+
+.d-none {
+  display: none;
 }

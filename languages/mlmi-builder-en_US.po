@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: MLMI Builder\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-07-02 22:12+0000\n"
-"PO-Revision-Date: 2019-07-02 22:13+0000\n"
+"PO-Revision-Date: 2019-07-03 20:05+0000\n"
 "Last-Translator: Mathieu Lajeunesse <contact@mathieulajeunesse.com>\n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
@@ -135,14 +135,14 @@ msgstr "Row Classes"
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:599
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:923
 msgid "Espacement haut"
-msgstr "Padding top"
+msgstr "Top Padding"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:604
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:942
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:622
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:946
 msgid "Espacement bas"
-msgstr "Padding bottom"
+msgstr "Bottom Padding"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:664
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:787
