@@ -27,6 +27,7 @@ let mlmi_builder = {
 			$('.acf-tab-group').each(function() {
 				$(this).find('li a').first().click();
 			});
+			$('.mlmi-builder-section').addClass('mlmi-ready');
 		};
 		
 		self.register = function(row) {
@@ -53,15 +54,27 @@ let mlmi_builder = {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "33.333%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "33.333%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "33.333%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "33.333%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").css("width", "33.333%").show();
 				} else if (columns_number == 2) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "50%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "50%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "50%").show();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "50%").show();
 				} else if (columns_number == 1) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "100%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "100%").show();
 				}
+				$(row).find(".mlmi-builder-column-option[data-name=col_1]").addClass('-c0');
+				$(row).find(".mlmi-builder-column-option[data-name=col_2]").removeClass('-c0');
+				$(row).find(".mlmi-builder-column-option[data-name=col_3]").removeClass('-c0');
+				$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").addClass('-c0').css('min-height', '');
+				$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").removeClass('-c0').css('min-height', '');
+				$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").removeClass('-c0').css('min-height', '');
 			
 			/* Legacy ACF columns */
 			} else {

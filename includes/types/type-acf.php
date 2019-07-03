@@ -70,6 +70,20 @@ if (function_exists('acf_add_local_field_group')):
     $hide_on_screen = apply_filters('mlmi_builder_hide_on_screen', $hidden);
     
     /*
+    * Grid system base
+    */
+    $grid_system_base = apply_filters('mlmi_builder_grid_columns', 20);
+    
+    /*
+    * Number of columns allowed
+    */
+    $columns_choices = apply_filters('mlmi_builder_columns_choices', [
+      1 => __('1 colonne', 'mlmi-builder'),
+      2 => __('2 colonnes', 'mlmi-builder'),
+      3 => __('3 colonnes', 'mlmi-builder')
+    ]);
+    
+    /*
     * Content Type: Standard Row
     */
     $content_type_text_row_column_options = apply_filters('mlmi_builder_column_options', []);
@@ -122,6 +136,97 @@ if (function_exists('acf_add_local_field_group')):
       'white' => '<span class="badge badge-white">'.__('blanc', 'mlmi-builder').'</span>',
       'black' => '<span class="badge badge-black">'.__('noir', 'mlmi-builder').'</span>',
     ]);
+    
+    /*
+    * Column options
+    */
+    $column_choices = [];
+    $offset_choices = [];
+    for ($i = 1; $i <= $grid_system_base; $i++) {
+      $column_choices[$i] = $i;
+    }
+    for ($o = 0; $o <= $grid_system_base; $o++) {
+      $offset_choices[$o] = $o;
+    }
+    $column_group_option_fields = [
+      [
+        'key' => 'column_width',
+        'label' => __('Largeur', 'mlmi-builder'),
+        'name' => 'column_width',
+        'type' => 'select',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => 'flex-field',
+          'id' => '',
+        ],
+        'choices' => $column_choices,
+        'default_value' => $i - 1,
+        'return_format' => 'value',
+      ],
+      [
+        'key' => 'column_offset',
+        'label' => __('Décalage', 'mlmi-builder'),
+        'name' => 'column_offset',
+        'type' => 'select',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => 'flex-field',
+          'id' => '',
+        ],
+        'choices' => $offset_choices,
+        'default_value' => 0,
+        'return_format' => 'value',
+      ],
+      [
+        'key' => 'column_order',
+        'label' => __('Ordre', 'mlmi-builder'),
+        'name' => 'column_order',
+        'type' => 'select',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => 'flex-field',
+          'id' => '',
+        ],
+        'choices' => [
+          'normal' => __('Standard', 'mlmi-builder'),
+          'first' => __('En premier', 'mlmi-builder'),
+          'last' => __('En dernier', 'mlmi-builder')
+        ],
+        'default_value' => 'normal',
+        'return_format' => 'value',
+      ],
+      [
+        'key' => 'column_options',
+        'label' => '',
+        'name' => 'column_options',
+        'type' => 'checkbox',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => $content_type_text_row_column_options,
+        'allow_custom' => 1,
+        'save_custom' => 0,
+        'default_value' => [],
+        'layout' => 'vertical',
+        'toggle' => 0,
+        'return_format' => 'value',
+      ],
+    ];
     
     /*
     * Standard row fields
@@ -258,11 +363,7 @@ if (function_exists('acf_add_local_field_group')):
           'class' => 'select-cols-number',
           'id' => '',
         ],
-        'choices' => [
-          1 => __('1 colonne', 'mlmi-builder'),
-          2 => __('2 colonnes', 'mlmi-builder'),
-          3 => __('3 colonnes', 'mlmi-builder')
-        ],
+        'choices' => $columns_choices,
         'default_value' => 1,
         'allow_null' => 0,
         'multiple' => 0,
@@ -271,222 +372,75 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
-      // [
-      //   'key' => 'text_row_field_cols_config_1',
-      //   'label' => __('Configuration des colonnes', 'mlmi-builder'),
-      //   'name' => 'cols_config',
-      //   'type' => 'radio',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '1',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '50',
-      //     'class' => 'cols_config',
-      //     'id' => '',
-      //   ],
-      //   'choices' => $column_choices_1_column,
-      //   'allow_null' => 0,
-      //   'other_choice' => 0,
-      //   'save_other_choice' => 0,
-      //   'default_value' => '',
-      //   'layout' => 'horizontal',
-      //   'return_format' => 'value',
-      // ],
-      // [
-      //   'key' => 'text_row_field_cols_config_2',
-      //   'label' => __('Configuration des colonnes', 'mlmi-builder'),
-      //   'name' => 'cols_config',
-      //   'type' => 'radio',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '2',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '50',
-      //     'class' => 'cols_config',
-      //     'id' => '',
-      //   ],
-      //   'choices' => $column_choices_2_columns,
-      //   'allow_null' => 0,
-      //   'other_choice' => 0,
-      //   'save_other_choice' => 0,
-      //   'default_value' => '3-3',
-      //   'layout' => 'horizontal',
-      //   'return_format' => 'value',
-      // ],
-      // [
-      //   'key' => 'text_row_field_cols_config_3',
-      //   'label' => __('Configuration des colonnes', 'mlmi-builder'),
-      //   'name' => 'cols_config',
-      //   'type' => 'radio',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '3',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '50',
-      //     'class' => 'cols_config',
-      //     'id' => '',
-      //   ],
-      //   'choices' => $column_choices_3_columns,
-      //   'allow_null' => 0,
-      //   'other_choice' => 0,
-      //   'save_other_choice' => 0,
-      //   'default_value' => '2-2-2',
-      //   'layout' => 'horizontal',
-      //   'return_format' => 'value',
-      // ],
-      // [
-      //   'key' => 'text_row_field_col_1_order',
-      //   'label' => __('Colonne 1', 'mlmi-builder'),
-      //   'name' => 'col_1_order',
-      //   'type' => 'select',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => 0,
-      //   'wrapper' => [
-      //     'width' => '33.333',
-      //     'class' => 'mlmi-builder-column-option',
-      //     'id' => '',
-      //   ],
-      //   'choices' => [
-      //     'normal' => __('Ordre régulier', 'mlmi-builder'),
-      //     'first' => __('En premier', 'mlmi-builder'),
-      //     'last' => __('En dernier', 'mlmi-builder')
-      //   ],
-      //   'default_value' => 'normal',
-      //   'allow_null' => 0,
-      //   'multiple' => 0,
-      //   'ui' => 0,
-      //   'ajax' => 0,
-      //   'return_format' => 'value',
-      //   'placeholder' => '',
-      // ],
-      // [
-      //   'key' => 'text_row_field_col_2_order',
-      //   'label' => __('Colonne 2', 'mlmi-builder'),
-      //   'name' => 'col_2_order',
-      //   'type' => 'select',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '2',
-      //       ],
-      //     ],
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '3',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '33.333',
-      //     'class' => 'mlmi-builder-column-option',
-      //     'id' => '',
-      //   ],
-      //   'choices' => [
-      //     'normal' => __('Ordre régulier', 'mlmi-builder'),
-      //     'first' => __('En premier', 'mlmi-builder'),
-      //     'last' => __('En dernier', 'mlmi-builder')
-      //   ],
-      //   'default_value' => 'normal',
-      //   'allow_null' => 0,
-      //   'multiple' => 0,
-      //   'ui' => 0,
-      //   'ajax' => 0,
-      //   'return_format' => 'value',
-      //   'placeholder' => '',
-      // ],
-      // [
-      //   'key' => 'text_row_field_col_3_order',
-      //   'label' => __('Colonne 3', 'mlmi-builder'),
-      //   'name' => 'col_3_order',
-      //   'type' => 'select',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '3',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '33.333',
-      //     'class' => 'mlmi-builder-column-option',
-      //     'id' => '',
-      //   ],
-      //   'choices' => [
-      //     'normal' => __('Ordre régulier', 'mlmi-builder'),
-      //     'first' => __('En premier', 'mlmi-builder'),
-      //     'last' => __('En dernier', 'mlmi-builder')
-      //   ],
-      //   'default_value' => 'normal',
-      //   'allow_null' => 0,
-      //   'multiple' => 0,
-      //   'ui' => 0,
-      //   'ajax' => 0,
-      //   'return_format' => 'value',
-      //   'placeholder' => '',
-      // ],
-      // [
-      //   'key' => 'text_row_field_col_1_option',
-      //   'label' => '',
-      //   'name' => 'col_1_option',
-      //   'type' => 'checkbox',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => 0,
-      //   'wrapper' => [
-      //     'width' => '33.333',
-      //     'class' => 'mlmi-builder-column-option',
-      //     'id' => '',
-      //   ],
-      //   'choices' => $content_type_text_row_column_options,
-      //   'allow_custom' => 1,
-      //   'save_custom' => 0,
-      //   'default_value' => [],
-      //   'layout' => 'vertical',
-      //   'toggle' => 0,
-      //   'return_format' => 'value',
-      // ],
+      [
+        'key' => 'text_row_field_col_1_group',
+        'label' => __('Colonne 1', 'mlmi-builder'),
+        'name' => 'col_1_group',
+        'type' => 'group',
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => array(
+          'width' => '33.333',
+          'class' => 'no-group label-center mlmi-builder-column-option',
+          'id' => '',
+        ),
+        'layout' => 'block',
+        'sub_fields' => $column_group_option_fields,
+      ],
+      [
+        'key' => 'text_row_field_col_2_group',
+        'label' => __('Colonne 2', 'mlmi-builder'),
+        'name' => 'col_2_group',
+        'type' => 'group',
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'text_row_field_cols_num',
+              'operator' => '==',
+              'value' => 2,
+            ],
+          ],
+          [
+            [
+              'field' => 'text_row_field_cols_num',
+              'operator' => '==',
+              'value' => 3,
+            ],
+          ],
+        ],
+        'wrapper' => array(
+          'width' => '33.333',
+          'class' => 'no-group label-center mlmi-builder-column-option',
+          'id' => '',
+        ),
+        'layout' => 'block',
+        'sub_fields' => $column_group_option_fields,
+      ],
+      [
+        'key' => 'text_row_field_col_3_group',
+        'label' => __('Colonne 3', 'mlmi-builder'),
+        'name' => 'col_3_group',
+        'type' => 'group',
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'text_row_field_cols_num',
+              'operator' => '==',
+              'value' => 3,
+            ],
+          ],
+        ],
+        'wrapper' => array(
+          'width' => '33.333',
+          'class' => 'no-group label-center mlmi-builder-column-option',
+          'id' => '',
+        ),
+        'layout' => 'block',
+        'sub_fields' => $column_group_option_fields,
+      ],
+
       // [
       //   'key' => 'text_row_field_col_2_option',
       //   'label' => '',
@@ -885,6 +839,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'radio',
         'instructions' => '',
         'required' => 0,
+        'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
@@ -906,6 +861,7 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'select',
         'instructions' => '',
         'required' => 1,
+        'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
