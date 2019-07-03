@@ -73,7 +73,7 @@ if (function_exists('acf_add_local_field_group')):
     * Content Type: Standard Row
     */
     $content_type_text_row_column_options = apply_filters('mlmi_builder_column_options', []);
-    $padding_bottom_options = [
+    $padding_bottom_options = apply_filters('mlmi_builder_padding_bottom_options', [
       'pb-md-15' => '15',
       'pb-md-12' => '12',
       'pb-md-10' => '10',
@@ -86,11 +86,10 @@ if (function_exists('acf_add_local_field_group')):
       'pb-md-3' => '3',
       'pb-md-2' => '2',
       'pb-md-1' => '1',
-      'pb-0' => 'Aucun',
-    ];
-    $padding_bottom_options = apply_filters('mlmi_builder_padding_bottom_options', $padding_bottom_options);
-    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', "pb-0");
-    $padding_top_options = [
+      'pb-0' => __('Aucun', 'mlmi-builder'),
+    ]);
+    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-0');
+    $padding_top_options = apply_filters('mlmi_builder_padding_top_options', [
       'pt-md-15' => '15',
       'pt-md-12' => '12',
       'pt-md-10' => '10',
@@ -103,28 +102,29 @@ if (function_exists('acf_add_local_field_group')):
       'pt-md-3' => '3',
       'pt-md-2' => '2',
       'pt-md-1' => '1',
-      'pt-0' => 'Aucun',
-    ];
-    $padding_top_options = apply_filters('mlmi_builder_padding_top_options', $padding_top_options);
-    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', "pt-0");
-    
-    // /*
-    // * Column choices
-    // */
-    // $column_choices_1_column = apply_filters('mlmi_builder_column_choices_1_column', [
-    //   '6' => __('Pleine largeur', 'mlmi-builder'),
-    // ]);
-    // $column_choices_2_columns = apply_filters('mlmi_builder_column_choices_2_columns', [
-    //   '3-3' => __('Moitié-moitié', 'mlmi-builder'),
-    //   '2-4' => __('1 / 2', 'mlmi-builder'),
-    //   '4-2' => __('2 / 1', 'mlmi-builder'),
-    // ]);
-    // $column_choices_3_columns = apply_filters('mlmi_builder_column_choices_3_columns', [
-    //   '2-2-2' => __('Trois colonnes', 'mlmi-builder'),
-    // ]);
+      'pt-0' => __('Aucun', 'mlmi-builder'),
+    ]);
+    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-0');
     
     /*
-    *   Standard row fields
+    * Container options
+    */
+    $container_options = apply_filters('mlmi_builder_container_options', [
+      'none' => __('Aucun', 'mlmi-builder'),
+      'container' => __('Standard', 'mlmi-builder'),
+    ]);
+    
+    /*
+    * Background color options
+    */
+    $background_color_options = apply_filters('mlmi_builder_background_color_options', [
+      'transparent' => '<span class="badge badge-transparent">'.__('transparent', 'mlmi-builder').'</span>',
+      'white' => '<span class="badge badge-white">'.__('blanc', 'mlmi-builder').'</span>',
+      'black' => '<span class="badge badge-black">'.__('noir', 'mlmi-builder').'</span>',
+    ]);
+    
+    /*
+    * Standard row fields
     */
     $standard_row_fields = [
       [
@@ -879,6 +879,49 @@ if (function_exists('acf_add_local_field_group')):
         'endpoint' => 0,
       ],
       [
+        'key' => 'mlmi_builder_field_section_bg_color',
+        'label' => __('Couleur d\'arrière-plan', 'mlmi-builder'),
+        'name' => 'bg_color',
+        'type' => 'radio',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '50',
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => $background_color_options,
+        'allow_null' => 0,
+        'other_choice' => 0,
+        'default_value' => '',
+        'layout' => 'horizontal',
+        'return_format' => 'value',
+        'save_other_choice' => 0,
+      ],
+      [
+        'key' => 'mlmi_builder_field_section_use_container',
+        'label' => __('Conteneur', 'mlmi-builder'),
+        'name' => 'use_container',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 1,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '50',
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => $container_options,
+        'default_value' => 'container',
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'return_format' => 'value',
+        'ajax' => 0,
+        'placeholder' => '',
+      ],
+      [
         'key' => 'mlmi_builder_field_section_padding_top',
         'label' => __('Espacement haut', 'mlmi-builder'),
         'name' => 'padding_top',
@@ -1005,7 +1048,7 @@ if (function_exists('acf_add_local_field_group')):
             'id' => '',
           ],
           'collapsed' => '',
-          'min' => 1,
+          'min' => 0,
           'max' => 0,
           'layout' => 'block',
           'button_label' => __('Ajouter une section', 'mlmi-builder'),
