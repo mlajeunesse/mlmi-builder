@@ -72,7 +72,7 @@ if (function_exists('acf_add_local_field_group')):
     /*
     * Grid system base
     */
-    $grid_system_base = apply_filters('mlmi_builder_grid_columns', 20);
+    $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
     
     /*
     * Number of columns allowed
@@ -100,9 +100,9 @@ if (function_exists('acf_add_local_field_group')):
       'pb-md-3' => '3',
       'pb-md-2' => '2',
       'pb-md-1' => '1',
-      'pb-0' => __('Aucun', 'mlmi-builder'),
+      'pb-md-0' => __('Aucun', 'mlmi-builder'),
     ]);
-    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-0');
+    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-md-0');
     $padding_top_options = apply_filters('mlmi_builder_padding_top_options', [
       'pt-md-15' => '15',
       'pt-md-12' => '12',
@@ -116,15 +116,15 @@ if (function_exists('acf_add_local_field_group')):
       'pt-md-3' => '3',
       'pt-md-2' => '2',
       'pt-md-1' => '1',
-      'pt-0' => __('Aucun', 'mlmi-builder'),
+      'pt-md-0' => __('Aucun', 'mlmi-builder'),
     ]);
-    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-0');
+    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-md-0');
     
     /*
     * Container options
     */
     $container_options = apply_filters('mlmi_builder_container_options', [
-      'none' => __('Aucun', 'mlmi-builder'),
+      0 => __('Aucun', 'mlmi-builder'),
       'container' => __('Standard', 'mlmi-builder'),
     ]);
     
@@ -197,11 +197,11 @@ if (function_exists('acf_add_local_field_group')):
           'id' => '',
         ],
         'choices' => [
-          'normal' => __('Standard', 'mlmi-builder'),
-          'first' => __('En premier', 'mlmi-builder'),
-          'last' => __('En dernier', 'mlmi-builder')
+          2 => __('Standard', 'mlmi-builder'),
+          1 => __('En premier', 'mlmi-builder'),
+          3 => __('En dernier', 'mlmi-builder')
         ],
-        'default_value' => 'normal',
+        'default_value' => 2,
         'return_format' => 'value',
       ],
       [
@@ -381,7 +381,7 @@ if (function_exists('acf_add_local_field_group')):
         'conditional_logic' => 0,
         'wrapper' => array(
           'width' => '33.333',
-          'class' => 'no-group label-center mlmi-builder-column-option',
+          'class' => 'no-group column-label mlmi-builder-column-option',
           'id' => '',
         ),
         'layout' => 'block',
@@ -411,7 +411,7 @@ if (function_exists('acf_add_local_field_group')):
         ],
         'wrapper' => array(
           'width' => '33.333',
-          'class' => 'no-group label-center mlmi-builder-column-option',
+          'class' => 'no-group column-label mlmi-builder-column-option',
           'id' => '',
         ),
         'layout' => 'block',
@@ -434,80 +434,13 @@ if (function_exists('acf_add_local_field_group')):
         ],
         'wrapper' => array(
           'width' => '33.333',
-          'class' => 'no-group label-center mlmi-builder-column-option',
+          'class' => 'no-group column-label mlmi-builder-column-option',
           'id' => '',
         ),
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
 
-      // [
-      //   'key' => 'text_row_field_col_2_option',
-      //   'label' => '',
-      //   'name' => 'col_2_option',
-      //   'type' => 'checkbox',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '2',
-      //       ],
-      //     ],
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '3',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '33.333',
-      //     'class' => 'mlmi-builder-column-option',
-      //     'id' => '',
-      //   ],
-      //   'choices' => $content_type_text_row_column_options,
-      //   'allow_custom' => 1,
-      //   'save_custom' => 0,
-      //   'default_value' => [],
-      //   'layout' => 'vertical',
-      //   'toggle' => 0,
-      //   'return_format' => 'value',
-      // ],
-      // [
-      //   'key' => 'text_row_field_col_3_option',
-      //   'label' => '',
-      //   'name' => 'col_3_option',
-      //   'type' => 'checkbox',
-      //   'instructions' => '',
-      //   'required' => 0,
-      //   'wpml_cf_preferences' => 3,
-      //   'conditional_logic' => [
-      //     [
-      //       [
-      //         'field' => 'text_row_field_cols_num',
-      //         'operator' => '==',
-      //         'value' => '3',
-      //       ],
-      //     ],
-      //   ],
-      //   'wrapper' => [
-      //     'width' => '33.333',
-      //     'class' => 'mlmi-builder-column-option',
-      //     'id' => '',
-      //   ],
-      //   'choices' => $content_type_text_row_column_options,
-      //   'allow_custom' => 1,
-      //   'save_custom' => 0,
-      //   'default_value' => [],
-      //   'layout' => 'vertical',
-      //   'toggle' => 0,
-      //   'return_format' => 'value',
-      // ],
       [
         'key' => 'text_row_field_padding_top',
         'label' => __('Espacement haut', 'mlmi-builder'),
@@ -575,7 +508,7 @@ if (function_exists('acf_add_local_field_group')):
         'maxlength' => '',
       ],
       [
-        'key' => 'field_58cacac3c8c37',
+        'key' => 'text_row_field_row_id',
         'label' => __('ID de rangée', 'mlmi-builder'),
         'name' => 'row_id',
         'type' => 'text',
