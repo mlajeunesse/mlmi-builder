@@ -31,6 +31,9 @@ if (have_rows('sections')): while (have_rows('sections')) : the_row();
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 	$section_classes[] = get_sub_field('padding_top');
 	$section_classes[] = get_sub_field('padding_bottom');
+	if ($background_color = get_sub_field('bg_color')) {
+		$section_classes[] = 'bg-'.$background_color;
+	}
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
 	$section_id = get_sub_field('section_id');
 	$section_attributes = apply_filters('mlmi_builder_section_attributes', ["id" => $section_id]);
