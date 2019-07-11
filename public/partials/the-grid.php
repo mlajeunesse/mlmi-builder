@@ -12,7 +12,7 @@ global $is_first_row, $is_last_row;
 global $section_index, $row_index, $column_index;
 
 /* Filtered settings */
-$desktop_prefix = apply_filters('mlmi_builder_desktop_class', 'md');
+$desktop_prefix = apply_filters('mlmi_builder_desktop_prefix', 'md');
 $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
 
 /* Prepare sections loop */
@@ -136,7 +136,7 @@ if (have_rows('sections')): while (have_rows('sections')) : the_row();
 						$content = get_sub_field('col_'.($index+1));
 						if (!$content){
 							$column_classes[] = 'd-none';
-							$column_classes[] = 'd-'.$desktop_prefix.'-block';
+							$column_classes[] = 'd-md-block';
 						}
 						
 						/* Content attributes */
