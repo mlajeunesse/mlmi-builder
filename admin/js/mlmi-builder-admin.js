@@ -49,33 +49,48 @@ let mlmi_builder = {
 			
 			/* Columns configuration */
 			if (typeof cols_config == 'undefined') {
-				let columns_number = $(row).find("div.acf-field.select-cols-number select").val();
+				let columns_choice = $(row).find("div.acf-field.select-cols-number select").val();
+				let columns_number = parseInt($(row).find("div.acf-field.select-cols-number select").val(), 10);
+				let columns_custom = (columns_choice == columns_number);
 				if (columns_number == 3) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "33.333%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "33.333%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
-					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "33.333%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "33.333%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").css("width", "33.333%").show();
+					if (columns_custom) {
+						$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "33.333%").show();
+						$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "33.333%").show();
+						$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").css("width", "33.333%").show();
+					}
 				} else if (columns_number == 2) {
+					console.log('yep');
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "50%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "50%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
-					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "50%").show();
-					$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "50%").show();
+					if (columns_custom) {
+						$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "50%").show();
+						$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "50%").show();
+					}
 				} else if (columns_number == 1) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "100%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
-					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "100%").show();
+					if (columns_custom) {
+						$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "100%").show();
+					}
 				}
 				$(row).find(".mlmi-builder-column-option[data-name=col_1]").addClass('-c0');
 				$(row).find(".mlmi-builder-column-option[data-name=col_2]").removeClass('-c0');
 				$(row).find(".mlmi-builder-column-option[data-name=col_3]").removeClass('-c0');
-				$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").addClass('-c0').css('min-height', '');
-				$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").removeClass('-c0').css('min-height', '');
-				$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").removeClass('-c0').css('min-height', '');
-			
+				if (columns_custom) {
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").addClass('-c0').css('min-height', '');
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").removeClass('-c0').css('min-height', '');
+					$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").removeClass('-c0').css('min-height', '');
+				} else {
+					$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").hide();
+					$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").hide();
+					$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").hide();
+				}
+				
 			/* Legacy ACF columns */
 			} else {
 				switch (cols_config) {

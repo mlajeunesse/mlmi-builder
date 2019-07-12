@@ -77,11 +77,69 @@ if (function_exists('acf_add_local_field_group')):
     /*
     * Number of columns allowed
     */
+    // global $columns_choices;
+    global $columns_choices;
     $columns_choices = apply_filters('mlmi_builder_columns_choices', [
       1 => __('1 colonne', 'mlmi-builder'),
       2 => __('2 colonnes', 'mlmi-builder'),
       3 => __('3 colonnes', 'mlmi-builder')
     ]);
+    
+    /*
+    * Columns conditional logic
+    */
+    function mlmi_builder_get_conditional_logic($column) {
+      global $columns_choices;
+      $logic = [];
+      
+      /* Standard logic */
+      if ($column == 2) {
+        $logic[] = [
+          [
+            'field' => 'text_row_field_cols_num',
+            'operator' => '==',
+            'value' => 2,
+          ],
+        ];
+      }
+      if ($column == 2 || $column == 3) {
+        $logic[] = [
+          [
+            'field' => 'text_row_field_cols_num',
+            'operator' => '==',
+            'value' => 3,
+          ],
+        ];
+      }
+      
+      /* Custom logic */
+      foreach ($columns_choices as $key => $value) {
+        if (is_numeric($key)) {
+          continue;
+        }
+        
+        if ($column == 2 && intval($key) == 2) {
+          $logic[] = [
+            [
+              'field' => 'text_row_field_cols_num',
+              'operator' => '==',
+              'value' => $key,
+            ],
+          ];
+        }
+        
+        if (($column == 2 || $column == 3) && intval($key) == 3) {
+          $logic[] = [
+            [
+              'field' => 'text_row_field_cols_num',
+              'operator' => '==',
+              'value' => $key,
+            ],
+          ];
+        }
+      }
+      return $logic;
+    }
     
     /*
     * Content Type: Standard Row
@@ -277,22 +335,7 @@ if (function_exists('acf_add_local_field_group')):
         'instructions' => '',
         'required' => 0,
         'wpml_cf_preferences' => 3,
-        'conditional_logic' => [
-          [
-            [
-              'field' => 'text_row_field_cols_num',
-              'operator' => '==',
-              'value' => '2',
-            ],
-          ],
-          [
-            [
-              'field' => 'text_row_field_cols_num',
-              'operator' => '==',
-              'value' => '3',
-            ],
-          ],
-        ],
+        'conditional_logic' => mlmi_builder_get_conditional_logic(2),
         'wrapper' => [
           'width' => '33.333',
           'class' => 'mlmi-builder-column no-label d-none',
@@ -312,15 +355,7 @@ if (function_exists('acf_add_local_field_group')):
         'instructions' => '',
         'required' => 0,
         'wpml_cf_preferences' => 3,
-        'conditional_logic' => [
-          [
-            [
-              'field' => 'text_row_field_cols_num',
-              'operator' => '==',
-              'value' => '3',
-            ],
-          ],
-        ],
+        'conditional_logic' => mlmi_builder_get_conditional_logic(3),
         'wrapper' => [
           'width' => '33.333',
           'class' => 'mlmi-builder-column no-label d-none',
@@ -364,7 +399,6 @@ if (function_exists('acf_add_local_field_group')):
           'id' => '',
         ],
         'choices' => $columns_choices,
-        'default_value' => 1,
         'allow_null' => 0,
         'multiple' => 0,
         'ui' => 0,
@@ -393,22 +427,7 @@ if (function_exists('acf_add_local_field_group')):
         'name' => 'col_2_group',
         'type' => 'group',
         'wpml_cf_preferences' => 3,
-        'conditional_logic' => [
-          [
-            [
-              'field' => 'text_row_field_cols_num',
-              'operator' => '==',
-              'value' => 2,
-            ],
-          ],
-          [
-            [
-              'field' => 'text_row_field_cols_num',
-              'operator' => '==',
-              'value' => 3,
-            ],
-          ],
-        ],
+        'conditional_logic' => mlmi_builder_get_conditional_logic(2),
         'wrapper' => array(
           'width' => '33.333',
           'class' => 'no-group column-label mlmi-builder-column-option',
@@ -423,15 +442,7 @@ if (function_exists('acf_add_local_field_group')):
         'name' => 'col_3_group',
         'type' => 'group',
         'wpml_cf_preferences' => 3,
-        'conditional_logic' => [
-          [
-            [
-              'field' => 'text_row_field_cols_num',
-              'operator' => '==',
-              'value' => 3,
-            ],
-          ],
-        ],
+        'conditional_logic' => mlmi_builder_get_conditional_logic(3),
         'wrapper' => array(
           'width' => '33.333',
           'class' => 'no-group column-label mlmi-builder-column-option',
@@ -557,6 +568,7 @@ if (function_exists('acf_add_local_field_group')):
       'description' => '',
     ];
     $content_type_text_row = apply_filters('mlmi_builder_content_type_text_row', $content_type_text_row);
+    // pre($content_type_text_row); die();
     acf_add_local_field_group($content_type_text_row);
     
     /*

@@ -98,11 +98,15 @@ if (have_rows('sections')): while (have_rows('sections')) : the_row();
 						}
 						$columns[] = $column;
 					}
+					$columns = apply_filters('mlmi_builder_standard_columns', $columns, $columns_count);
 					
 					/* Order columns */
 					$mobile_first_column = -1;
 					$mobile_last_column = -1;
 					foreach ($columns as $index => &$column) {
+						if (!isset($column['column_order'])) { $column['column_order'] = 2; }
+						if (!isset($column['column_offset'])) { $column['column_offset'] = 0; }
+						if (!isset($column['column_options'])) { $column['column_options'] = []; }
 						if ($mobile_first_column == -1 || $column['column_order'] < $columns[$mobile_first_column]['column_order']) {
 							$mobile_first_column = $index;
 						}
