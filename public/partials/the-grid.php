@@ -32,7 +32,9 @@ if (have_rows('sections')): while (have_rows('sections')) : the_row();
 	$section_classes[] = get_sub_field('padding_top');
 	$section_classes[] = get_sub_field('padding_bottom');
 	if ($background_color = get_sub_field('bg_color')) {
-		$section_classes[] = 'bg-'.$background_color;
+		if ($background_color != 'transparent') {
+			$section_classes[] = 'bg-'.$background_color;
+		}
 	}
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
 	$section_id = get_sub_field('section_id');
