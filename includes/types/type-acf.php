@@ -173,8 +173,9 @@ if (function_exists('acf_add_local_field_group')):
       'pb-md-2' => '2',
       'pb-md-1' => '1',
       'pb-md-0' => __('Aucun', 'mlmi-builder'),
+      'pb-auto' => __('Auto', 'mlmi-builder'),
     ]);
-    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-md-0');
+    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-auto');
     $padding_top_options = apply_filters('mlmi_builder_padding_top_options', [
       'pt-md-15' => '15',
       'pt-md-12' => '12',
@@ -189,8 +190,9 @@ if (function_exists('acf_add_local_field_group')):
       'pt-md-2' => '2',
       'pt-md-1' => '1',
       'pt-md-0' => __('Aucun', 'mlmi-builder'),
+      'pt-auto' => __('Auto', 'mlmi-builder'),
     ]);
-    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-md-0');
+    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-auto');
     
     /*
     * Container options
