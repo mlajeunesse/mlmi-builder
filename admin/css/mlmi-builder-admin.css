@@ -40,7 +40,7 @@
 .mlmi-builder-section .acf-label label {
   text-transform: uppercase;
   position: relative;
-  top: 1;
+  top: 1px;
   font-size: 11px;
   font-weight: 600 !important;
   letter-spacing: .075em;
@@ -58,6 +58,14 @@
 .mlmi-builder-section .acf-fields>.acf-field {
   padding: 5px 9px 7px !important;
   border: 0 !important;
+}
+
+.mlmi-builder-section .acf-repeater.-row .acf-fields>.acf-field {
+  padding: 5px 0 7px !important;
+}
+
+.mlmi-builder-section .acf-repeater.-row .acf-label {
+  padding: 0px 8px !important;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field.no-group {
@@ -88,6 +96,13 @@
 
 .mlmi-builder-section .acf-field-text-row-field-padding-top {
   clear: both !important;
+}
+
+.mlmi-builder-section .acf-row-handle,
+.mlmi-builder-row .acf-row-handle {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  font-size: 11px;
 }
 
 /*
