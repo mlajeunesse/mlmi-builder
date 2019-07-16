@@ -13,11 +13,26 @@ function mlmi_builder_create_acf_layout($key, $settings) {
     'name' => 'row',
     'label' => __('Rangée', 'mlmi-builder'),
     'display' => 'block',
-    'group' => 'mlmi_builder_layout_text_row'
+    'group' => 'mlmi_builder_layout_text_row',
+    'options' => false,
   ], $settings);
   
+  // Get cloned group
+  $cloned = [
+    $settings['group']
+  ];
+  
+  // Get cloned options
+  if ($settings['options'] == true && $key != 'text_row') {
+    $cloned[] = 'text_row_tab_options';
+    $cloned[] = 'text_row_field_padding_top';
+    $cloned[] = 'text_row_field_padding_bottom';
+    $cloned[] = 'text_row_field_row_class';
+    $cloned[] = 'text_row_field_row_id';
+  }
+  
   // Generated layout
-  return [
+  $layout = [
     'key' => 'mlmi_builder_layout_'.$key,
     'name' => $key,
     'label' => $settings['label'],
@@ -37,9 +52,7 @@ function mlmi_builder_create_acf_layout($key, $settings) {
           'class' => '',
           'id' => '',
         ],
-        'clone' => [
-          0 => $settings['group'],
-        ],
+        'clone' => $cloned,
         'display' => 'seamless',
         'layout' => 'block',
         'prefix_label' => 0,
@@ -49,6 +62,7 @@ function mlmi_builder_create_acf_layout($key, $settings) {
     'min' => '',
     'max' => '',
   ];
+  return $layout;
 }
 
 if (function_exists('acf_add_local_field_group')):
@@ -451,7 +465,6 @@ if (function_exists('acf_add_local_field_group')):
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
-
       [
         'key' => 'text_row_field_padding_top',
         'label' => __('Espacement haut', 'mlmi-builder'),
@@ -692,17 +705,20 @@ if (function_exists('acf_add_local_field_group')):
     *   Layout types
     */
     $layout_types = [
-      "text_row" => [
-        "label" => __('Rangée standard', 'mlmi-builder'),
-        "group" => 'mlmi_builder_layout_text_row'
+      'text_row' => [
+        'label' => __('Rangée standard', 'mlmi-builder'),
+        'group' => 'mlmi_builder_layout_text_row',
+        'options' => true,
       ],
-      "code_row" => [
-        "label" => __('Rangée programmée', 'mlmi-builder'),
-        "group" => 'mlmi_builder_layout_code_row'
+      'code_row' => [
+        'label' => __('Rangée programmée', 'mlmi-builder'),
+        'group' => 'mlmi_builder_layout_code_row',
+        'options' => false,
       ],
-      "gallery_row" => [
-        "label" => __('Galerie d\'images', 'mlmi-builder'),
-        "group" => 'mlmi_builder_layout_gallery_row'
+      'gallery_row' => [
+        'label' => __('Galerie d\'images', 'mlmi-builder'),
+        'group' => 'mlmi_builder_layout_gallery_row',
+        'options' => false,
       ],
     ];
     $layout_types = apply_filters('mlmi_builder_layout_types', $layout_types);
