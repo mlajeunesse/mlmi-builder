@@ -583,7 +583,6 @@ if (function_exists('acf_add_local_field_group')):
       'description' => '',
     ];
     $content_type_text_row = apply_filters('mlmi_builder_content_type_text_row', $content_type_text_row);
-    // pre($content_type_text_row); die();
     acf_add_local_field_group($content_type_text_row);
     
     /*
