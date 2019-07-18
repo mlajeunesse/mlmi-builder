@@ -16,7 +16,7 @@ function mlmi_builder_notice_use_legacy_grid() {
 /*
 * Main output and display function
 */
-function the_grid() {
+function the_grid($post_id = NULL) {
   ob_start();
   $use_legacy_grid = defined('MLMI_BUILDER_USE_LEGACY_GRID') && MLMI_BUILDER_USE_LEGACY_GRID == true;
   if ($use_legacy_grid) {

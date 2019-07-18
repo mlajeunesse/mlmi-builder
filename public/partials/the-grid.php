@@ -16,12 +16,12 @@ $desktop_prefix = apply_filters('mlmi_builder_desktop_prefix', 'md');
 $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
 
 /* Prepare sections loop */
-$sections = get_field('sections');
+$sections = get_field('sections', $post_id);
 $sections_count = $sections ? count($sections) : 0;
 $section_index = 0;
 
 /* Loop sections */
-if (have_rows('sections')): while (have_rows('sections')) : the_row();
+if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : the_row();
 	/* Section status */
 	$section_index += 1;
 	$is_first_section = $section_index === 1;
