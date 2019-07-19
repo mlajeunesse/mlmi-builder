@@ -68,6 +68,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$row_classes = array_filter(array_merge(["row", get_row_layout()], array_map('trim', explode(" ", get_sub_field('row_class')))));
 			$row_classes[] = get_sub_field('padding_top');
 			$row_classes[] = get_sub_field('padding_bottom');
+			if (get_sub_field('overflow_option') == 'overflow-content') {
+				$row_classes[] = 'overflow-content';
+			}
 			$row_classes = apply_filters('mlmi_builder_row_classes', $row_classes);
 			$row_attributes = apply_filters('mlmi_builder_row_attributes', ['id' => $row_id]);
 			$row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
@@ -102,6 +105,13 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 						$columns[] = $column;
 					}
 					$columns = apply_filters('mlmi_builder_standard_columns', $columns, $columns_count);
+					
+					/* Standard reverse columns */
+					if (get_sub_field('overflow_option') == 'mobile-reverse') {
+						foreach ($columns as $index => &$column) {
+							$column['column_order'] = 3 - $index;
+						}
+					}
 					
 					/* Order columns */
 					$mobile_first_column = -1;
