@@ -106,76 +106,81 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 					}
 					$columns = apply_filters('mlmi_builder_standard_columns', $columns, $columns_count);
 					
-					/* Standard reverse columns */
-					if (get_sub_field('overflow_option') == 'mobile-reverse') {
+					/* Custom output */
+					if (isset($columns['output'])) {
+						echo $columns['output'];
+					} else {
+						/* Standard reverse columns */
+						if (get_sub_field('overflow_option') == 'mobile-reverse') {
+							foreach ($columns as $index => &$column) {
+								$column['column_order'] = 3 - $index;
+							}
+						}
+						
+						/* Order columns */
+						$mobile_first_column = -1;
+						$mobile_last_column = -1;
 						foreach ($columns as $index => &$column) {
-							$column['column_order'] = 3 - $index;
-						}
-					}
-					
-					/* Order columns */
-					$mobile_first_column = -1;
-					$mobile_last_column = -1;
-					foreach ($columns as $index => &$column) {
-						if (!isset($column['column_order'])) { $column['column_order'] = 2; }
-						if (!isset($column['column_offset'])) { $column['column_offset'] = 0; }
-						if (!isset($column['column_options'])) { $column['column_options'] = []; }
-						if ($mobile_first_column == -1 || $column['column_order'] < $columns[$mobile_first_column]['column_order']) {
-							$mobile_first_column = $index;
-						}
-						if ($mobile_last_column == -1 || $column['column_order'] >= $columns[$mobile_last_column]['column_order']) {
-							$mobile_last_column = $index;
-						}
-					}
-					
-					/* Build columns */
-					foreach ($columns as $index => &$column):
-						/* Column classes */
-						$column_classes = [];
-						$column_classes[] = 'col';
-						$column_classes[] = 'col-'.$grid_system_base;
-						$column_classes[] = 'col-'.$desktop_prefix.'-'.$column['column_width'];
-						
-						/* Offset classes */
-						if ($column['column_offset'] > 0) {
-							$column_classes[] = 'offset-'.$desktop_prefix.'-'.$column['column_offset'];
+							if (!isset($column['column_order'])) { $column['column_order'] = 2; }
+							if (!isset($column['column_offset'])) { $column['column_offset'] = 0; }
+							if (!isset($column['column_options'])) { $column['column_options'] = []; }
+							if ($mobile_first_column == -1 || $column['column_order'] < $columns[$mobile_first_column]['column_order']) {
+								$mobile_first_column = $index;
+							}
+							if ($mobile_last_column == -1 || $column['column_order'] >= $columns[$mobile_last_column]['column_order']) {
+								$mobile_last_column = $index;
+							}
 						}
 						
-						/* Order classes */
-						if ($index == $mobile_first_column) $column_classes[] = 'order-first';
-						if ($index == $mobile_last_column) $column_classes[] = 'order-last';
-						$column_classes[] = 'order-md-'.($index + 1);
-						
-						/* Column options */
-						$column_classes = array_merge($column_classes, $column['column_options']);
-						
-						/* Content */
-						$content = get_sub_field('col_'.($index+1));
-						if (!$content){
-							$column_classes[] = 'd-none';
-							$column_classes[] = 'd-md-block';
-						}
-						
-						/* Content attributes */
-						$content_classes = ['text-content'];
-						$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
-						$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
-						$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);
-						
-						/* Column attributes */
-						$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
-						$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
-						$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
-						
-						/* Display column */
-						echo '<div'.$column_attributes_output.'>';
-						if ($content):
-							echo '<div'.$content_attributes_output.'>';
-							echo apply_filters('the_content', $content);
+						/* Build columns */
+						foreach ($columns as $index => &$column):
+							/* Column classes */
+							$column_classes = [];
+							$column_classes[] = 'col';
+							$column_classes[] = 'col-'.$grid_system_base;
+							$column_classes[] = 'col-'.$desktop_prefix.'-'.$column['column_width'];
+							
+							/* Offset classes */
+							if ($column['column_offset'] > 0) {
+								$column_classes[] = 'offset-'.$desktop_prefix.'-'.$column['column_offset'];
+							}
+							
+							/* Order classes */
+							if ($index == $mobile_first_column) $column_classes[] = 'order-first';
+							if ($index == $mobile_last_column) $column_classes[] = 'order-last';
+							$column_classes[] = 'order-md-'.($index + 1);
+							
+							/* Column options */
+							$column_classes = array_merge($column_classes, $column['column_options']);
+							
+							/* Content */
+							$content = get_sub_field('col_'.($index+1));
+							if (!$content){
+								$column_classes[] = 'd-none';
+								$column_classes[] = 'd-md-block';
+							}
+							
+							/* Content attributes */
+							$content_classes = ['text-content'];
+							$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
+							$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
+							$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);
+							
+							/* Column attributes */
+							$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
+							$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
+							$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
+							
+							/* Display column */
+							echo '<div'.$column_attributes_output.'>';
+							if ($content):
+								echo '<div'.$content_attributes_output.'>';
+								echo apply_filters('the_content', $content);
+								echo '</div>';
+							endif;
 							echo '</div>';
-						endif;
-						echo '</div>';
-					endforeach;
+						endforeach;
+					}
 			
 				/* Display shortcode row */
 				elseif (get_row_layout() == "code_row"):
