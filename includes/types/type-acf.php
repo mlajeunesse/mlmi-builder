@@ -306,7 +306,7 @@ if (function_exists('acf_add_local_field_group')):
     * Standard row fields
     */
     $standard_row_fields = [
-      [
+      'text_row_tab_content' => [
         'key' => 'text_row_tab_content',
         'label' => '<span class="dashicons dashicons-edit"></span>',
         'name' => '',
@@ -323,7 +323,7 @@ if (function_exists('acf_add_local_field_group')):
         'placement' => 'left',
         'endpoint' => 0,
       ],
-      [
+      'text_row_field_col_1' => [
         'key' => 'text_row_field_col_1',
         'label' => '',
         'name' => 'col_1',
@@ -343,7 +343,7 @@ if (function_exists('acf_add_local_field_group')):
         'media_upload' => 1,
         'delay' => 0,
       ],
-      [
+      'text_row_field_col_2' => [
         'key' => 'text_row_field_col_2',
         'label' => '',
         'name' => 'col_2',
@@ -363,7 +363,7 @@ if (function_exists('acf_add_local_field_group')):
         'media_upload' => 1,
         'delay' => 0,
       ],
-      [
+      'text_row_field_col_3' => [
         'key' => 'text_row_field_col_3',
         'label' => '',
         'name' => 'col_3',
@@ -383,7 +383,7 @@ if (function_exists('acf_add_local_field_group')):
         'media_upload' => 1,
         'delay' => 0,
       ],
-      [
+      'text_row_tab_options' => [
         'key' => 'text_row_tab_options',
         'label' => '<span class="dashicons dashicons-admin-generic"></span>',
         'name' => '',
@@ -400,7 +400,7 @@ if (function_exists('acf_add_local_field_group')):
         'placement' => 'left',
         'endpoint' => 0,
       ],
-      [
+      'text_row_field_cols_num' => [
         'key' => 'text_row_field_cols_num',
         'label' => __('Nombre de colonnes', 'mlmi-builder'),
         'name' => 'cols_num',
@@ -422,7 +422,7 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
-      [
+      'text_row_field_col_1_group' => [
         'key' => 'text_row_field_col_1_group',
         'label' => __('Colonne 1', 'mlmi-builder'),
         'name' => 'col_1_group',
@@ -437,7 +437,7 @@ if (function_exists('acf_add_local_field_group')):
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
-      [
+      'text_row_field_col_2_group' => [
         'key' => 'text_row_field_col_2_group',
         'label' => __('Colonne 2', 'mlmi-builder'),
         'name' => 'col_2_group',
@@ -452,7 +452,7 @@ if (function_exists('acf_add_local_field_group')):
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
-      [
+      'text_row_field_col_3_group' => [
         'key' => 'text_row_field_col_3_group',
         'label' => __('Colonne 3', 'mlmi-builder'),
         'name' => 'col_3_group',
@@ -467,7 +467,7 @@ if (function_exists('acf_add_local_field_group')):
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
-      [
+      'text_row_field_padding_top' => [
         'key' => 'text_row_field_padding_top',
         'label' => __('Espacement haut', 'mlmi-builder'),
         'name' => 'padding_top',
@@ -490,7 +490,7 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
-      [
+      'text_row_field_padding_bottom' => [
         'key' => 'text_row_field_padding_bottom',
         'label' => __('Espacement bas', 'mlmi-builder'),
         'name' => 'padding_bottom',
@@ -513,7 +513,7 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
-      [
+      'text_row_field_row_class' => [
         'key' => 'text_row_field_row_class',
         'label' => __('Classes de rangée', 'mlmi-builder'),
         'name' => 'row_class',
@@ -533,7 +533,7 @@ if (function_exists('acf_add_local_field_group')):
         'append' => '',
         'maxlength' => '',
       ],
-      [
+      'text_row_field_row_id' => [
         'key' => 'text_row_field_row_id',
         'label' => __('ID de rangée', 'mlmi-builder'),
         'name' => 'row_id',

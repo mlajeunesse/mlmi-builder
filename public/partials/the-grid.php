@@ -79,14 +79,15 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 				echo '<div'.$container_attributes_output.'>';
 			endif;
 			
+			/* Hook before row */
+			do_action('mlmi_builder_before_row');
+			
 			/* Using row element */
 			if ($use_row):
 				echo '<div'.$row_attributes_output.'>';
+				do_action('mlmi_builder_begin_row');
 			endif;
 			
-			/* Hook before row */
-			do_action('mlmi_builder_before_row');
-
 				/* Display standard row */
 				if (get_row_layout() == "text_row"):
 					
