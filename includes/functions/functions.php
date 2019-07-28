@@ -34,22 +34,25 @@ function the_grid($post_id = NULL) {
 if (!function_exists('mlmi_builder_get_grid_content')) {
   function mlmi_builder_get_grid_content($post_id) {
     $grid_content = "";
-    if (have_rows('sections')){
-      while (have_rows('sections')){
-        the_row();
-        if (have_rows('rows')){
-          while (have_rows('rows')){
-            the_row();
-            if (get_row_layout() == "text_row"){
-              for ($i = 0; $i < get_sub_field('cols_num'); $i++){
-                $grid_content .= get_sub_field('col_'.($i+1));
-                $grid_content .= PHP_EOL.PHP_EOL;
-              }
+    if (have_rows('sections')): while (have_rows('sections')): the_row();
+      if (have_rows('rows')): while (have_rows('rows')): the_row();
+        if (get_row_layout() == "text_row") {
+          for ($i = 0; $i < get_sub_field('cols_num'); $i++) {
+            $column_content = trim(strip_tags(get_sub_field('col_'.($i+1)), '<em><sup>'));
+            if ($column_content) {
+              $grid_content .= $column_content;
+              $grid_content .= PHP_EOL.PHP_EOL;
             }
           }
+        } else {
+          $custom_grid_content = apply_filters('mlmi_builder_get_grid_content', '');
+          if ($custom_grid_content) {
+            $grid_content .= $custom_grid_content;
+            $grid_content .= PHP_EOL.PHP_EOL;
+          }
         }
-      }
-    }
+      endwhile; endif;
+    endwhile; endif;
     return $grid_content;
   }
 }
@@ -59,14 +62,14 @@ if (!function_exists('mlmi_builder_get_grid_content')) {
 */
 function mlmi_builder_attributes_inline($attributes = [], $classes = []) {
   $attributes_output = "";
-  if ($attributes){
+  if ($attributes) {
     foreach ($attributes as $key => $value) {
-      if ($value){
+      if ($value) {
         $attributes_output .= " ".$key.'="'.$value.'"';
       }
     }
   }
-  if ($classes){
+  if ($classes) {
     $attributes_output .= ' class="'.trim(implode(" ", $classes)).'"';
   }
   return $attributes_output;
