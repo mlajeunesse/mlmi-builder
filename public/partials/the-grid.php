@@ -112,8 +112,8 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 					} else {
 						/* Standard reverse columns */
 						if (get_sub_field('overflow_option') == 'mobile-reverse') {
-							foreach ($columns as $column_index => &$column) {
-								$column['column_order'] = 3 - $column_index;
+							foreach ($columns as $index => &$column) {
+								$column['column_order'] = 3 - $index;
 							}
 						}
 						
@@ -125,7 +125,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							if (!isset($column['column_offset'])) { $column['column_offset'] = 0; }
 							if (!isset($column['column_options'])) { $column['column_options'] = []; }
 							if ($mobile_first_column == -1 || $column['column_order'] < $columns[$mobile_first_column]['column_order']) {
-								$mobile_first_column = $column_index;
+								$mobile_first_column = $index;
 							}
 							if ($mobile_last_column == -1 || $column['column_order'] >= $columns[$mobile_last_column]['column_order']) {
 								$mobile_last_column = $index;
