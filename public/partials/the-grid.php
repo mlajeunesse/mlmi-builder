@@ -10,6 +10,7 @@ global $row_id, $row_classes;
 global $is_first_section, $is_last_section;
 global $is_first_row, $is_last_row;
 global $section_index, $row_index, $column_index;
+global $use_container;
 
 /* Filtered settings */
 $desktop_prefix = apply_filters('mlmi_builder_desktop_prefix', 'md');
@@ -214,8 +215,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			endif;
 			
 			/* Closing container element */
-			if ($use_container && $is_last_row) {
-				echo '</div>';
+			$close_container = apply_filters('mlmi_builder_close_container', $use_container);
+			if ($use_container && $is_last_row && $close_container) {
+				echo '</div> <!-- what -->';
 			}
 		
 		/* End loop rows */

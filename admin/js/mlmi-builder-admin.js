@@ -62,7 +62,6 @@ let mlmi_builder = {
 						$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").css("width", "33.333%").show();
 					}
 				} else if (columns_number == 2) {
-					console.log('yep');
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "50%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "50%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
