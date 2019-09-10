@@ -217,7 +217,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			/* Closing container element */
 			$close_container = apply_filters('mlmi_builder_close_container', $use_container);
 			if ($use_container && $is_last_row && $close_container) {
-				echo '</div> <!-- what -->';
+				echo '</div>';
 			}
 		
 		/* End loop rows */
