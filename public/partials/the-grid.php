@@ -137,9 +137,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 						foreach ($columns as $column_index => &$column):
 							/* Column classes */
 							$column_classes = [];
-							$column_classes[] = 'col';
-							$column_classes[] = 'col-'.$grid_system_base;
-							$column_classes[] = 'col-'.$desktop_prefix.'-'.$column['column_width'];
+							$column_classes['column'] = 'col';
+							$column_classes['base_column'] = 'col-'.$grid_system_base;
+							$column_classes['md_column'] = 'col-'.$desktop_prefix.'-'.$column['column_width'];
 							
 							/* Offset classes */
 							if ($column['column_offset'] > 0) {
@@ -153,6 +153,11 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							
 							/* Column options */
 							$column_classes = array_merge($column_classes, $column['column_options']);
+							
+							/* Overriding */
+							if (in_array('col-1', $column_classes) || in_array('col-2', $column_classes) || in_array('col-3', $column_classes) || in_array('col-4', $column_classes) || in_array('col-5', $column_classes) || in_array('col-6', $column_classes) || in_array('col-7', $column_classes) || in_array('col-8', $column_classes) || in_array('col-9', $column_classes) || in_array('col-10', $column_classes) || in_array('col-11', $column_classes)) {
+								unset($column_classes['base_column']);
+							}
 							
 							/* Content */
 							$content = get_sub_field('col_'.($column_index+1));
