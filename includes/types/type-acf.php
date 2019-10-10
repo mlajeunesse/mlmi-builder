@@ -24,11 +24,11 @@ function mlmi_builder_create_acf_layout($key, $settings) {
   
   // Get cloned options
   if ($settings['options'] == true && $key != 'text_row') {
-    $cloned[] = 'text_row_tab_options';
-    $cloned[] = 'text_row_field_padding_top';
-    $cloned[] = 'text_row_field_padding_bottom';
-    $cloned[] = 'text_row_field_row_class';
-    $cloned[] = 'text_row_field_row_id';
+    $cloned['text_row_tab_options'] = 'text_row_tab_options';
+    $cloned['text_row_field_padding_top'] = 'text_row_field_padding_top';
+    $cloned['text_row_field_padding_bottom'] = 'text_row_field_padding_bottom';
+    $cloned['text_row_field_row_class'] = 'text_row_field_row_class';
+    $cloned['text_row_field_row_id'] = 'text_row_field_row_id';
   }
   
   // Generated layout
@@ -38,7 +38,7 @@ function mlmi_builder_create_acf_layout($key, $settings) {
     'label' => $settings['label'],
     'display' => $settings['display'],
     'sub_fields' => [
-      [
+      'mlmi_builder_cloned_group_'.$key => [
         'key' => 'mlmi_builder_cloned_group_'.$key,
         'label' => __('Clone', 'mlmi-builder'),
         'name' => 'replaced',
@@ -223,7 +223,7 @@ if (function_exists('acf_add_local_field_group')):
       $offset_choices[$o] = $o;
     }
     $column_group_option_fields = [
-      [
+      'column_width' => [
         'key' => 'column_width',
         'label' => __('Largeur', 'mlmi-builder'),
         'name' => 'column_width',
@@ -240,7 +240,7 @@ if (function_exists('acf_add_local_field_group')):
         'default_value' => $i - 1,
         'return_format' => 'value',
       ],
-      [
+      'column_offset' => [
         'key' => 'column_offset',
         'label' => __('Décalage', 'mlmi-builder'),
         'name' => 'column_offset',
@@ -257,7 +257,7 @@ if (function_exists('acf_add_local_field_group')):
         'default_value' => 0,
         'return_format' => 'value',
       ],
-      [
+      'column_order' => [
         'key' => 'column_order',
         'label' => __('Ordre', 'mlmi-builder'),
         'name' => 'column_order',
@@ -278,7 +278,7 @@ if (function_exists('acf_add_local_field_group')):
         'default_value' => 2,
         'return_format' => 'value',
       ],
-      [
+      'column_options' => [
         'key' => 'column_options',
         'label' => '',
         'name' => 'column_options',
@@ -584,7 +584,7 @@ if (function_exists('acf_add_local_field_group')):
     $additional_standard_row_group = apply_filters('mlmi_builder_standard_row_add_group', '');
     $standard_row_fields = array_merge($standard_row_fields, $additional_standard_row_fields);
     if ($additional_standard_row_group){
-      $standard_row_fields[] = [
+      $standard_row_fields['mlmi_builder_cloned_'.$additional_standard_row_group] = [
         'key' => 'mlmi_builder_cloned_'.$additional_standard_row_group,
         'type' => 'clone',
         'clone' => [
@@ -616,7 +616,7 @@ if (function_exists('acf_add_local_field_group')):
     */
     $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg');
     $gallery_row_fields = [
-      [
+      'gallery_row_field_gallery' => [
         'key' => 'gallery_row_field_gallery',
         'label' => __('Galerie d\'images', 'mlmi-builder'),
         'name' => 'gallery',
@@ -647,7 +647,7 @@ if (function_exists('acf_add_local_field_group')):
     $additional_gallery_row_group = apply_filters('mlmi_builder_gallery_row_add_group', '');
     $gallery_row_fields = array_merge($gallery_row_fields, $additional_gallery_row_fields);
     if ($additional_gallery_row_group){
-      $gallery_row_fields[] = [
+      $gallery_row_fields['mlmi_builder_cloned_'.$additional_gallery_row_group] = [
         'key' => 'mlmi_builder_cloned_'.$additional_gallery_row_group,
         'type' => 'clone',
         'clone' => [
@@ -702,7 +702,7 @@ if (function_exists('acf_add_local_field_group')):
     $additional_code_row_group = apply_filters('mlmi_builder_code_row_add_group', '');
     $code_row_fields = array_merge($code_row_fields, $additional_code_row_fields);
     if ($additional_code_row_group){
-      $code_row_fields[] = [
+      $code_row_fields['mlmi_builder_cloned_'.$additional_code_row_group] = [
         'key' => 'mlmi_builder_cloned_'.$additional_code_row_group,
         'type' => 'clone',
         'clone' => [
@@ -767,7 +767,7 @@ if (function_exists('acf_add_local_field_group')):
     *   Section fields
     */
     $section_fields = [
-      [
+      'mlmi_builder_tab_section' => [
         'key' => 'mlmi_builder_tab_section',
         'label' => '<span class="dashicons dashicons-editor-table"></span>',
         'name' => '',
@@ -784,7 +784,7 @@ if (function_exists('acf_add_local_field_group')):
         'placement' => 'left',
         'endpoint' => 0,
       ],
-      [
+      'mlmi_builder_field_rows' => [
         'key' => 'mlmi_builder_field_rows',
         'label' => '',
         'name' => 'rows',
@@ -803,7 +803,7 @@ if (function_exists('acf_add_local_field_group')):
         'min' => '',
         'max' => '',
       ],
-      [
+      'mlmi_builder_tab_presentation' => [
         'key' => 'mlmi_builder_tab_presentation',
         'label' => '<span class="dashicons dashicons-desktop"></span>',
         'name' => '',
@@ -820,7 +820,7 @@ if (function_exists('acf_add_local_field_group')):
         'placement' => 'top',
         'endpoint' => 0,
       ],
-      [
+      'mlmi_builder_field_section_bg_color' => [
         'key' => 'mlmi_builder_field_section_bg_color',
         'label' => __('Couleur d\'arrière-plan', 'mlmi-builder'),
         'name' => 'bg_color',
@@ -842,7 +842,7 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'save_other_choice' => 0,
       ],
-      [
+      'mlmi_builder_field_section_use_container' => [
         'key' => 'mlmi_builder_field_section_use_container',
         'label' => __('Conteneur', 'mlmi-builder'),
         'name' => 'use_container',
@@ -865,7 +865,7 @@ if (function_exists('acf_add_local_field_group')):
         'ajax' => 0,
         'placeholder' => '',
       ],
-      [
+      'mlmi_builder_field_section_padding_top' => [
         'key' => 'mlmi_builder_field_section_padding_top',
         'label' => __('Espacement haut', 'mlmi-builder'),
         'name' => 'padding_top',
@@ -888,7 +888,7 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
-      [
+      'mlmi_builder_field_section_padding_bottom' => [
         'key' => 'mlmi_builder_field_section_padding_bottom',
         'label' => __('Espacement bas', 'mlmi-builder'),
         'name' => 'padding_bottom',
@@ -910,7 +910,7 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
-      [
+      'mlmi_builder_field_section_class' => [
         'key' => 'mlmi_builder_field_section_class',
         'label' => __('Classes de section', 'mlmi-builder'),
         'name' => 'section_class',
@@ -930,7 +930,7 @@ if (function_exists('acf_add_local_field_group')):
         'append' => '',
         'maxlength' => '',
       ],
-      [
+      'mlmi_builder_field_section_id' => [
         'key' => 'mlmi_builder_field_section_id',
         'label' => __('ID de section', 'mlmi-builder'),
         'name' => 'section_id',
@@ -977,7 +977,7 @@ if (function_exists('acf_add_local_field_group')):
       'key' => 'mlmi_builder_main',
       'title' => __('MLMI Builder', 'mlmi-builder'),
       'fields' => [
-        [
+        'mlmi_builder_field_sections' => [
           'key' => 'mlmi_builder_field_sections',
           'label' => '',
           'name' => 'sections',
