@@ -118,23 +118,24 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							}
 						}
 						
-						/* Order columns */
-						$mobile_first_column = -1;
-						$mobile_last_column = -1;
+						// /* Order columns */
 						foreach ($columns as $index => &$column) {
+							$column['column_order_md'] = $index + 1;
 							if (!isset($column['column_order'])) { $column['column_order'] = 2; }
 							if (!isset($column['column_offset'])) { $column['column_offset'] = 0; }
 							if (!isset($column['column_options'])) { $column['column_options'] = []; }
-							if ($mobile_first_column == -1 || $column['column_order'] < $columns[$mobile_first_column]['column_order']) {
-								$mobile_first_column = $index;
-							}
-							if ($mobile_last_column == -1 || $column['column_order'] >= $columns[$mobile_last_column]['column_order']) {
-								$mobile_last_column = $index;
-							}
 						}
 						
+						/* Reorder columns array */
+						usort($columns, function($a, $b) {
+							return $a['column_order'] >= $b['column_order'];
+						});
+						
 						/* Build columns */
-						foreach ($columns as $column_index => &$column):
+						foreach ($columns as $index => &$column):
+							/* Column index */
+							$column_index = $column['column_order_md'];
+							
 							/* Column classes */
 							$column_classes = [];
 							$column_classes['column'] = 'col';
@@ -147,9 +148,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							}
 							
 							/* Order classes */
-							if ($column_index == $mobile_first_column) $column_classes[] = 'order-first';
-							if ($column_index == $mobile_last_column) $column_classes[] = 'order-last';
-							$column_classes[] = 'order-md-'.($column_index + 1);
+							$column_classes[] = 'order-md-'.$column['column_order_md'];
 							
 							/* Column options */
 							$column_classes = array_merge($column_classes, $column['column_options']);
@@ -160,7 +159,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							}
 							
 							/* Content */
-							$content = get_sub_field('col_'.($column_index+1));
+							$content = get_sub_field('col_'.$column['column_order_md']);
 							if (!$content){
 								$column_classes[] = 'd-none';
 								$column_classes[] = 'd-md-block';
