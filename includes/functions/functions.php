@@ -74,3 +74,19 @@ function mlmi_builder_attributes_inline($attributes = [], $classes = []) {
   }
   return $attributes_output;
 }
+
+/*
+* Get cloned group field structure
+*/
+function mlmi_builder_cloned_group($group_key) {
+  return [
+    'key' => 'mlmi_builder_cloned_'.$group_key,
+    'name' => 'mlmi_builder_cloned_'.$group_key,
+    'type' => 'clone',
+    'clone' => [
+      0 => $group_key,
+    ],
+    'display' => 'seamless',
+    'layout' => 'block',
+  ];
+}
