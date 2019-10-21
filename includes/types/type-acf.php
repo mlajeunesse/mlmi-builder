@@ -5,7 +5,7 @@
 */
 
 /*
-*   Dynamically create ACF layout using basic settings
+* Dynamically create ACF layout using basic settings
 */
 function mlmi_builder_create_acf_layout($key, $settings) {
   // Default settings
@@ -612,7 +612,7 @@ if (function_exists('acf_add_local_field_group')):
     acf_add_local_field_group($content_type_text_row);
     
     /*
-    *   Content type: Gallery
+    * Content type: Gallery
     */
     $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg');
     $gallery_row_fields = [
@@ -729,7 +729,7 @@ if (function_exists('acf_add_local_field_group')):
     acf_add_local_field_group($content_type_code_row);
     
     /*
-    *   Layout types
+    * Layout types
     */
     $layout_types = [
       'text_row' => [
@@ -751,7 +751,7 @@ if (function_exists('acf_add_local_field_group')):
     $layout_types = apply_filters('mlmi_builder_layout_types', $layout_types);
     
     /*
-    *   Layouts
+    * Layouts
     */
     $layouts = [];
     foreach ($layout_types as $key => $settings) {
@@ -759,12 +759,12 @@ if (function_exists('acf_add_local_field_group')):
     }
     
     /*
-    *   Locations
+    * Locations
     */
     $builder_location = apply_filters('mlmi_builder_location', []);
     
     /*
-    *   Section fields
+    * Section fields
     */
     $section_fields = [
       'mlmi_builder_tab_section' => [
@@ -971,7 +971,7 @@ if (function_exists('acf_add_local_field_group')):
     }
     
     /*
-    *   MLMI Builder
+    * MLMI Builder
     */
     $config = [
       'key' => 'mlmi_builder_main',
@@ -1011,7 +1011,7 @@ if (function_exists('acf_add_local_field_group')):
     ];
     
     /*
-    *   Filter and add global builder group
+    * Filter and add global builder group
     */
     $config = apply_filters('mlmi_builder_config', $config);
     acf_add_local_field_group($config);

@@ -58,7 +58,7 @@ if (!function_exists('mlmi_builder_get_grid_content')) {
 }
 
 /*
-*   Inline attributes for output in the grid.
+* Inline attributes for output in the grid.
 */
 function mlmi_builder_attributes_inline($attributes = [], $classes = []) {
   $attributes_output = "";

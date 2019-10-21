@@ -118,7 +118,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							}
 						}
 						
-						// /* Order columns */
+						/* Order columns */
 						foreach ($columns as $index => &$column) {
 							$column['column_order_md'] = $index + 1;
 							if (!isset($column['column_order'])) { $column['column_order'] = 2; }
