@@ -26,6 +26,7 @@ $section_index = 0;
 /* Loop for tabs */
 if ($use_tabs_system) {
 	$builder_tabs = [];
+	$builder_tabs_ids = [];
 	$in_tabset = false;
 	$in_tab = false;
 	foreach ($sections as $index => $section) {
@@ -33,12 +34,11 @@ if ($use_tabs_system) {
 		$end_tabset = false;
 		$tab_data = [];
 		if ($in_tabset === false) {
-			if ($section['tab_cycle'] == 'none' || $section['tab_cycle'] == 'tab_end') {
-				// no tabs yet
-			} else if ($section['tab_cycle'] == 'tab_start') {
-				$tab_data['open_tab'] = $section['tab_label'];
+			if ($section['tab_cycle'] == 'tab_start') {
+				$tab_id = mlmi_builder_unique_id($section['tab_label']);
+				$tab_data['open_tab'] = $tab_id;
 				$in_tabset = [];
-				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label']];
+				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label'], 'id' => $tab_id];
 				$in_tab = [];
 				$in_tab[] = $index;
 			}
@@ -49,8 +49,9 @@ if ($use_tabs_system) {
 				$end_tab = true;
 				$in_tab = [];
 				$in_tab[] = $index;
-				$tab_data['open_tab'] = $section['tab_label'];
-				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label']];
+				$tab_id = mlmi_builder_unique_id($section['tab_label']);
+				$tab_data['open_tab'] = $tab_id;
+				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label'], 'id' => $tab_id];
 			} else if ($section['tab_cycle'] == 'tab_end') {
 				$end_tabset = true;
 				$end_tab = true;

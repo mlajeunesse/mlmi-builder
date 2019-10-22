@@ -158,7 +158,7 @@ if (function_exists('acf_add_local_field_group')):
     /*
     * Builder Plugin: Tabs
     */
-    $mlmi_builder_tab_fields = [
+    $tabs_fields = [
       [
         'key' => 'field_5dadfb79863c9',
         'label' => '<span class="dashicons dashicons-category"></span>',
@@ -208,7 +208,7 @@ if (function_exists('acf_add_local_field_group')):
         'name' => 'tab_label',
         'type' => 'text',
         'instructions' => '',
-        'required' => 0,
+        'required' => 1,
         'conditional_logic' => [
           [
             [
@@ -1037,7 +1037,7 @@ if (function_exists('acf_add_local_field_group')):
       array_splice($section_fields, 3, 0, [$cloned_fields]);
     }
     if ($use_tabs_system) {
-      $section_fields = array_merge($section_fields, $mlmi_builder_tab_fields);
+      $section_fields = array_merge($section_fields, $tabs_fields);
     }
     $section_fields = apply_filters('mlmi_section_fields', $section_fields);
     

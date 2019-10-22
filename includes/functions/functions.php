@@ -90,3 +90,23 @@ function mlmi_builder_cloned_group($group_key) {
     'layout' => 'block',
   ];
 }
+
+/*
+* Get unique sanitized 
+*/
+$mlmi_builder_unique_ids = [];
+function mlmi_builder_unique_id($string) {
+  global $mlmi_builder_unique_ids;
+  $unique_id = sanitize_title($string);
+  if (in_array($unique_id, $mlmi_builder_unique_ids) && function_exists('string_random')) {
+    $id_exists = $unique_id;
+    while ($id_exists) {
+      $unique_id = $unique_id.'-'.string_random(4);
+      if (!in_array($unique_id, $mlmi_builder_unique_ids)) {
+        $id_exists = false;
+      }
+    }
+  }
+  $mlmi_builder_unique_ids[] = $unique_id;
+  return $unique_id;
+}
