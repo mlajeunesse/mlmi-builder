@@ -121,7 +121,7 @@ function mlmi_builder_tabs_open($tabs = []) {
     echo '<div class="tabs">';
     echo '<div class="tabs__list" role="tablist">';
     foreach ($tabs['display_tabs'] as $index => $tab) {
-      echo '<button role="tab" tabindex="-1" aria-selected="'.($index == 0 ? 'true' : 'false').'" aria-controls="tab-'.$tab['id'].'" id="'.$tab['id'].'">'.$tab['label'].'</button>';
+      echo '<button class="tabs__item" role="tab" tabindex="-1" aria-selected="'.($index == 0 ? 'true' : 'false').'" aria-controls="tab-'.$tab['id'].'" id="'.$tab['id'].'">'.$tab['label'].'</button>';
     }
     echo '</div>';
     echo '<div class="tabs__panels-list">';
