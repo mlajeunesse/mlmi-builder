@@ -11,15 +11,70 @@ global $is_first_section, $is_last_section;
 global $is_first_row, $is_last_row;
 global $section_index, $row_index, $column_index;
 global $use_container;
+global $builder_tabs;
 
 /* Filtered settings */
 $desktop_prefix = apply_filters('mlmi_builder_desktop_prefix', 'md');
 $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
+$use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
 
 /* Prepare sections loop */
 $sections = get_field('sections', $post_id);
 $sections_count = $sections ? count($sections) : 0;
 $section_index = 0;
+
+/* Loop for tabs */
+if ($use_tabs_system) {
+	$builder_tabs = [];
+	$in_tabset = false;
+	$in_tab = false;
+	foreach ($sections as $index => $section) {
+		$end_tab = false;
+		$end_tabset = false;
+		$tab_data = [];
+		if ($in_tabset === false) {
+			if ($section['tab_cycle'] == 'none' || $section['tab_cycle'] == 'tab_end') {
+				// no tabs yet
+			} else if ($section['tab_cycle'] == 'tab_start') {
+				$tab_data['open_tab'] = $section['tab_label'];
+				$in_tabset = [];
+				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label']];
+				$in_tab = [];
+				$in_tab[] = $index;
+			}
+		} else if ($in_tabset !== false) {
+			if ($section['tab_cycle'] == 'tab_none') {
+				$in_tab[] = $index;
+			} else if ($section['tab_cycle'] == 'tab_start') {
+				$end_tab = true;
+				$in_tab = [];
+				$in_tab[] = $index;
+				$tab_data['open_tab'] = $section['tab_label'];
+				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label']];
+			} else if ($section['tab_cycle'] == 'tab_end') {
+				$end_tabset = true;
+				$end_tab = true;
+			}
+		}
+		if ($end_tab) {
+			$builder_tabs[$index - 1]['close_tab'] = 1;
+		}
+		if ($end_tabset) {
+			$builder_tabs[$index - 1]['close_tabset'] = 1;
+			$builder_tabs[$in_tabset[0]['index']]['display_tabs'] = $in_tabset;
+			$in_tabset = false;
+			$in_tab = false;
+		}
+		$builder_tabs[$index] = $tab_data;
+	}
+	if ($in_tab) {
+		$builder_tabs[count($sections) - 1]['close_tab'] = 1;
+	}
+	if ($in_tabset) {
+		$builder_tabs[count($sections) - 1]['close_tabset'] = 1;
+		$builder_tabs[$in_tabset[0]['index']]['display_tabs'] = $in_tabset;
+	}
+}
 
 /* Loop sections */
 if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : the_row();

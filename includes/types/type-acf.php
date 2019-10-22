@@ -84,14 +84,14 @@ if (function_exists('acf_add_local_field_group')):
     $hide_on_screen = apply_filters('mlmi_builder_hide_on_screen', $hidden);
     
     /*
-    * Grid system base
+    * Builder options
     */
     $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
+    $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
     
     /*
     * Number of columns allowed
     */
-    // global $columns_choices;
     global $columns_choices;
     $columns_choices = apply_filters('mlmi_builder_columns_choices', [
       1 => __('1 colonne', 'mlmi-builder'),
@@ -154,6 +154,82 @@ if (function_exists('acf_add_local_field_group')):
       }
       return $logic;
     }
+    
+    /*
+    * Builder Plugin: Tabs
+    */
+    $mlmi_builder_tab_fields = [
+      [
+        'key' => 'field_5dadfb79863c9',
+        'label' => '<span class="dashicons dashicons-category"></span>',
+        'name' => '',
+        'type' => 'tab',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ],
+        'placement' => 'left',
+        'endpoint' => 0,
+      ],
+      [
+        'key' => 'field_5dadfb89863ca',
+        'label' => 'Onglet',
+        'name' => 'tab_cycle',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '50',
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => [
+          'tab_none' => 'Par défaut',
+          'tab_start' => 'Nouvel onglet',
+          'tab_end' => 'Hors de l\'onglet',
+        ],
+        'default_value' => [
+        ],
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'return_format' => 'value',
+        'ajax' => 0,
+        'placeholder' => '',
+      ],
+      [
+        'key' => 'field_5dadfbc9863cb',
+        'label' => 'Libellé',
+        'name' => 'tab_label',
+        'type' => 'text',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'field_5dadfb89863ca',
+              'operator' => '==',
+              'value' => 'tab_start',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '50',
+          'class' => '',
+          'id' => '',
+        ],
+        'default_value' => '',
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'maxlength' => '',
+      ],
+    ];
     
     /*
     * Content Type: Standard Row
@@ -455,11 +531,11 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'group',
         'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
-        'wrapper' => array(
+        'wrapper' => [
           'width' => '33.333',
           'class' => 'no-group column-label mlmi-builder-column-option',
           'id' => '',
-        ),
+        ],
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
@@ -470,11 +546,11 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'group',
         'wpml_cf_preferences' => 3,
         'conditional_logic' => mlmi_builder_get_conditional_logic(2),
-        'wrapper' => array(
+        'wrapper' => [
           'width' => '33.333',
           'class' => 'no-group column-label mlmi-builder-column-option',
           'id' => '',
-        ),
+        ],
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
@@ -485,11 +561,11 @@ if (function_exists('acf_add_local_field_group')):
         'type' => 'group',
         'wpml_cf_preferences' => 3,
         'conditional_logic' => mlmi_builder_get_conditional_logic(3),
-        'wrapper' => array(
+        'wrapper' => [
           'width' => '33.333',
           'class' => 'no-group column-label mlmi-builder-column-option',
           'id' => '',
-        ),
+        ],
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
       ],
@@ -959,6 +1035,9 @@ if (function_exists('acf_add_local_field_group')):
     if ($additional_section_group){
       $cloned_fields = mlmi_builder_cloned_group($additional_section_group);
       array_splice($section_fields, 3, 0, [$cloned_fields]);
+    }
+    if ($use_tabs_system) {
+      $section_fields = array_merge($section_fields, $mlmi_builder_tab_fields);
     }
     $section_fields = apply_filters('mlmi_section_fields', $section_fields);
     
