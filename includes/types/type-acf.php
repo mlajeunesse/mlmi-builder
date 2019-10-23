@@ -752,8 +752,34 @@ if (function_exists('acf_add_local_field_group')):
     /*
     * Content Type: Shortcode
     */
+    $shortcode_choices = apply_filters('mlmi_builder_registered_items', [
+      'shortcode' => __('Shortcode', 'mlmi-builder'),
+    ]);
     $code_row_fields = [
-      [
+      'code_row_field_template_item' => [
+        'key' => 'code_row_field_template_item',
+        'label' => __('Item', 'mlmi-builder'),
+        'name' => 'template_item',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 1,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '50',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'choices' => $shortcode_choices,
+        'default_value' => 'container',
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'return_format' => 'value',
+        'ajax' => 0,
+        'placeholder' => '',
+      ],
+      'code_row_field_shortcode' => [
         'key' => 'code_row_field_shortcode',
         'label' => '',
         'name' => 'shortcode',
@@ -761,9 +787,17 @@ if (function_exists('acf_add_local_field_group')):
         'instructions' => '',
         'required' => 0,
         'wpml_cf_preferences' => 3,
-        'conditional_logic' => 0,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'code_row_field_template_item',
+              'operator' => '==',
+              'value' => 'shortcode',
+            ],
+          ],
+        ],
         'wrapper' => [
-          'width' => '',
+          'width' => '50',
           'class' => 'no-label',
           'id' => '',
         ],
