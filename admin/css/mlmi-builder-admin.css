@@ -203,6 +203,15 @@
   border-radius: 3px;
 }
 
-.d-none {
+.d-none,
+.display-none {
   display: none;
+}
+
+.smaller-gallery .acf-gallery {
+  height: 223px !important;
+}
+
+.smaller-editor .mce-edit-area > iframe {
+  height: 200px !important;
 }
