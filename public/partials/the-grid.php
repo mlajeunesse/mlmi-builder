@@ -24,7 +24,7 @@ $sections_count = $sections ? count($sections) : 0;
 $section_index = 0;
 
 /* Loop for tabs */
-if ($use_tabs_system) {
+if ($use_tabs_system && $sections) {
 	/* Add action */
 	add_action('mlmi_builder_tabs_open', 'mlmi_builder_tabs_open');
 	add_action('mlmi_builder_tabs_close', 'mlmi_builder_tabs_close');
