@@ -941,7 +941,7 @@ if (function_exists('acf_add_local_field_group')):
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '50',
-          'class' => '',
+          'class' => 'clear-left',
           'id' => '',
         ],
         'choices' => $background_color_options,

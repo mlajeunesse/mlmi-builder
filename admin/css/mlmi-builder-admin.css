@@ -205,7 +205,7 @@
 
 .d-none,
 .display-none {
-  display: none;
+  display: none !important;
 }
 
 .smaller-gallery .acf-gallery {
@@ -214,4 +214,12 @@
 
 .smaller-editor .mce-edit-area > iframe {
   height: 200px !important;
+}
+
+.clear-left {
+  clear: left !important;
+}
+
+.collapse-height {
+  min-height: 0 !important;
 }
