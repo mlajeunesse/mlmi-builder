@@ -90,6 +90,44 @@ if (function_exists('acf_add_local_field_group')):
     $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
     
     /*
+    * Padding options
+    */
+    $padding_bottom_options = apply_filters('mlmi_builder_padding_bottom_options', [
+      'pb-md-15' => '15',
+      'pb-md-12' => '12',
+      'pb-md-10' => '10',
+      'pb-md-9' => '9',
+      'pb-md-8' => '8',
+      'pb-md-7' => '7',
+      'pb-md-6' => '6',
+      'pb-md-5' => '5',
+      'pb-md-4' => '4',
+      'pb-md-3' => '3',
+      'pb-md-2' => '2',
+      'pb-md-1' => '1',
+      'pb-md-0' => __('Aucun', 'mlmi-builder'),
+      'pb-auto' => __('Auto', 'mlmi-builder'),
+    ]);
+    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-auto');
+    $padding_top_options = apply_filters('mlmi_builder_padding_top_options', [
+      'pt-md-15' => '15',
+      'pt-md-12' => '12',
+      'pt-md-10' => '10',
+      'pt-md-9' => '9',
+      'pt-md-8' => '8',
+      'pt-md-7' => '7',
+      'pt-md-6' => '6',
+      'pt-md-5' => '5',
+      'pt-md-4' => '4',
+      'pt-md-3' => '3',
+      'pt-md-2' => '2',
+      'pt-md-1' => '1',
+      'pt-md-0' => __('Aucun', 'mlmi-builder'),
+      'pt-auto' => __('Auto', 'mlmi-builder'),
+    ]);
+    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-auto');
+    
+    /*
     * Number of columns allowed
     */
     global $columns_choices;
@@ -273,46 +311,130 @@ if (function_exists('acf_add_local_field_group')):
         'return_format' => 'value',
         'placeholder' => '',
       ],
+      'mlmi_builder_tabset_padding_top' => [
+        'key' => 'mlmi_builder_tabset_padding_top',
+        'label' => __('Espacement haut', 'mlmi-builder'),
+        'name' => 'tabset_padding_top',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '25',
+          'class' => 'clear-left',
+          'id' => '',
+        ],
+        'choices' => $padding_top_options,
+        'default_value' => $padding_top_default,
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'ajax' => 0,
+        'return_format' => 'value',
+        'placeholder' => '',
+      ],
+      'mlmi_builder_tabset_padding_bottom' => [
+        'key' => 'mlmi_builder_tabset_padding_bottom',
+        'label' => __('Espacement bas', 'mlmi-builder'),
+        'name' => 'tabset_padding_bottom',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '25',
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => $padding_bottom_options,
+        'default_value' => $padding_bottom_default,
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'ajax' => 0,
+        'return_format' => 'value',
+        'placeholder' => '',
+      ],
+      'mlmi_builder_tabset_class' => [
+        'key' => 'mlmi_builder_tabset_class',
+        'label' => __('Classes de bloc', 'mlmi-builder'),
+        'name' => 'tabset_class',
+        'type' => 'text',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '25',
+          'class' => '',
+          'id' => '',
+        ],
+        'default_value' => '',
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'maxlength' => '',
+      ],
+      'mlmi_builder_tabset_id' => [
+        'key' => 'mlmi_builder_tabset_id',
+        'label' => __('ID de bloc', 'mlmi-builder'),
+        'name' => 'row_id',
+        'type' => 'text',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '25',
+          'class' => '',
+          'id' => '',
+        ],
+        'default_value' => '',
+        'placeholder' => '',
+        'prepend' => '',
+        'append' => '',
+        'maxlength' => '',
+      ],
     ];
     
     /*
     * Content Type: Standard Row
     */
     $content_type_text_row_column_options = apply_filters('mlmi_builder_column_options', []);
-    $padding_bottom_options = apply_filters('mlmi_builder_padding_bottom_options', [
-      'pb-md-15' => '15',
-      'pb-md-12' => '12',
-      'pb-md-10' => '10',
-      'pb-md-9' => '9',
-      'pb-md-8' => '8',
-      'pb-md-7' => '7',
-      'pb-md-6' => '6',
-      'pb-md-5' => '5',
-      'pb-md-4' => '4',
-      'pb-md-3' => '3',
-      'pb-md-2' => '2',
-      'pb-md-1' => '1',
-      'pb-md-0' => __('Aucun', 'mlmi-builder'),
-      'pb-auto' => __('Auto', 'mlmi-builder'),
-    ]);
-    $padding_bottom_default = apply_filters('mlmi_builder_padding_bottom_default', 'pb-auto');
-    $padding_top_options = apply_filters('mlmi_builder_padding_top_options', [
-      'pt-md-15' => '15',
-      'pt-md-12' => '12',
-      'pt-md-10' => '10',
-      'pt-md-9' => '9',
-      'pt-md-8' => '8',
-      'pt-md-7' => '7',
-      'pt-md-6' => '6',
-      'pt-md-5' => '5',
-      'pt-md-4' => '4',
-      'pt-md-3' => '3',
-      'pt-md-2' => '2',
-      'pt-md-1' => '1',
-      'pt-md-0' => __('Aucun', 'mlmi-builder'),
-      'pt-auto' => __('Auto', 'mlmi-builder'),
-    ]);
-    $padding_top_default = apply_filters('mlmi_builder_padding_top_default', 'pt-auto');
     
     /*
     * Container options
