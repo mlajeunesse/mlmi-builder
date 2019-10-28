@@ -34,18 +34,23 @@ if ($use_tabs_system && $sections) {
 	$builder_tabs_ids = [];
 	$in_tabset = false;
 	$in_tab = false;
+	
 	foreach ($sections as $index => $section) {
 		$end_tab = false;
 		$end_tabset = false;
+		$restart_tabset = false;
 		$tab_data = [];
 		if ($in_tabset === false) {
-			if ($section['tab_cycle'] == 'tab_start') {
+			if ($section['tab_cycle'] == 'tab_start' || $section['tab_cycle'] == 'tab_group') {
 				$tab_id = mlmi_builder_unique_id($section['tab_label']);
 				$tab_data['open_tab'] = $tab_id;
 				$in_tabset = [];
 				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label'], 'id' => $tab_id];
 				$in_tab = [];
 				$in_tab[] = $index;
+				if ($section['tab_cycle'] == 'tab_group') {
+					$tab_data['tabset_format'] = $section['tabset_format'];
+				}
 			}
 		} else if ($in_tabset !== false) {
 			if ($section['tab_cycle'] == 'tab_none') {
@@ -57,9 +62,12 @@ if ($use_tabs_system && $sections) {
 				$tab_id = mlmi_builder_unique_id($section['tab_label']);
 				$tab_data['open_tab'] = $tab_id;
 				$in_tabset[] = ['index' => $index, 'label' => $section['tab_label'], 'id' => $tab_id];
-			} else if ($section['tab_cycle'] == 'tab_end') {
+			} else if ($section['tab_cycle'] == 'tab_end' || $section['tab_cycle'] == 'tab_group') {
 				$end_tabset = true;
 				$end_tab = true;
+				if ($section['tab_cycle'] == 'tab_group') {
+					$restart_tabset = true;
+				}
 			}
 		}
 		if ($end_tab) {
@@ -70,6 +78,17 @@ if ($use_tabs_system && $sections) {
 			$builder_tabs[$in_tabset[0]['index']]['display_tabs'] = $in_tabset;
 			$in_tabset = false;
 			$in_tab = false;
+		}
+		if ($restart_tabset) {
+			$tab_id = mlmi_builder_unique_id($section['tab_label']);
+			$tab_data['open_tab'] = $tab_id;
+			$in_tabset = [];
+			$in_tabset[] = ['index' => $index, 'label' => $section['tab_label'], 'id' => $tab_id];
+			$in_tab = [];
+			$in_tab[] = $index;
+			if ($section['tab_cycle'] == 'tab_group') {
+				$tab_data['tabset_format'] = $section['tabset_format'];
+			}
 		}
 		$builder_tabs[$index] = $tab_data;
 	}

@@ -158,14 +158,18 @@ if (function_exists('acf_add_local_field_group')):
     /*
     * Builder Plugin: Tabs
     */
+    $tabs_formats_choices = apply_filters('mlmi_builder_tabset_format_choices', [
+      'default' => __('Par défaut', 'mlmi-builder'),
+    ]);
     $tabs_fields = [
-      [
-        'key' => 'field_5dadfb79863c9',
+      'mlmi_builder_tabs_tab' => [
+        'key' => 'mlmi_builder_tabs_tab',
         'label' => '<span class="dashicons dashicons-category"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
         'required' => 0,
+        'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
@@ -175,23 +179,25 @@ if (function_exists('acf_add_local_field_group')):
         'placement' => 'left',
         'endpoint' => 0,
       ],
-      [
-        'key' => 'field_5dadfb89863ca',
+      'mlmi_builder_tab_cycle' => [
+        'key' => 'mlmi_builder_tab_cycle',
         'label' => 'Onglet',
         'name' => 'tab_cycle',
         'type' => 'select',
         'instructions' => '',
         'required' => 0,
+        'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
-          'width' => '50',
+          'width' => 33,
           'class' => '',
           'id' => '',
         ],
         'choices' => [
           'tab_none' => 'Par défaut',
+          'tab_group' => 'Nouveau groupe d\'onglets',
           'tab_start' => 'Nouvel onglet',
-          'tab_end' => 'Hors de l\'onglet',
+          'tab_end' => 'Hors du groupe d\'onglets',
         ],
         'default_value' => [
         ],
@@ -202,24 +208,32 @@ if (function_exists('acf_add_local_field_group')):
         'ajax' => 0,
         'placeholder' => '',
       ],
-      [
-        'key' => 'field_5dadfbc9863cb',
+      'mlmi_builder_tab_label' => [
+        'key' => 'mlmi_builder_tab_label',
         'label' => 'Libellé',
         'name' => 'tab_label',
         'type' => 'text',
         'instructions' => '',
         'required' => 1,
+        'wpml_cf_preferences' => 3,
         'conditional_logic' => [
           [
             [
-              'field' => 'field_5dadfb89863ca',
+              'field' => 'mlmi_builder_tab_cycle',
               'operator' => '==',
               'value' => 'tab_start',
             ],
           ],
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
         ],
         'wrapper' => [
-          'width' => '50',
+          'width' => 34,
           'class' => '',
           'id' => '',
         ],
@@ -228,6 +242,36 @@ if (function_exists('acf_add_local_field_group')):
         'prepend' => '',
         'append' => '',
         'maxlength' => '',
+      ],
+      'mlmi_builder_tabset_format' => [
+        'key' => 'mlmi_builder_tabset_format',
+        'label' => __('Format', 'mlmi-builder'),
+        'name' => 'tabset_format',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => 33,
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => $tabs_formats_choices,
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'ajax' => 0,
+        'return_format' => 'value',
+        'placeholder' => '',
       ],
     ];
     
