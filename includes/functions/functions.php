@@ -118,7 +118,25 @@ function mlmi_builder_tabs_open($tabs = []) {
   $is_first_tab = false;
   if (isset($tabs['display_tabs']) && $tabs['display_tabs']) {
     $is_first_tab = true;
-    echo '<div class="tabs">';
+    $tabset_classes = ['tabs'];
+    $tabset_attributes = [];
+    if (isset($tabs['tabset_format']) && $tabs['tabset_format'] != '' && $tabs['tabset_format'] != 'default') {
+      $tabset_classes[] = 'tabs--'.$tabs['tabset_format'];
+    }
+    if ($tabset_manual_class = get_sub_field('tabset_class')) {
+      $tabset_manual_class = explode(' ', $tabset_manual_class);
+      $tabset_classes = array_merge($tabset_classes, $tabset_manual_class);
+    }
+    $tabset_classes[] = get_sub_field('tabset_padding_top');
+  	$tabset_classes[] = get_sub_field('tabset_padding_bottom');
+    if ($tabset_id = get_sub_field('tabset_id')) {
+      $tabset_attributes['id'] = $tabset_id;
+    }
+    if ($tabset_id = get_sub_field('tabset_id')) {
+      $tabset_attributes['id'] = $tabset_id;
+    }
+    echo '<div'.mlmi_builder_attributes_inline($tabset_attributes, $tabset_classes).'">';
+    echo '<div class="tabs__wrapper">';
     echo '<div class="tabs__list" role="tablist">';
     foreach ($tabs['display_tabs'] as $index => $tab) {
       echo '<button class="tabs__item" role="tab" tabindex="-1" aria-selected="'.($index == 0 ? 'true' : 'false').'" aria-controls="tab-'.$tab['id'].'" id="'.$tab['id'].'">'.$tab['label'].'</button>';
@@ -139,6 +157,7 @@ function mlmi_builder_tabs_close($tabs = []) {
     echo '</div>';
   }
   if (isset($tabs['close_tabset']) && $tabs['close_tabset']) {
+    echo '</div>';
     echo '</div>';
     echo '</div>';
   }

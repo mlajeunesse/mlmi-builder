@@ -404,7 +404,7 @@ if (function_exists('acf_add_local_field_group')):
       'mlmi_builder_tabset_id' => [
         'key' => 'mlmi_builder_tabset_id',
         'label' => __('ID de bloc', 'mlmi-builder'),
-        'name' => 'row_id',
+        'name' => 'tabset_id',
         'type' => 'text',
         'instructions' => '',
         'required' => 0,
