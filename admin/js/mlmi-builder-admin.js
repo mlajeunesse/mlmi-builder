@@ -52,6 +52,7 @@ let mlmi_builder = {
 				let columns_choice = $(row).find("div.acf-field.select-cols-number select").val();
 				let columns_number = parseInt($(row).find("div.acf-field.select-cols-number select").val(), 10);
 				let columns_custom = (columns_choice == columns_number);
+				
 				if (columns_number == 3) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "33.333%").removeClass('d-none');
 					$(row).find(".mlmi-builder-column[data-name=col_2]").css("width", "33.333%").removeClass('d-none');
@@ -60,6 +61,7 @@ let mlmi_builder = {
 						$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "33.333%").show();
 						$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "33.333%").show();
 						$(row).find(".mlmi-builder-column-option[data-name=col_3_group]").css("width", "33.333%").show();
+						$(row).find('.acf-field[data-name=column_width] select').val(4);
 					}
 				} else if (columns_number == 2) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "50%").removeClass('d-none');
@@ -68,6 +70,7 @@ let mlmi_builder = {
 					if (columns_custom) {
 						$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "50%").show();
 						$(row).find(".mlmi-builder-column-option[data-name=col_2_group]").css("width", "50%").show();
+						$(row).find('.acf-field[data-name=column_width] select').val(6);
 					}
 				} else if (columns_number == 1) {
 					$(row).find(".mlmi-builder-column[data-name=col_1]").css("width", "100%").removeClass('d-none');
@@ -75,6 +78,7 @@ let mlmi_builder = {
 					$(row).find(".mlmi-builder-column[data-name=col_3]").removeClass('d-none');
 					if (columns_custom) {
 						$(row).find(".mlmi-builder-column-option[data-name=col_1_group]").css("width", "100%").show();
+						$(row).find('.acf-field[data-name=column_width] select').val(12);
 					}
 				}
 				$(row).find(".mlmi-builder-column-option[data-name=col_1]").addClass('-c0');
