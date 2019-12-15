@@ -126,6 +126,18 @@
 }
 
 /*
+*  Shortcode conditional groups
+*/
+
+.mlmi-builder-row .layout[data-layout='code_row'] .acf-clone-fields.-border {
+  border: 0 !important;
+}
+
+.mlmi-builder-row .layout[data-layout='code_row'] .acf-clone-fields.-border > .acf-field {
+  padding: 0 !important;
+}
+
+/*
 *  Minimum height
 */
 
