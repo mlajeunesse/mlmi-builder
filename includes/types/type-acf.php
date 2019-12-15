@@ -918,9 +918,18 @@ if (function_exists('acf_add_local_field_group')):
     /*
     * Content Type: Shortcode
     */
-    $shortcode_choices = apply_filters('mlmi_builder_registered_items', [
+    $shortcode_items = apply_filters('mlmi_builder_shortcode_items', [
       'shortcode' => __('Shortcode', 'mlmi-builder'),
     ]);
+    $shortcode_groups = [];
+    foreach ($shortcode_items as $key => $item) {
+      if (is_array($item)) {
+        if (count($item) >= 2) {
+          $shortcode_groups[$key] = $item[1];
+        }
+        $shortcode_items[$key] = $item[0];
+      }
+    }
     $code_row_fields = [
       'code_row_field_template_item' => [
         'key' => 'code_row_field_template_item',
@@ -936,7 +945,7 @@ if (function_exists('acf_add_local_field_group')):
           'class' => 'no-label',
           'id' => '',
         ],
-        'choices' => $shortcode_choices,
+        'choices' => $shortcode_items,
         'default_value' => 'container',
         'allow_null' => 0,
         'multiple' => 0,
@@ -981,11 +990,27 @@ if (function_exists('acf_add_local_field_group')):
       $code_row_fields['mlmi_builder_cloned_'.$additional_code_row_group] = [
         'key' => 'mlmi_builder_cloned_'.$additional_code_row_group,
         'type' => 'clone',
-        'clone' => [
-          0 => $additional_code_row_group,
-        ],
+        'clone' => [$additional_code_row_group],
         'display' => 'seamless',
         'layout' => 'block',
+      ];
+    }
+    foreach ($shortcode_groups as $key => $group_id) {
+      $code_row_fields['mlmi_builder_conditional_'.$key] = [
+        'key' => 'mlmi_builder_conditional_'.$key,
+        'type' => 'clone',
+        'clone' => [$group_id],
+        'display' => 'group',
+        'layout' => 'block',
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'code_row_field_template_item',
+              'operator' => '==',
+              'value' => $key,
+            ],
+          ],
+        ],
       ];
     }
     $content_type_code_row = [
