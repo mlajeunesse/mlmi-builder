@@ -925,7 +925,10 @@ if (function_exists('acf_add_local_field_group')):
     foreach ($shortcode_items as $key => $item) {
       if (is_array($item)) {
         if (count($item) >= 2) {
-          $shortcode_groups[$key] = $item[1];
+          for ($i = 1; $i < count($item); $i++) {
+            if ($i === 1) $shortcode_groups[$key] = [];
+            $shortcode_groups[$key][] = $item[$i];
+          }
         }
         $shortcode_items[$key] = $item[0];
       }
@@ -995,23 +998,21 @@ if (function_exists('acf_add_local_field_group')):
         'layout' => 'block',
       ];
     }
-    foreach ($shortcode_groups as $key => $group_id) {
-      $code_row_fields['mlmi_builder_conditional_'.$key] = [
-        'key' => 'mlmi_builder_conditional_'.$key,
-        'type' => 'clone',
-        'clone' => [$group_id],
-        'display' => 'group',
-        'layout' => 'block',
-        'conditional_logic' => [
-          [
-            [
-              'field' => 'code_row_field_template_item',
-              'operator' => '==',
-              'value' => $key,
-            ],
-          ],
-        ],
-      ];
+    foreach ($shortcode_groups as $key => $field_ids) {
+      foreach ($field_ids as $field_id) {
+        $field = get_field_object($field_id);
+        $unset_keys = ['ID', 'prefix', 'menu_order', 'value', 'id', 'class', 'parent', '_name', '_valid'];
+        foreach ($unset_keys as $unset_key) {
+          unset($field[$unset_key]);
+        }
+        $field['key'] = 'code_row_conditional_'.$field_id;
+        $field['conditional_logic'] = [[
+          'field' => 'code_row_field_template_item',
+          'operator' => '==',
+          'value' => $key,
+        ]];
+        $code_row_fields[$field['key']] = $field;
+      }
     }
     $content_type_code_row = [
       'key' => 'mlmi_builder_layout_code_row',
