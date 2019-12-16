@@ -211,7 +211,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 						
 						/* Reorder columns array */
 						usort($columns, function($a, $b) {
-							return $a['column_order'] >= $b['column_order'];
+							return $a['column_order'] > $b['column_order'];
 						});
 						
 						/* Build columns */
