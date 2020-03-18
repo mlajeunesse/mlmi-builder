@@ -110,8 +110,18 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	
 	/* Section attributes */
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
-	$section_classes[] = get_sub_field('padding_top');
-	$section_classes[] = get_sub_field('padding_bottom');
+	if ($pt = get_sub_field('padding_top')) {
+		$section_classes[] = 'pt-'.$pt;
+	}
+	if ($pt_md = get_sub_field('padding_top_md')) {
+		$section_classes[] = 'pt-md-'.$pt_md;
+	}
+	if ($pb = get_sub_field('padding_bottom')) {
+		$section_classes[] = 'pb-'.$pt;
+	}
+	if ($pb_md = get_sub_field('padding_bottom_md')) {
+		$section_classes[] = 'pb-md-'.$pt;
+	}
 	if ($background_color = get_sub_field('bg_color')) {
 		if ($background_color != 'transparent') {
 			$section_classes[] = 'bg-'.$background_color;

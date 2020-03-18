@@ -39,7 +39,11 @@ class MLMI_Builder {
 	private function load_dependencies() {
 	  $use_legacy_grid = defined('MLMI_BUILDER_USE_LEGACY_GRID') && MLMI_BUILDER_USE_LEGACY_GRID == true;
 		if ($use_legacy_grid) {
-			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf-v0.10.php';
+			$legacy_version = "0.10";
+			if (defined('MLMI_BUILDER_LEGACY_GRID_VERSION')) {
+				$legacy_version = MLMI_BUILDER_LEGACY_GRID_VERSION;
+			}
+			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf-v'.$legacy_version.'.php';
 		} else {
 			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf.php';
 		}
