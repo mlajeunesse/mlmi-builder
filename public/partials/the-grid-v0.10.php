@@ -1,5 +1,8 @@
 <?php
-/* MLMI Builder (Legacy Grid) */
+/*
+*	MLMI Builder
+*	Grid template (Legacy v0.12)
+*/
 global $section_classes, $section_id, $container_classes, $row_classes;
 global $is_first_row, $is_last_row, $is_first_section, $is_last_section, $column_index;
 $sections = get_field('sections');
