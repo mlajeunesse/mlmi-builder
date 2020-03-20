@@ -107,6 +107,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$section_index += 1;
 	$is_first_section = $section_index === 1;
 	$is_last_section = $section_index === $sections_count;
+	$section_attributes = ["id" => $section_id];
 	
 	/* Section attributes */
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
@@ -127,9 +128,80 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$section_classes[] = 'bg-'.$background_color;
 		}
 	}
+	
+	/* Support for background image with mlmi-theme */
+	if (function_exists('register_dynamic_style') && $bg_image = get_sub_field('bg_image')) {
+		$bg_properties = get_sub_field('bg_properties');
+		$bg_sources = apply_filters('mlmi_builder_background_image_sources', ['large'], $bg_properties);
+		$selector = 'bg-image-'.$bg_image['ID'];
+		$section_classes[] = $selector;
+		
+		/* Get background properties */
+		$use_ratio = in_array($bg_properties['height_basis'], ['ratio', 'min', 'max']);
+		$use_exact = $bg_properties['height_basis'] == 'exact';
+		$use_max = $bg_properties['height_basis'] == 'max';
+		$use_min = $bg_properties['height_basis'] == 'min';
+		$bg_align_horizontal = $bg_properties['horizontal_align'];
+		$bg_align_vertical = $bg_properties['vertical_align'];
+		$bg_size = $bg_properties['size'];
+		
+		/* Register background styles */
+		$min_width = 0;
+		$previous_image = '';
+		$previous_image_retina = '';
+		$previous_ratio = 0;
+		
+		foreach ($bg_sources as $bg_source) {
+			if ($use_exact || $use_min || $use_max) {
+				$general_styles = [];
+				if ($bg_align_horizontal != 'center' || $bg_align_vertical != 'center') {
+					$general_styles['background-position'] = $bg_align_vertical.' '.$bg_align_horizontal;
+				}
+				if ($bg_size == 'natural') {
+					$general_styles['background-size'] = 'auto auto';
+				} else if ($bg_size == 'auto-height') {
+					$general_styles['background-size'] = '100% auto';
+				} else if ($bg_size == 'auto-width') {
+					$general_styles['background-size'] = 'auto 100%';
+				}
+				register_dynamic_style('.page-section.'.$selector, $general_styles);
+			}
+			
+			if ($previous_image != $bg_image['sizes'][$bg_source]) {
+				$styles = [
+					'background-image' => "url('".$bg_image['sizes'][$bg_source]."')",
+				];
+				if ($use_ratio) {
+					$image_ratio = round($bg_image['sizes'][$bg_source.'-height'] / $bg_image['sizes'][$bg_source.'-width'], 2);
+					if ($image_ratio != $previous_ratio) {
+						$styles[$use_min ? 'height' : 'min-height'] = ($image_ratio * 100).'vw';
+					}
+					if ($use_max) {
+						$styles['max-height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
+					}
+					if ($use_min) {
+						$styles['min-height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
+					}
+				} else if ($use_exact) {
+					$styles['height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
+				}
+				register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
+				$previous_image = $bg_image['sizes'][$bg_source];
+				$previous_ratio = $image_ratio;
+			}
+			if (isset($bg_image['sizes'][$bg_source.'_2x']) && $previous_image_retina != $bg_image['sizes'][$bg_source.'_2x']) {
+				register_dynamic_style('.'.$selector, [
+					'background-image' => "url('".$bg_image['sizes'][$bg_source.'_2x']."')",
+				], ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
+				$previous_image_retina = $bg_image['sizes'][$bg_source.'_2x'];
+			}
+			$min_width = $bg_image['sizes'][$bg_source.'-width'] + 1;
+		}
+	}
+	
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
 	$section_id = get_sub_field('section_id');
-	$section_attributes = apply_filters('mlmi_builder_section_attributes', ["id" => $section_id]);
+	$section_attributes = apply_filters('mlmi_builder_section_attributes', $section_attributes);
 	$section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
 	$use_container = apply_filters('mlmi_builder_use_container', get_sub_field('use_container'));
 	

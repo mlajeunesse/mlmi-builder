@@ -110,7 +110,7 @@
 }
 
 /*
-*  Left aligned tabs
+* Left aligned tabs
 */
 
 .mlmi-builder-section .acf-fields.-sidebar {
@@ -126,7 +126,7 @@
 }
 
 /*
-*  Shortcode conditional groups
+* Shortcode conditional groups
 */
 
 .mlmi-builder-row .layout[data-layout='code_row'] .acf-clone-fields.-border {
@@ -138,7 +138,7 @@
 }
 
 /*
-*  Minimum height
+* Minimum height
 */
 
 .acf-field-mlmi-builder-field-section-padding-bottom {
@@ -146,7 +146,7 @@
 }
 
 /*
-*  Flex field
+* Flex field
 */
 .mlmi-builder-section .acf-fields .acf-field.flex-field {
   display: flex;
@@ -167,7 +167,7 @@
 }
 
 /*
-*  Separator for repeater fields
+* Separator for repeater fields
 */
 
 .acf-repeater.-row .acf-table > tbody > .acf-row > td,
@@ -185,7 +185,29 @@
 }
 
 /*
-*  Other ACF helper classes
+* Background images
+*/
+
+.acf-field[data-name='bg_properties'] {
+  margin-bottom: 0 !important;
+}
+
+.acf-field[data-name='bg_image'] .hide-if-value {
+  width: 300px !important;
+  white-space: nowrap;
+}
+
+.acf-field[data-name='bg_image'] .hide-if-value a.acf-button {
+  margin-left: 8px !important;
+}
+
+.acf-field[data-name='bg_image'] .acf-image-uploader.has-value img {
+  width: 125px;
+  height: 125px;
+}
+
+/*
+* Other ACF helper classes
 */
 
 .no-label.acf-field > .acf-label {

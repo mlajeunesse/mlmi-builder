@@ -454,6 +454,13 @@ if (function_exists('acf_add_local_field_group')):
     ]);
     
     /*
+    * Background image options
+    */
+    $background_image_options = apply_filters('mlmi_builder_background_image_options', [
+      'bg-container' => __('Appliquer au conteneur', 'mlmi-builder'),
+    ]);
+    
+    /*
     * Column options
     */
     $column_choices = [];
@@ -1167,6 +1174,288 @@ if (function_exists('acf_add_local_field_group')):
         ],
         'placement' => 'top',
         'endpoint' => 0,
+      ],
+      'mlmi_builder_field_section_bg_image' => [
+        'key' => 'mlmi_builder_field_section_bg_image',
+        'label' => __('Image d\'arrière-plan', 'mlmi-builder'),
+        'name' => 'bg_image',
+        'type' => 'image',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '25',
+          'class' => '',
+          'id' => '',
+        ],
+        'return_format' => 'array',
+        'preview_size' => 'thumbnail',
+        'library' => 'all',
+        'min_width' => '',
+        'min_height' => '',
+        'min_size' => '',
+        'max_width' => '',
+        'max_height' => '',
+        'max_size' => '',
+        'mime_types' => $accept_mime_types,
+      ],
+      'mlmi_builder_field_section_bg_properties' => [
+        'key' => 'mlmi_builder_field_section_bg_properties',
+        'label' => 'Propriétés de l\'image d\'arrière-plan',
+        'name' => 'bg_properties',
+        'type' => 'group',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_field_section_bg_image',
+              'operator' => '!=empty',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '75',
+          'class' => '',
+          'id' => '',
+        ],
+        'layout' => 'block',
+        'sub_fields' => [
+          'mlmi_builder_bg_height_basis' => [
+            'key' => 'mlmi_builder_bg_height_basis',
+            'label' => __('Calcul de la hauteur', 'mlmi-builder'),
+            'name' => 'height_basis',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => [
+              'width' => '33',
+              'class' => 'no-label',
+              'id' => '',
+            ],
+            'choices' => [
+              'auto' => __('Automatique', 'mlmi-builder'),
+              'ratio' => __('Ratio de l\'image', 'mlmi-builder'),
+              'exact' => __('Hauteur exacte', 'mlmi-builder'),
+              'min' => __('Hauteur min.', 'mlmi-builder'),
+              'max' => __('Hauteur max.', 'mlmi-builder'),
+            ],
+            'default_value' => [
+              0 => 'auto',
+            ],
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+          ],
+          'mlmi_builder_bg_height_value' => [
+            'key' => 'mlmi_builder_bg_height_value',
+            'label' => __('Valeur de la hauteur', 'mlmi-builder'),
+            'name' => 'height_value',
+            'type' => 'number',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => [
+              [
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'auto',
+                ],
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'ratio',
+                ],
+              ],
+            ],
+            'wrapper' => [
+              'width' => '34',
+              'class' => 'no-label',
+              'id' => '',
+            ],
+            'default_value' => '',
+            'placeholder' => 'Hauteur (valeur)',
+            'prepend' => '',
+            'append' => '',
+            'min' => '',
+            'max' => '',
+            'step' => '',
+          ],
+          'mlmi_builder_bg_height_unit' => [
+            'key' => 'mlmi_builder_bg_height_unit',
+            'label' => __('Unité de hauteur', 'mlmi-builder'),
+            'name' => 'height_unit',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => [
+              [
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'auto',
+                ],
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'ratio',
+                ],
+              ],
+            ],
+            'wrapper' => [
+              'width' => '33',
+              'class' => 'no-label',
+              'id' => '',
+            ],
+            'choices' => [
+              'px' => 'pixels',
+              'vh' => '% fenêtre',
+            ],
+            'default_value' => [
+              'px',
+            ],
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+          ],
+          'mlmi_builder_bg_horizontal_align' => [
+            'key' => 'mlmi_builder_bg_horizontal_align',
+            'label' => __('Alignement horizontal', 'mlmi-builder'),
+            'name' => 'horizontal_align',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => [
+              [
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'ratio',
+                ],
+              ],
+            ],
+            'wrapper' => [
+              'width' => '33',
+              'class' => 'no-label clear-left',
+              'id' => '',
+            ],
+            'choices' => [
+              'center' => __('Centré (largeur)', 'mlmi-builder'),
+              'left' => __('Aligné à gauche', 'mlmi-builder'),
+              'right' => __('Aligné à droite', 'mlmi-builder'),
+            ],
+            'default_value' => [
+              0 => 'center',
+            ],
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+          ],
+          'mlmi_builder_bg_vertical_align' => [
+            'key' => 'mlmi_builder_bg_vertical_align',
+            'label' => __('Alignement vertical', 'mlmi-builder'),
+            'name' => 'vertical_align',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => [
+              [
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'ratio',
+                ],
+              ],
+            ],
+            'wrapper' => [
+              'width' => '34',
+              'class' => 'no-label',
+              'id' => '',
+            ],
+            'choices' => [
+              'center' => __('Centré (hauteur)', 'mlmi-builder'),
+              'top' => __('Aligné en haut', 'mlmi-builder'),
+              'bottom' => __('Aligné en bas', 'mlmi-builder'),
+            ],
+            'default_value' => [
+              0 => 'center',
+            ],
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+          ],
+          'mlmi_builder_bg_size' => [
+            'key' => 'mlmi_builder_bg_size',
+            'label' => __('Taille', 'mlmi-builder'),
+            'name' => 'size',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => [
+              [
+                [
+                  'field' => 'mlmi_builder_bg_height_basis',
+                  'operator' => '!=',
+                  'value' => 'ratio',
+                ],
+              ],
+            ],
+            'wrapper' => [
+              'width' => '33',
+              'class' => 'no-label',
+              'id' => '',
+            ],
+            'choices' => [
+              'cover' => __('Couvrir la zone', 'mlmi-builder'),
+              'auto-height' => __('Largeur de la zone', 'mlmi-builder'),
+              'auto-width' => __('Hauteur de la zone', 'mlmi-builder'),
+              'natural' => __('Taille naturelle', 'mlmi-builder'),
+            ],
+            'default_value' => [
+              0 => 'cover',
+            ],
+            'allow_null' => 0,
+            'multiple' => 0,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+          ],
+          'mlmi_builder_bg_options' => [
+            'key' => 'mlmi_builder_bg_options',
+            'label' => __('Options', 'mlmi-builder'),
+            'name' => 'options',
+            'type' => 'checkbox',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => [
+              'width' => '',
+              'class' => 'no-label',
+              'id' => '',
+            ],
+            'choices' => $background_image_options,
+            'allow_custom' => 0,
+            'default_value' => [],
+            'layout' => 'vertical',
+            'toggle' => 0,
+            'return_format' => 'value',
+            'save_custom' => 0,
+          ],
+        ],
       ],
       'mlmi_builder_field_section_bg_color' => [
         'key' => 'mlmi_builder_field_section_bg_color',
