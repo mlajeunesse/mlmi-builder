@@ -65,7 +65,7 @@ function mlmi_builder_create_acf_layout($key, $settings) {
   return $layout;
 }
 
-if (function_exists('acf_add_local_field_group')):
+if (function_exists('acf_add_local_field_group')) {
   add_action('after_setup_theme', function() {
     /*
     * Hide on screen (defaults)
@@ -1042,7 +1042,7 @@ if (function_exists('acf_add_local_field_group')):
     $additional_code_row_fields = apply_filters('mlmi_builder_code_row_add_fields', []);
     $additional_code_row_group = apply_filters('mlmi_builder_code_row_add_group', '');
     $code_row_fields = array_merge($code_row_fields, $additional_code_row_fields);
-    if ($additional_code_row_group){
+    if ($additional_code_row_group) {
       $code_row_fields['mlmi_builder_cloned_'.$additional_code_row_group] = [
         'key' => 'mlmi_builder_cloned_'.$additional_code_row_group,
         'type' => 'clone',
@@ -1051,6 +1051,7 @@ if (function_exists('acf_add_local_field_group')):
         'layout' => 'block',
       ];
     }
+    
     foreach ($shortcode_groups as $key => $field_ids) {
       foreach ($field_ids as $field_id) {
         $field = get_field_object($field_id);
@@ -1059,11 +1060,13 @@ if (function_exists('acf_add_local_field_group')):
           unset($field[$unset_key]);
         }
         $field['key'] = 'code_row_conditional_'.$field_id;
-        $field['conditional_logic'] = [[
-          'field' => 'code_row_field_template_item',
-          'operator' => '==',
-          'value' => $key,
-        ]];
+        $field['conditional_logic'] = [
+          [
+            'field' => 'code_row_field_template_item',
+            'operator' => '==',
+            'value' => $key,
+          ]
+        ];
         $code_row_fields[$field['key']] = $field;
       }
     }
@@ -1188,7 +1191,7 @@ if (function_exists('acf_add_local_field_group')):
           'class' => '',
           'id' => '',
         ],
-        'return_format' => 'array',
+        'return_format' => 'id',
         'preview_size' => 'thumbnail',
         'library' => 'all',
         'min_width' => '',
@@ -1489,12 +1492,39 @@ if (function_exists('acf_add_local_field_group')):
         'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
-          'width' => '50',
+          'width' => '25',
           'class' => '',
           'id' => '',
         ],
         'choices' => $container_options,
         'default_value' => 'container',
+        'allow_null' => 0,
+        'multiple' => 0,
+        'ui' => 0,
+        'return_format' => 'value',
+        'ajax' => 0,
+        'placeholder' => '',
+      ],
+      'mlmi_builder_field_section_align_items' => [
+        'key' => 'mlmi_builder_field_section_align_items',
+        'label' => __('Alignement vertical', 'mlmi-builder'),
+        'name' => 'align_items',
+        'type' => 'select',
+        'instructions' => '',
+        'required' => 1,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '25',
+          'class' => '',
+          'id' => '',
+        ],
+        'choices' => [
+          'align-items-center' => __('Aligner au centre', 'mlmi-builder'),
+          'align-items-start' => __('Aligner en haut', 'mlmi-builder'),
+          'align-items-end' => __('Aligner en bas', 'mlmi-builder'),
+        ],
+        'default_value' => 'align-items-center',
         'allow_null' => 0,
         'multiple' => 0,
         'ui' => 0,
@@ -1693,5 +1723,4 @@ if (function_exists('acf_add_local_field_group')):
     $config = apply_filters('mlmi_builder_config', $config);
     acf_add_local_field_group($config);
   });
-  
-endif;
+}

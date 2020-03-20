@@ -111,17 +111,22 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	
 	/* Section attributes */
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
-	if ($pt = get_sub_field('padding_top')) {
-		$section_classes[] = 'pt-'.$pt;
-	}
-	if ($pt_md = get_sub_field('padding_top_md')) {
+	$pt = get_sub_field('padding_top');
+	$pt_md = get_sub_field('padding_top_md');
+	$section_classes[] = 'pt-'.$pt;
+	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
 		$section_classes[] = 'pt-md-'.$pt_md;
 	}
-	if ($pb = get_sub_field('padding_bottom')) {
-		$section_classes[] = 'pb-'.$pb;
-	}
-	if ($pb_md = get_sub_field('padding_bottom_md')) {
+	$pb = get_sub_field('padding_bottom');
+	$pb_md = get_sub_field('padding_bottom_md');
+	$section_classes[] = 'pb-'.$pb;
+	if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
 		$section_classes[] = 'pb-md-'.$pb_md;
+	}
+	if ($align_items = get_sub_field('align_items')) {
+		if ($align_items != 'align-items-center') {
+			$section_classes[] = $align_items;
+		}
 	}
 	if ($background_color = get_sub_field('bg_color')) {
 		if ($background_color != 'transparent') {
@@ -130,7 +135,12 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	}
 	
 	/* Support for background image with mlmi-theme */
-	if (function_exists('register_dynamic_style') && $bg_image = get_sub_field('bg_image')) {
+	if (function_exists('register_dynamic_style') && $bg_image_id = get_sub_field('bg_image')) {
+		$bg_image = get_attachment($bg_image_id);
+		$bg_mobile = false;
+		if ($bg_mobile_id = get_field('mobile_image', $bg_image_id)) {
+			$bg_mobile = get_attachment($bg_mobile_id);
+		}
 		$bg_properties = get_sub_field('bg_properties');
 		$bg_sources = apply_filters('mlmi_builder_background_image_sources', ['large'], $bg_properties);
 		$selector = 'bg-image-'.$bg_image['ID'];
@@ -152,6 +162,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 		$previous_ratio = 0;
 		
 		foreach ($bg_sources as $bg_source) {
+			$image = $min_width < 768 && $bg_mobile ? $bg_mobile : $bg_image;
 			if ($use_exact || $use_min || $use_max) {
 				$general_styles = [];
 				if ($bg_align_horizontal != 'center' || $bg_align_vertical != 'center') {
@@ -167,12 +178,12 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 				register_dynamic_style('.page-section.'.$selector, $general_styles);
 			}
 			
-			if ($previous_image != $bg_image['sizes'][$bg_source]) {
+			if ($previous_image != $image['sizes'][$bg_source]) {
 				$styles = [
-					'background-image' => "url('".$bg_image['sizes'][$bg_source]."')",
+					'background-image' => "url('".$image['sizes'][$bg_source]."')",
 				];
 				if ($use_ratio) {
-					$image_ratio = round($bg_image['sizes'][$bg_source.'-height'] / $bg_image['sizes'][$bg_source.'-width'], 2);
+					$image_ratio = round($image['sizes'][$bg_source.'-height'] / $image['sizes'][$bg_source.'-width'], 2);
 					if ($image_ratio != $previous_ratio) {
 						$styles[$use_min ? 'height' : 'min-height'] = ($image_ratio * 100).'vw';
 					}
@@ -186,16 +197,16 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 					$styles['height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
 				}
 				register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
-				$previous_image = $bg_image['sizes'][$bg_source];
+				$previous_image = $image['sizes'][$bg_source];
 				$previous_ratio = $image_ratio;
 			}
-			if (isset($bg_image['sizes'][$bg_source.'_2x']) && $previous_image_retina != $bg_image['sizes'][$bg_source.'_2x']) {
+			if (isset($image['sizes'][$bg_source.'_2x']) && $previous_image_retina != $image['sizes'][$bg_source.'_2x']) {
 				register_dynamic_style('.'.$selector, [
-					'background-image' => "url('".$bg_image['sizes'][$bg_source.'_2x']."')",
+					'background-image' => "url('".$image['sizes'][$bg_source.'_2x']."')",
 				], ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
-				$previous_image_retina = $bg_image['sizes'][$bg_source.'_2x'];
+				$previous_image_retina = $image['sizes'][$bg_source.'_2x'];
 			}
-			$min_width = $bg_image['sizes'][$bg_source.'-width'] + 1;
+			$min_width = $image['sizes'][$bg_source.'-width'] + 1;
 		}
 	}
 	
@@ -232,8 +243,18 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			/* Row attributes */
 			$row_id = get_sub_field('row_id');
 			$row_classes = array_filter(array_merge(["row", get_row_layout()], array_map('trim', explode(" ", get_sub_field('row_class')))));
-			$row_classes[] = get_sub_field('padding_top');
-			$row_classes[] = get_sub_field('padding_bottom');
+			$pt = get_sub_field('padding_top');
+			$pt_md = get_sub_field('padding_top_md');
+			$row_classes[] = 'pt-'.$pt;
+			if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
+				$row_classes[] = 'pt-md-'.$pt_md;
+			}
+			$pb = get_sub_field('padding_bottom');
+			$pb_md = get_sub_field('padding_bottom_md');
+			$row_classes[] = 'pb-'.$pb;
+			if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
+				$row_classes[] = 'pb-md-'.$pb_md;
+			}
 			if (get_sub_field('overflow_option') == 'overflow-content') {
 				$row_classes[] = 'overflow-content';
 			}

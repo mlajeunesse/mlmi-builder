@@ -109,6 +109,11 @@
   font-size: 11px;
 }
 
+.mlmi-builder-row .acf-field-column-options label .badge {
+  font-size: 10px !important;
+  opacity: .5 !important;
+}
+
 /*
 * Left aligned tabs
 */
