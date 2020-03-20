@@ -118,10 +118,10 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 		$section_classes[] = 'pt-md-'.$pt_md;
 	}
 	if ($pb = get_sub_field('padding_bottom')) {
-		$section_classes[] = 'pb-'.$pt;
+		$section_classes[] = 'pb-'.$pb;
 	}
 	if ($pb_md = get_sub_field('padding_bottom_md')) {
-		$section_classes[] = 'pb-md-'.$pt;
+		$section_classes[] = 'pb-md-'.$pb_md;
 	}
 	if ($background_color = get_sub_field('bg_color')) {
 		if ($background_color != 'transparent') {
