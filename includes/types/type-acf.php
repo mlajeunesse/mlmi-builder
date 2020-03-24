@@ -909,7 +909,7 @@ if (function_exists('acf_add_local_field_group')) {
     /*
     * Content type: Gallery
     */
-    $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg');
+    $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg, svg');
     $gallery_row_fields = [
       'gallery_row_field_gallery' => [
         'key' => 'gallery_row_field_gallery',
@@ -1453,7 +1453,7 @@ if (function_exists('acf_add_local_field_group')) {
             'choices' => $background_image_options,
             'allow_custom' => 0,
             'default_value' => [],
-            'layout' => 'vertical',
+            'layout' => 'horizontal',
             'toggle' => 0,
             'return_format' => 'value',
             'save_custom' => 0,

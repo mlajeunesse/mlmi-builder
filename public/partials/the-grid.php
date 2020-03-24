@@ -154,15 +154,23 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 		$bg_align_horizontal = $bg_properties['horizontal_align'];
 		$bg_align_vertical = $bg_properties['vertical_align'];
 		$bg_size = $bg_properties['size'];
+		$height_values = explode('.', $bg_properties['height_value']);
 		
 		/* Register background styles */
 		$min_width = 0;
 		$previous_image = '';
 		$previous_image_retina = '';
 		$previous_ratio = 0;
+		$previous_height = 0;
+		
+		/* Action */
+		do_action('mlmi_builder_before_background_image', $bg_properties, $selector, $bg_image);
 		
 		foreach ($bg_sources as $bg_source) {
+			do_action('mlmi_builder_before_background_image_source', $bg_properties, $selector, $bg_image, $bg_source);
 			$image = $min_width < 768 && $bg_mobile ? $bg_mobile : $bg_image;
+			$height_value = ($min_width >= 768 && count($height_values) == 2) ? $height_values[1] : $height_values[0];
+			$height_unit = $bg_properties['height_unit'];
 			if ($use_exact || $use_min || $use_max) {
 				$general_styles = [];
 				if ($bg_align_horizontal != 'center' || $bg_align_vertical != 'center') {
@@ -188,17 +196,25 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 						$styles[$use_min ? 'height' : 'min-height'] = ($image_ratio * 100).'vw';
 					}
 					if ($use_max) {
-						$styles['max-height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
+						$styles['max-height'] = $height_value.$height_unit;
 					}
 					if ($use_min) {
-						$styles['min-height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
+						$styles['min-height'] = $height_value.$height_unit;
 					}
-				} else if ($use_exact) {
-					$styles['height'] = $bg_properties['height_value'].$bg_properties['height_unit'];
+				}
+				if ($use_exact && $previous_height != $height_value) {
+					$previous_height = $height_value;
+					if ($height_unit == 'px') {
+						$height_value /= 16;
+						$height_unit = 'rem';
+					}
+					$styles['height'] = $height_value.$height_unit;
 				}
 				register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
 				$previous_image = $image['sizes'][$bg_source];
-				$previous_ratio = $image_ratio;
+				if ($use_ratio) {
+					$previous_ratio = $image_ratio;
+				}
 			}
 			if (isset($image['sizes'][$bg_source.'_2x']) && $previous_image_retina != $image['sizes'][$bg_source.'_2x']) {
 				register_dynamic_style('.'.$selector, [
@@ -207,7 +223,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 				$previous_image_retina = $image['sizes'][$bg_source.'_2x'];
 			}
 			$min_width = $image['sizes'][$bg_source.'-width'] + 1;
+			do_action('mlmi_builder_after_background_image_source', $bg_properties, $selector, $bg_image, $bg_source);
 		}
+		do_action('mlmi_builder_after_background_image', $bg_properties, $selector, $bg_image);
 	}
 	
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
