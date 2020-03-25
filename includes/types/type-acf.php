@@ -1505,10 +1505,10 @@ if (function_exists('acf_add_local_field_group')) {
         'ajax' => 0,
         'placeholder' => '',
       ],
-      'mlmi_builder_field_section_align_items' => [
-        'key' => 'mlmi_builder_field_section_align_items',
+      'mlmi_builder_field_section_justify_content' => [
+        'key' => 'mlmi_builder_field_section_justify_content',
         'label' => __('Alignement vertical', 'mlmi-builder'),
-        'name' => 'align_items',
+        'name' => 'justify_content',
         'type' => 'select',
         'instructions' => '',
         'required' => 1,
@@ -1520,9 +1520,9 @@ if (function_exists('acf_add_local_field_group')) {
           'id' => '',
         ],
         'choices' => [
-          'align-items-center' => __('Aligner au centre', 'mlmi-builder'),
-          'align-items-start' => __('Aligner en haut', 'mlmi-builder'),
-          'align-items-end' => __('Aligner en bas', 'mlmi-builder'),
+          'justify-content-center' => __('Aligner au centre', 'mlmi-builder'),
+          'justify-content-start' => __('Aligner en haut', 'mlmi-builder'),
+          'justify-content-end' => __('Aligner en bas', 'mlmi-builder'),
         ],
         'default_value' => 'align-items-center',
         'allow_null' => 0,

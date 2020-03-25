@@ -113,19 +113,23 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 	$pt = get_sub_field('padding_top');
 	$pt_md = get_sub_field('padding_top_md');
-	$section_classes[] = 'pt-'.$pt;
+	if ($pt) {
+		$section_classes[] = 'pt-'.$pt;
+	}
 	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
 		$section_classes[] = 'pt-md-'.$pt_md;
 	}
 	$pb = get_sub_field('padding_bottom');
 	$pb_md = get_sub_field('padding_bottom_md');
-	$section_classes[] = 'pb-'.$pb;
+	if ($pb) {
+		$section_classes[] = 'pb-'.$pb;
+	}
 	if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
 		$section_classes[] = 'pb-md-'.$pb_md;
 	}
-	if ($align_items = get_sub_field('align_items')) {
-		if ($align_items != 'align-items-center') {
-			$section_classes[] = $align_items;
+	if ($justify_content = get_sub_field('justify_content')) {
+		if ($justify_content != 'justify-content-center') {
+			$section_classes[] = $justify_content;
 		}
 	}
 	if ($background_color = get_sub_field('bg_color')) {
@@ -136,96 +140,10 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	
 	/* Support for background image with mlmi-theme */
 	if (function_exists('register_dynamic_style') && $bg_image_id = get_sub_field('bg_image')) {
-		$bg_image = get_attachment($bg_image_id);
-		$bg_mobile = false;
-		if ($bg_mobile_id = get_field('mobile_image', $bg_image_id)) {
-			$bg_mobile = get_attachment($bg_mobile_id);
-		}
 		$bg_properties = get_sub_field('bg_properties');
-		$bg_sources = apply_filters('mlmi_builder_background_image_sources', ['large'], $bg_properties);
-		$selector = 'bg-image-'.$bg_image['ID'];
+		$selector = 'bg-image-'.$bg_image_id;
 		$section_classes[] = $selector;
-		
-		/* Get background properties */
-		$use_ratio = in_array($bg_properties['height_basis'], ['ratio', 'min', 'max']);
-		$use_exact = $bg_properties['height_basis'] == 'exact';
-		$use_max = $bg_properties['height_basis'] == 'max';
-		$use_min = $bg_properties['height_basis'] == 'min';
-		$bg_align_horizontal = $bg_properties['horizontal_align'];
-		$bg_align_vertical = $bg_properties['vertical_align'];
-		$bg_size = $bg_properties['size'];
-		$height_values = explode('.', $bg_properties['height_value']);
-		
-		/* Register background styles */
-		$min_width = 0;
-		$previous_image = '';
-		$previous_image_retina = '';
-		$previous_ratio = 0;
-		$previous_height = 0;
-		
-		/* Action */
-		do_action('mlmi_builder_before_background_image', $bg_properties, $selector, $bg_image);
-		
-		foreach ($bg_sources as $bg_source) {
-			do_action('mlmi_builder_before_background_image_source', $bg_properties, $selector, $bg_image, $bg_source);
-			$image = $min_width < 768 && $bg_mobile ? $bg_mobile : $bg_image;
-			$height_value = ($min_width >= 768 && count($height_values) == 2) ? $height_values[1] : $height_values[0];
-			$height_unit = $bg_properties['height_unit'];
-			if ($use_exact || $use_min || $use_max) {
-				$general_styles = [];
-				if ($bg_align_horizontal != 'center' || $bg_align_vertical != 'center') {
-					$general_styles['background-position'] = $bg_align_vertical.' '.$bg_align_horizontal;
-				}
-				if ($bg_size == 'natural') {
-					$general_styles['background-size'] = 'auto auto';
-				} else if ($bg_size == 'auto-height') {
-					$general_styles['background-size'] = '100% auto';
-				} else if ($bg_size == 'auto-width') {
-					$general_styles['background-size'] = 'auto 100%';
-				}
-				register_dynamic_style('.page-section.'.$selector, $general_styles);
-			}
-			
-			if ($previous_image != $image['sizes'][$bg_source]) {
-				$styles = [
-					'background-image' => "url('".$image['sizes'][$bg_source]."')",
-				];
-				if ($use_ratio) {
-					$image_ratio = round($image['sizes'][$bg_source.'-height'] / $image['sizes'][$bg_source.'-width'], 2);
-					if ($image_ratio != $previous_ratio) {
-						$styles[$use_min ? 'height' : 'min-height'] = ($image_ratio * 100).'vw';
-					}
-					if ($use_max) {
-						$styles['max-height'] = $height_value.$height_unit;
-					}
-					if ($use_min) {
-						$styles['min-height'] = $height_value.$height_unit;
-					}
-				}
-				if ($use_exact && $previous_height != $height_value) {
-					$previous_height = $height_value;
-					if ($height_unit == 'px') {
-						$height_value /= 16;
-						$height_unit = 'rem';
-					}
-					$styles['height'] = $height_value.$height_unit;
-				}
-				register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
-				$previous_image = $image['sizes'][$bg_source];
-				if ($use_ratio) {
-					$previous_ratio = $image_ratio;
-				}
-			}
-			if (isset($image['sizes'][$bg_source.'_2x']) && $previous_image_retina != $image['sizes'][$bg_source.'_2x']) {
-				register_dynamic_style('.'.$selector, [
-					'background-image' => "url('".$image['sizes'][$bg_source.'_2x']."')",
-				], ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
-				$previous_image_retina = $image['sizes'][$bg_source.'_2x'];
-			}
-			$min_width = $image['sizes'][$bg_source.'-width'] + 1;
-			do_action('mlmi_builder_after_background_image_source', $bg_properties, $selector, $bg_image, $bg_source);
-		}
-		do_action('mlmi_builder_after_background_image', $bg_properties, $selector, $bg_image);
+		the_background_image($selector, $bg_image_id, $bg_properties);
 	}
 	
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
@@ -263,13 +181,17 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$row_classes = array_filter(array_merge(["row", get_row_layout()], array_map('trim', explode(" ", get_sub_field('row_class')))));
 			$pt = get_sub_field('padding_top');
 			$pt_md = get_sub_field('padding_top_md');
-			$row_classes[] = 'pt-'.$pt;
+			if ($pt) {
+				$row_classes[] = 'pt-'.$pt;
+			}
 			if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
 				$row_classes[] = 'pt-md-'.$pt_md;
 			}
 			$pb = get_sub_field('padding_bottom');
 			$pb_md = get_sub_field('padding_bottom_md');
-			$row_classes[] = 'pb-'.$pb;
+			if ($pb) {
+				$row_classes[] = 'pb-'.$pb;
+			}
 			if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
 				$row_classes[] = 'pb-md-'.$pb_md;
 			}
