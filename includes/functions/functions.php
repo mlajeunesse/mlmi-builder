@@ -89,25 +89,20 @@ function the_background_image($selector, $attachment_id, $bg_properties) {
       if ($use_ratio) {
         $image_ratio = round($image['sizes'][$bg_source.'-height'] / $image['sizes'][$bg_source.'-width'], 2);
         if ($image_ratio != $previous_ratio) {
-          $styles[$use_min || ($use_max && $min_width >= 768) ? 'height' : 'min-height'] = ($image_ratio * 100).'vw';
+          $styles[$use_max && $min_width >= 768 ? 'height' : 'min-height'] = ($image_ratio * 100).'vw';
         }
         if ($use_max) {
           $styles['max-height'] = $height_value.$height_unit;
-        }
-        if ($use_min) {
+        } else if ($use_min) {
           $styles['min-height'] = $height_value.$height_unit;
         }
-      }
-      if ($use_exact && $previous_height != $height_value) {
+      } else if ($use_exact && $previous_height != $height_value) {
         $previous_height = $height_value;
         if ($height_unit == 'px') {
           $height_value /= 16;
           $height_unit = 'rem';
         }
         $styles['height'] = $height_value.$height_unit;
-      }
-      if (!$use_min && !isset($styles['min-height'])) {
-        $styles['min-height'] = '0px';
       }
       register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
       $previous_image = $image['sizes'][$bg_source];
