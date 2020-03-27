@@ -306,7 +306,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							echo '<div'.$column_attributes_output.'>';
 							if ($content):
 								echo '<div'.$content_attributes_output.'>';
-								echo apply_filters('the_content', $content);
+								echo $content;
 								echo '</div>';
 							endif;
 							echo '</div>';
