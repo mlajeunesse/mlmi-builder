@@ -178,7 +178,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			
 			/* Row attributes */
 			$row_id = get_sub_field('row_id');
-			$row_classes = array_filter(array_merge(["row", get_row_layout()], array_map('trim', explode(" ", get_sub_field('row_class')))));
+			$row_classes = array_filter(array_merge(["row", str_replace('_', '-', get_row_layout())], array_map('trim', explode(" ", get_sub_field('row_class')))));
 			$pt = get_sub_field('padding_top');
 			$pt_md = get_sub_field('padding_top_md');
 			if ($pt) {
