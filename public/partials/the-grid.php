@@ -153,7 +153,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$use_container = apply_filters('mlmi_builder_use_container', get_sub_field('use_container'));
 	
 	/* Tabs opening */
-	do_action('mlmi_builder_tabs_open', $builder_tabs[$section_index - 1]);
+	if ($use_tabs_system) {
+		do_action('mlmi_builder_tabs_open', $builder_tabs[$section_index - 1]);
+	}
 	
 	/* Hook before section */
 	do_action('mlmi_builder_before_section');
@@ -372,7 +374,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	do_action('mlmi_builder_after_section');
 	
 	/* Tabs closing */
-	do_action('mlmi_builder_tabs_close', $builder_tabs[$section_index - 1]);
+	if ($use_tabs_system) {
+		do_action('mlmi_builder_tabs_close', $builder_tabs[$section_index - 1]);
+	}
 
 /* End loop sections */
 endif; endwhile; endif;
