@@ -2,9 +2,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: MLMI Builder\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-19 19:58+0000\n"
-"PO-Revision-Date: 2019-07-19 19:59+0000\n"
-"Last-Translator: Mathieu Lajeunesse <contact@mathieulajeunesse.com>\n"
+"POT-Creation-Date: 2020-06-23 03:57+0000\n"
+"PO-Revision-Date: 2020-06-23 04:00+0000\n"
+"Last-Translator: Mathieu Lajeunesse\n"
 "Language-Team: English (United States)\n"
 "Language: en_US\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
@@ -12,14 +12,16 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Loco https://localise.biz/\n"
-"X-Loco-Version: 2.3.0; wp-5.2.2"
+"X-Loco-Version: 2.4.0; wp-5.4.2"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:14
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:14
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:14
 msgid "Rangée"
 msgstr "Row"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:28
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:43
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:43
 msgid "Clone"
 msgstr "Clone"
@@ -45,22 +47,26 @@ msgid "Trois colonnes"
 msgstr "Three columns"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:231
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:405
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:647
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:654
 msgid "Nombre de colonnes"
 msgstr "Number of columns"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:244
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:97
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:135
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:135
 msgid "1 colonne"
 msgstr "1 column"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:245
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:98
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:136
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:136
 msgid "2 colonnes"
 msgstr "2 columns"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:246
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:99
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:137
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:137
 msgid "3 colonnes"
 msgstr "3 columns"
 
@@ -71,7 +77,8 @@ msgid "Configuration des colonnes"
 msgstr "Columns setup"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:348
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:453
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:695
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:702
 msgid "Colonne 1"
 msgstr "Column 1"
 
@@ -84,157 +91,357 @@ msgstr "Standard order"
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:362
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:404
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:439
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:275
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:517
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:524
 msgid "En premier"
 msgstr "Display first"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:363
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:405
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:440
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:276
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:518
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:525
 msgid "En dernier"
 msgstr "Display last"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:375
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:468
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:710
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:717
 msgid "Colonne 2"
 msgstr "Column 2"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:417
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:483
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:725
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:732
 msgid "Colonne 3"
 msgstr "Column 3"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:541
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:564
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:806
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:859
 msgid "ID de rangée"
 msgstr "Row ID"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:561
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:544
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:786
 msgid "Classes de rangée"
 msgstr "Row Classes"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:581
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:919
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:498
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:870
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:316
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:740
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1172
 msgid "Espacement haut"
 msgstr "Top Padding"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:604
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:942
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:521
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:893
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:347
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:763
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1195
 msgid "Espacement bas"
 msgstr "Bottom Padding"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:664
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:787
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:621
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:746
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:863
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1048
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:916
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1104
 msgid "Galerie d'images"
 msgstr "Gallery"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:779
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:736
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1038
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1094
 msgid "Rangée standard"
 msgstr "Standard Row"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:783
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:741
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1043
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1099
 msgid "Rangée programmée"
 msgstr "Shortcode"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:856
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:802
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1104
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1160
 msgid "Ajouter une rangée"
 msgstr "Add Row"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:879
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:935
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1237
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1647
 msgid "ID de section"
 msgstr "Section ID"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:899
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:915
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1217
 msgid "Classes de section"
 msgstr "Section Classes"
 
 #. Name of the plugin
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:987
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:978
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1275
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1685
 msgid "MLMI Builder"
 msgstr "MLMI Builder"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.10.php:1007
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:998
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1295
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1705
 msgid "Ajouter une section"
 msgstr "Add Section"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:175
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:192
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:201
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:108
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:125
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:443
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:108
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:125
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:443
 msgid "Aucun"
 msgstr "None"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:176
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:193
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:109
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:126
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:109
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:126
 msgid "Auto"
 msgstr "Auto"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:202
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:274
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:200
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:200
+msgid "Par défaut"
+msgstr "Default"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:286
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:286
+msgid "Format"
+msgstr "Format"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:378
+msgid "Classes de bloc"
+msgstr "Block Classes"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:406
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:406
+msgid "ID de bloc"
+msgstr "Block ID"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:444
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:516
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:444
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:523
 msgid "Standard"
 msgstr "Standard"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:209
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:451
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:451
 msgid "transparent"
 msgstr "transparent"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:210
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:452
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:452
 msgid "blanc"
 msgstr "white"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:211
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:453
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:453
 msgid "noir"
 msgstr "black"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:228
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:470
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:477
 msgid "Largeur"
 msgstr "Width"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:245
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:487
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:494
 msgid "Décalage"
 msgstr "Offset"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:262
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:504
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:511
 msgid "Ordre"
 msgstr "Order"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:427
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:669
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:676
 msgid "Flux mobile"
 msgstr "Mobile flow"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:440
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:682
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:689
 msgid "Colonnes distinctes"
 msgstr "Standalone columns"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:441
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:683
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:690
 msgid "Ordre inversé"
 msgstr "Reversed order"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:442
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:684
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:691
 msgid "Texte en continu"
 msgstr "Continued text"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:825
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:922
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:975
+msgid "Shortcode"
+msgstr "Shortcode"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:939
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:992
+msgid "Item"
+msgstr "Item"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1127
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1465
 msgid "Couleur d'arrière-plan"
 msgstr "Background Color"
 
-#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:847
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf-v0.12.php:1149
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1487
 msgid "Conteneur"
 msgstr "Container"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:316
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:747
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1537
+msgid "Haut"
+msgstr "Top"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:347
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:770
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1560
+msgid "Bas"
+msgstr "Bottom"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:378
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:839
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1627
+msgid "Classes"
+msgstr "Classes"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:460
+msgid "Appliquer au conteneur"
+msgstr "Apply to Container"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:793
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1582
+msgid "Haut +"
+msgstr "Top +"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:816
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1605
+msgid "Bas +"
+msgstr "Bottom +"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1183
+msgid "Image d'arrière-plan"
+msgstr "Background Image"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1229
+msgid "Calcul de la hauteur"
+msgstr "Height Calculation"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1241
+msgid "Automatique"
+msgstr "Automatic"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1242
+msgid "Ratio de l'image"
+msgstr "Image Ratio"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1243
+msgid "Hauteur exacte"
+msgstr "Exact Height"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1244
+msgid "Hauteur min."
+msgstr "Min. Height"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1245
+msgid "Hauteur max."
+msgstr "Max. Height"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1259
+msgid "Valeur de la hauteur"
+msgstr "Height Value"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1293
+msgid "Unité de hauteur"
+msgstr "Height Unit"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1333
+msgid "Alignement horizontal"
+msgstr "Horizontal Align"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1353
+msgid "Centré (largeur)"
+msgstr "Centered (Width)"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1354
+msgid "Aligné à gauche"
+msgstr "Left Aligned"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1355
+msgid "Aligné à droite"
+msgstr "Right Aligned"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1369
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1510
+msgid "Alignement vertical"
+msgstr "Vertical Align"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1389
+msgid "Centré (hauteur)"
+msgstr "Centered (Height)"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1390
+msgid "Aligné en haut"
+msgstr "Top Aligned"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1391
+msgid "Aligné en bas"
+msgstr "Bottom Aligned"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1405
+msgid "Taille"
+msgstr "Size"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1425
+msgid "Couvrir la zone"
+msgstr "Cover Area"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1426
+msgid "Largeur de la zone"
+msgstr "Area Width"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1427
+msgid "Hauteur de la zone"
+msgstr "Area Height"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1428
+msgid "Taille naturelle"
+msgstr "Natural Size"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1442
+msgid "Options"
+msgstr "Options"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1523
+msgid "Aligner au centre"
+msgstr "Center"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1524
+msgid "Aligner en haut"
+msgstr "Align Top"
+
+#: ../../../../../_mlmi/mlmi-builder/includes/types/type-acf.php:1525
+msgid "Aligner en bas"
+msgstr "Align Bottom"
 
 #: ../../../../../_mlmi/mlmi-builder/includes/functions/functions.php:6
 msgid "Advanced Custom Fields PRO is required to use MLMI Builder."
