@@ -233,13 +233,13 @@ function mlmi_builder_tabs_open($tabs = []) {
     echo '<div class="tabs__wrapper">';
     echo '<div class="tabs__list" role="tablist">';
     foreach ($tabs['display_tabs'] as $index => $tab) {
-      echo '<button class="tabs__item" role="tab" tabindex="-1" aria-selected="'.($index == 0 ? 'true' : 'false').'" aria-controls="tab-'.$tab['id'].'" id="'.$tab['id'].'">'.$tab['label'].'</button>';
+      echo '<button class="tabs__item" role="tab" tabindex="-1" aria-selected="'.($index == 0 ? 'true' : 'false').'" aria-controls="panel-'.$tab['id'].'" id="tab-'.$tab['id'].'">'.$tab['label'].'</button>';
     }
     echo '</div>';
     echo '<div class="tabs__panels-list">';
   }
   if (isset($tabs['open_tab']) && $tabs['open_tab']) {
-    echo '<div role="tabpanel" tabindex="0" class="tabs__panel" id="tab-'.$tabs['open_tab'].'" aria-labelledby="'.$tabs['open_tab'].'"'.($is_first_tab ? '' : ' hidden').'>';
+    echo '<div role="tabpanel" tabindex="0" class="tabs__panel" id="panel-'.$tabs['open_tab'].'" aria-labelledby="tab-'.$tabs['open_tab'].'"'.($is_first_tab ? '' : ' hidden').'>';
   }
 }
 
