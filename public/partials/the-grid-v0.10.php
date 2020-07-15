@@ -1,8 +1,9 @@
 <?php
 /*
 *	MLMI Builder
-*	Grid template (Legacy v0.12)
+*	Grid template (Legacy v0.10)
 */
+
 global $section_classes, $section_id, $container_classes, $row_classes;
 global $is_first_row, $is_last_row, $is_first_section, $is_last_section, $column_index;
 $sections = get_field('sections');
@@ -146,7 +147,7 @@ $container_attributes_output = mlmi_builder_attributes_inline([], $container_cla
 				<div<?=$column_attributes_output?>>
 				<?php if ($content): ?>
 					<div<?=$content_attributes_output?>>
-					<?=apply_filters('the_content', $content)?>
+					<?=apply_filters('the_builder_content', $content)?>
 				</div>
 			<?php endif; ?>
 		</div>
