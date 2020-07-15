@@ -88,6 +88,7 @@ if (function_exists('acf_add_local_field_group')) {
     */
     $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
     $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
+    $use_gallery_row = apply_filters('mlmi_builder_use_gallery_row', false);
     
     /*
     * Padding options
@@ -909,64 +910,66 @@ if (function_exists('acf_add_local_field_group')) {
     /*
     * Content type: Gallery
     */
-    $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg, svg');
-    $gallery_row_fields = [
-      'gallery_row_field_gallery' => [
-        'key' => 'gallery_row_field_gallery',
-        'label' => __('Galerie d\'images', 'mlmi-builder'),
-        'name' => 'gallery',
-        'type' => 'gallery',
-        'instructions' => '',
-        'required' => 0,
-        'wpml_cf_preferences' => 3,
-        'conditional_logic' => 0,
-        'wrapper' => [
-          'width' => '',
-          'class' => '',
-          'id' => '',
+    $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg, svg, webp');
+    if ($use_gallery_row) {
+      $gallery_row_fields = [
+        'gallery_row_field_gallery' => [
+          'key' => 'gallery_row_field_gallery',
+          'label' => __('Galerie d\'images', 'mlmi-builder'),
+          'name' => 'gallery',
+          'type' => 'gallery',
+          'instructions' => '',
+          'required' => 0,
+          'wpml_cf_preferences' => 3,
+          'conditional_logic' => 0,
+          'wrapper' => [
+            'width' => '',
+            'class' => '',
+            'id' => '',
+          ],
+          'min' => '',
+          'max' => '',
+          'insert' => 'append',
+          'library' => 'all',
+          'min_width' => '',
+          'min_height' => '',
+          'min_size' => '',
+          'max_width' => '',
+          'max_height' => '',
+          'max_size' => '',
+          'mime_types' => $accept_mime_types,
         ],
-        'min' => '',
-        'max' => '',
-        'insert' => 'append',
-        'library' => 'all',
-        'min_width' => '',
-        'min_height' => '',
-        'min_size' => '',
-        'max_width' => '',
-        'max_height' => '',
-        'max_size' => '',
-        'mime_types' => $accept_mime_types,
-      ],
-    ];
-    $additional_gallery_row_fields = apply_filters('mlmi_builder_gallery_row_add_fields', []);
-    $additional_gallery_row_group = apply_filters('mlmi_builder_gallery_row_add_group', '');
-    $gallery_row_fields = array_merge($gallery_row_fields, $additional_gallery_row_fields);
-    if ($additional_gallery_row_group){
-      $gallery_row_fields['mlmi_builder_cloned_'.$additional_gallery_row_group] = [
-        'key' => 'mlmi_builder_cloned_'.$additional_gallery_row_group,
-        'type' => 'clone',
-        'clone' => [
-          0 => $additional_gallery_row_group,
-        ],
-        'display' => 'seamless',
-        'layout' => 'block',
       ];
+      $additional_gallery_row_fields = apply_filters('mlmi_builder_gallery_row_add_fields', []);
+      $additional_gallery_row_group = apply_filters('mlmi_builder_gallery_row_add_group', '');
+      $gallery_row_fields = array_merge($gallery_row_fields, $additional_gallery_row_fields);
+      if ($additional_gallery_row_group){
+        $gallery_row_fields['mlmi_builder_cloned_'.$additional_gallery_row_group] = [
+          'key' => 'mlmi_builder_cloned_'.$additional_gallery_row_group,
+          'type' => 'clone',
+          'clone' => [
+            0 => $additional_gallery_row_group,
+          ],
+          'display' => 'seamless',
+          'layout' => 'block',
+        ];
+      }
+      $content_type_gallery_row = [
+        'key' => 'mlmi_builder_layout_gallery_row',
+        'fields' => $gallery_row_fields,
+        'location' => [],
+        'menu_order' => 0,
+        'position' => 'normal',
+        'style' => 'default',
+        'label_placement' => 'top',
+        'instruction_placement' => 'label',
+        'hide_on_screen' => '',
+        'active' => 0,
+        'description' => '',
+      ];
+      $content_type_gallery_row = apply_filters('mlmi_builder_content_type_gallery_row', $content_type_gallery_row);
+      acf_add_local_field_group($content_type_gallery_row);
     }
-    $content_type_gallery_row = [
-      'key' => 'mlmi_builder_layout_gallery_row',
-      'fields' => $gallery_row_fields,
-      'location' => [],
-      'menu_order' => 0,
-      'position' => 'normal',
-      'style' => 'default',
-      'label_placement' => 'top',
-      'instruction_placement' => 'label',
-      'hide_on_screen' => '',
-      'active' => 0,
-      'description' => '',
-    ];
-    $content_type_gallery_row = apply_filters('mlmi_builder_content_type_gallery_row', $content_type_gallery_row);
-    acf_add_local_field_group($content_type_gallery_row);
     
     /*
     * Content Type: Shortcode
@@ -1100,12 +1103,14 @@ if (function_exists('acf_add_local_field_group')) {
         'group' => 'mlmi_builder_layout_code_row',
         'options' => false,
       ],
-      'gallery_row' => [
+    ];
+    if ($use_gallery_row) {
+      $layout_types[] = [
         'label' => __('Galerie d\'images', 'mlmi-builder'),
         'group' => 'mlmi_builder_layout_gallery_row',
         'options' => false,
-      ],
-    ];
+      ];
+    }
     $layout_types = apply_filters('mlmi_builder_layout_types', $layout_types);
     
     /*
