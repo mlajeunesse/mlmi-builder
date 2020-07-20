@@ -453,6 +453,9 @@ if (function_exists('acf_add_local_field_group')) {
       'white' => '<span class="badge badge-white">'.__('blanc', 'mlmi-builder').'</span>',
       'black' => '<span class="badge badge-black">'.__('noir', 'mlmi-builder').'</span>',
     ]);
+    if (apply_filters('mlmi_builder_background_color_custom_choice', false) === true) {
+      $background_color_options['custom'] = '<span class="badge badge-transparent">'.__('personnalisé', 'mlmi-builder').'</span>';
+    }
     
     /*
     * Background image options
@@ -1474,6 +1477,29 @@ if (function_exists('acf_add_local_field_group')) {
         'return_format' => 'value',
         'save_other_choice' => 0,
       ],
+      'mlmi_builder_field_section_bg_custom_color' => [
+        'key' => 'mlmi_builder_field_section_bg_custom_color',
+        'label' => __('Couleur personnalisée', 'mlmi-builder'),
+        'name' => 'bg_custom_color',
+        'type' => 'color_picker',
+        'instructions' => '',
+        'required' => 0,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_field_section_bg_color',
+              'operator' => '==',
+              'value' => 'custom',
+            ],
+          ],
+        ],
+        'wrapper' => array(
+          'width' => 50,
+          'class' => '',
+          'id' => '',
+        ),
+        'default_value' => '',
+      ],
       'mlmi_builder_field_section_use_container' => [
         'key' => 'mlmi_builder_field_section_use_container',
         'label' => __('Conteneur', 'mlmi-builder'),
@@ -1511,12 +1537,12 @@ if (function_exists('acf_add_local_field_group')) {
           'class' => '',
           'id' => '',
         ],
-        'choices' => [
+        'choices' => apply_filters('mlmi_builder_section_justify_content_choices', [
           'justify-content-center' => __('Aligner au centre', 'mlmi-builder'),
           'justify-content-start' => __('Aligner en haut', 'mlmi-builder'),
           'justify-content-end' => __('Aligner en bas', 'mlmi-builder'),
-        ],
-        'default_value' => 'align-items-center',
+        ]),
+        'default_value' => 'justify-content-center',
         'allow_null' => 0,
         'multiple' => 0,
         'ui' => 0,
@@ -1535,7 +1561,7 @@ if (function_exists('acf_add_local_field_group')) {
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '16.667',
-          'class' => '',
+          'class' => 'clear-left',
           'id' => '',
         ],
         'choices' => $padding_top_options,
