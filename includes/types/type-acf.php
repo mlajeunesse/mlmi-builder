@@ -1129,6 +1129,49 @@ if (function_exists('acf_add_local_field_group')) {
     /*
     * Section fields
     */
+    $background_image_types = apply_filters('mlmi_builder_background_image_types', [
+      'auto' => [
+        'title' => __('Automatique', 'mlmi-builder'),
+        'fields' => ['horizontal_align', 'vertical_align', 'size', 'options'],
+      ],
+      'ratio' => [
+        'title' => __('Ratio de l\'image', 'mlmi-builder'),
+        'fields' => ['options'],
+      ],
+      'exact' => [
+        'title' => __('Hauteur exacte', 'mlmi-builder'),
+        'fields' => ['height_value', 'height_unit', 'horizontal_align', 'vertical_align', 'size', 'options'],
+      ],
+      'min' => [
+        'title' => __('Hauteur minimum', 'mlmi-builder'),
+        'fields' => ['height_value', 'height_unit', 'horizontal_align', 'vertical_align', 'size', 'options'],
+      ],
+      'max' => [
+        'title' => __('Hauteur maximum', 'mlmi-builder'),
+        'fields' => ['height_value', 'height_unit', 'horizontal_align', 'vertical_align', 'size', 'options'],
+      ],
+    ]);
+    $background_image_choices = [];
+    foreach ($background_image_types as $background_image_key => $background_image_type) {
+      $background_image_choices[$background_image_key] = $background_image_type['title'];
+    }
+    
+    function get_background_image_conditional_logic($field, $types) {
+      $conditions = [];
+      foreach ($types as $background_image_key => $background_image_type) {
+        if (in_array($field, $background_image_type['fields'])) {
+          $conditions[] = [
+            [
+              'field' => 'mlmi_builder_bg_height_basis',
+              'operator' => '==',
+              'value' => $background_image_key,
+            ]
+          ];
+        }
+      }
+      return $conditions;
+    }
+    
     $section_fields = [
       'mlmi_builder_tab_section' => [
         'key' => 'mlmi_builder_tab_section',
@@ -1231,24 +1274,18 @@ if (function_exists('acf_add_local_field_group')) {
         'sub_fields' => [
           'mlmi_builder_bg_height_basis' => [
             'key' => 'mlmi_builder_bg_height_basis',
-            'label' => __('Calcul de la hauteur', 'mlmi-builder'),
+            'label' => __('Type d\'arrière-plan', 'mlmi-builder'),
             'name' => 'height_basis',
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
             'conditional_logic' => 0,
             'wrapper' => [
-              'width' => '33',
+              'width' => '50',
               'class' => 'no-label',
               'id' => '',
             ],
-            'choices' => [
-              'auto' => __('Automatique', 'mlmi-builder'),
-              'ratio' => __('Ratio de l\'image', 'mlmi-builder'),
-              'exact' => __('Hauteur exacte', 'mlmi-builder'),
-              'min' => __('Hauteur min.', 'mlmi-builder'),
-              'max' => __('Hauteur max.', 'mlmi-builder'),
-            ],
+            'choices' => $background_image_choices,
             'default_value' => [
               0 => 'auto',
             ],
@@ -1266,27 +1303,14 @@ if (function_exists('acf_add_local_field_group')) {
             'type' => 'number',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => [
-              [
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'auto',
-                ],
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'ratio',
-                ],
-              ],
-            ],
+            'conditional_logic' => get_background_image_conditional_logic('height_value', $background_image_types),
             'wrapper' => [
-              'width' => '34',
+              'width' => '25',
               'class' => 'no-label',
               'id' => '',
             ],
             'default_value' => '',
-            'placeholder' => 'Hauteur (valeur)',
+            'placeholder' => 'Hauteur',
             'prepend' => '',
             'append' => '',
             'min' => '',
@@ -1300,22 +1324,9 @@ if (function_exists('acf_add_local_field_group')) {
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => [
-              [
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'auto',
-                ],
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'ratio',
-                ],
-              ],
-            ],
+            'conditional_logic' => get_background_image_conditional_logic('height_unit', $background_image_types),
             'wrapper' => [
-              'width' => '33',
+              'width' => '25',
               'class' => 'no-label',
               'id' => '',
             ],
@@ -1340,15 +1351,7 @@ if (function_exists('acf_add_local_field_group')) {
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => [
-              [
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'ratio',
-                ],
-              ],
-            ],
+            'conditional_logic' => get_background_image_conditional_logic('horizontal_align', $background_image_types),
             'wrapper' => [
               'width' => '33',
               'class' => 'no-label clear-left',
@@ -1376,15 +1379,7 @@ if (function_exists('acf_add_local_field_group')) {
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => [
-              [
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'ratio',
-                ],
-              ],
-            ],
+            'conditional_logic' => get_background_image_conditional_logic('vertical_align', $background_image_types),
             'wrapper' => [
               'width' => '34',
               'class' => 'no-label',
@@ -1412,15 +1407,7 @@ if (function_exists('acf_add_local_field_group')) {
             'type' => 'select',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => [
-              [
-                [
-                  'field' => 'mlmi_builder_bg_height_basis',
-                  'operator' => '!=',
-                  'value' => 'ratio',
-                ],
-              ],
-            ],
+            'conditional_logic' => get_background_image_conditional_logic('size', $background_image_types),
             'wrapper' => [
               'width' => '33',
               'class' => 'no-label',
@@ -1449,7 +1436,7 @@ if (function_exists('acf_add_local_field_group')) {
             'type' => 'checkbox',
             'instructions' => '',
             'required' => 0,
-            'conditional_logic' => 0,
+            'conditional_logic' => get_background_image_conditional_logic('options', $background_image_types),
             'wrapper' => [
               'width' => '',
               'class' => 'no-label',
