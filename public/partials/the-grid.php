@@ -134,16 +134,20 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	}
 	if ($background_color = get_sub_field('bg_color')) {
 		if ($background_color != 'transparent') {
-			$section_classes[] = 'bg-'.$background_color;
+			if (apply_filters('mlmi_builder_background_color', true, $background_color)) {
+				$section_classes[] = 'bg-'.$background_color;
+			}
 		}
 	}
 	
 	/* Support for background image with mlmi-theme */
 	if (function_exists('register_dynamic_style') && $bg_image_id = get_sub_field('bg_image')) {
 		$bg_properties = get_sub_field('bg_properties');
-		$selector = 'bg-image-'.$bg_image_id;
-		$section_classes[] = $selector;
-		the_background_image($selector, $bg_image_id, $bg_properties);
+		if (apply_filters('mlmi_builder_background_image', true, $bg_properties, $bg_image_id) !== false) {
+			$selector = 'bg-image-'.$bg_image_id;
+			$section_classes[] = $selector;
+			the_background_image($selector, $bg_image_id, $bg_properties);
+		}
 	}
 	
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
