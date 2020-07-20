@@ -5,7 +5,7 @@
 */
 
 /* Global status variables for use in filters */
-global $section_id, $section_classes;
+global $section_id, $section_classes, $section_attributes;
 global $row_id, $row_classes;
 global $is_first_section, $is_last_section;
 global $is_first_row, $is_last_row;
