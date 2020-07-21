@@ -14,19 +14,29 @@ function mlmi_builder_create_acf_layout($key, $settings) {
     'label' => __('Rangée', 'mlmi-builder'),
     'display' => 'block',
     'group' => 'mlmi_builder_layout_text_row',
+    'dashicon' => false,
     'options' => false,
+    'subtitle' => false,
   ], $settings);
   
+  $cloned = [];
+  
+  // Get cloned subtitle
+  if ($settings['subtitle'] == true && $key != 'text_row') {
+    $cloned['text_row_field_row_subtitle'] = 'text_row_field_row_subtitle';
+    $cloned['text_row_field_row_subtitle_tag'] = 'text_row_field_row_subtitle_tag';
+  }
+  
   // Get cloned group
-  $cloned = [
-    $settings['group']
-  ];
+  $cloned[] = $settings['group'];
   
   // Get cloned options
   if ($settings['options'] == true && $key != 'text_row') {
     $cloned['text_row_tab_options'] = 'text_row_tab_options';
     $cloned['text_row_field_padding_top'] = 'text_row_field_padding_top';
+    $cloned['text_row_field_padding_top_md'] = 'text_row_field_padding_top_md';
     $cloned['text_row_field_padding_bottom'] = 'text_row_field_padding_bottom';
+    $cloned['text_row_field_padding_bottom_md'] = 'text_row_field_padding_bottom_md';
     $cloned['text_row_field_row_class'] = 'text_row_field_row_class';
     $cloned['text_row_field_row_id'] = 'text_row_field_row_id';
   }
@@ -62,6 +72,25 @@ function mlmi_builder_create_acf_layout($key, $settings) {
     'min' => '',
     'max' => '',
   ];
+  
+  if ($settings['dashicon']) {
+    array_insert_before('mlmi_builder_cloned_group_'.$key, $layout['sub_fields'], 'tab-'.$settings['dashicon'], [
+      'key' => 'tab-'.$settings['dashicon'],
+      'label' => '<span class="dashicons dashicons-'.$settings['dashicon'].'"></span>',
+      'name' => '',
+      'type' => 'tab',
+      'instructions' => '',
+      'required' => 0,
+      'conditional_logic' => 0,
+      'wrapper' => [
+        'width' => '',
+        'class' => '',
+        'id' => '',
+      ],
+      'placement' => 'left',
+      'endpoint' => 0,
+    ]);
+  }
   return $layout;
 }
 
@@ -89,6 +118,7 @@ if (function_exists('acf_add_local_field_group')) {
     $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
     $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
     $use_gallery_row = apply_filters('mlmi_builder_use_gallery_row', false);
+    $use_subtitle = apply_filters('mlmi_builder_use_subtitle', false);
     
     /*
     * Padding options
@@ -907,7 +937,35 @@ if (function_exists('acf_add_local_field_group')) {
       'active' => 0,
       'description' => '',
     ];
+    if ($use_subtitle) {
+      array_insert_after('text_row_tab_content', $content_type_text_row['fields'], 'text_row_field_row_subtitle', [
+        'key' => 'text_row_field_row_subtitle',
+        'label' => 'Sous-titre',
+        'name' => 'row_subtitle',
+        'type' => 'text',
+        'wrapper' => [
+          'width' => 80,
+          'class' => 'no-label',
+        ],
+      ]);
+      array_insert_after('text_row_field_row_subtitle', $content_type_text_row['fields'], 'text_row_field_row_subtitle_tag', [
+        'key' => 'text_row_field_row_subtitle_tag',
+        'label' => 'Tag HTML',
+        'name' => 'row_subtitle_tag',
+        'type' => 'select',
+        'choices' => [
+          'h2' => 'Sous-titre h2',
+          'h3' => 'Sous-titre h3',
+          'h4' => 'Sous-titre h4',
+        ],
+        'wrapper' => [
+          'width' => 20,
+          'class' => 'no-label',
+        ]
+      ]);
+    }
     $content_type_text_row = apply_filters('mlmi_builder_content_type_text_row', $content_type_text_row);
+    
     acf_add_local_field_group($content_type_text_row);
     
     /*
@@ -916,6 +974,23 @@ if (function_exists('acf_add_local_field_group')) {
     $accept_mime_types = apply_filters('mlmi_builder_accept_mime_types', 'jpg, jpeg, svg, webp');
     if ($use_gallery_row) {
       $gallery_row_fields = [
+        'text_row_tab_content' => [
+          'key' => 'text_row_tab_content',
+          'label' => '<span class="dashicons dashicons-format-gallery"></span>',
+          'name' => '',
+          'type' => 'tab',
+          'instructions' => '',
+          'required' => 0,
+          'wpml_cf_preferences' => 3,
+          'conditional_logic' => 0,
+          'wrapper' => [
+            'width' => '',
+            'class' => '',
+            'id' => '',
+          ],
+          'placement' => 'left',
+          'endpoint' => 0,
+        ],
         'gallery_row_field_gallery' => [
           'key' => 'gallery_row_field_gallery',
           'label' => __('Galerie d\'images', 'mlmi-builder'),
@@ -927,7 +1002,7 @@ if (function_exists('acf_add_local_field_group')) {
           'conditional_logic' => 0,
           'wrapper' => [
             'width' => '',
-            'class' => '',
+            'class' => 'no-label',
             'id' => '',
           ],
           'min' => '',
