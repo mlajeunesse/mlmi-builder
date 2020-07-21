@@ -3,13 +3,12 @@
 *	MLMI Builder
 *	Grid template (Legacy v0.10)
 */
-
 global $section_classes, $section_id, $container_classes, $row_classes;
 global $is_first_row, $is_last_row, $is_first_section, $is_last_section, $column_index;
-$sections = get_field('sections');
+$sections = get_field('sections', $post_id);
 $sections_count = $sections ? count($sections) : 0;
 $sections_index = 0;
-if (have_rows('sections')): while (have_rows('sections')) : the_row();
+if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : the_row();
 $sections_index += 1;
 $is_first_section = $sections_index === 1;
 $is_last_section = $sections_index === $sections_count;
