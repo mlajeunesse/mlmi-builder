@@ -263,8 +263,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							echo '<div'.$column_attributes_output.'>';
 							if ($content):
 								echo '<div'.$content_attributes_output.'>';
-								$apply_filter_the_content = apply_filters('mlmi_builder_the_content', true);
-								echo $apply_filter_the_content ? apply_filters('the_content', $content) : $content;
+								echo apply_filters('the_builder_content', $content);
 								echo '</div>';
 							endif;
 							echo '</div>';
