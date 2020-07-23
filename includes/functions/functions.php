@@ -256,3 +256,14 @@ function mlmi_builder_tabs_close($tabs = []) {
     echo '</div>';
   }
 }
+
+/*
+* Register dynamic styles (legacy function)
+*/
+if (!function_exists('register_dynamic_style')) {
+  function register_dynamic_style($selector, $styles, $media = 0) {
+    if (function_exists('register_style')) {
+      register_style($selector, $styles, $media);
+    }
+  }
+}
