@@ -34,8 +34,8 @@ function mlmi_builder_create_acf_layout($key, $settings) {
   if ($settings['options'] == true && $key != 'text_row') {
     $cloned['text_row_tab_options'] = 'text_row_tab_options';
     $cloned['text_row_field_padding_top'] = 'text_row_field_padding_top';
-    $cloned['text_row_field_padding_top_md'] = 'text_row_field_padding_top_md';
     $cloned['text_row_field_padding_bottom'] = 'text_row_field_padding_bottom';
+    $cloned['text_row_field_padding_top_md'] = 'text_row_field_padding_top_md';
     $cloned['text_row_field_padding_bottom_md'] = 'text_row_field_padding_bottom_md';
     $cloned['text_row_field_row_class'] = 'text_row_field_row_class';
     $cloned['text_row_field_row_id'] = 'text_row_field_row_id';
