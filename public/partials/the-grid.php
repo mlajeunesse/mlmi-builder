@@ -11,7 +11,7 @@ global $is_first_section, $is_last_section;
 global $is_first_row, $is_last_row;
 global $section_index, $row_index, $column_index;
 global $use_container;
-global $builder_tabs;
+global $builder_tabs, $bg_properties;
 
 /* Filtered settings */
 $desktop_prefix = apply_filters('mlmi_builder_desktop_prefix', 'md');
@@ -111,6 +111,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	
 	/* Section attributes */
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
+	$bg_properties = get_sub_field('bg_properties');
 	$pt = get_sub_field('padding_top');
 	$pt_md = get_sub_field('padding_top_md');
 	if ($pt) {
@@ -141,13 +142,16 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	}
 	
 	/* Support for background image with mlmi-theme */
+	$has_background_image = false;
 	if (function_exists('register_dynamic_style') && $bg_image_id = get_sub_field('bg_image')) {
-		$bg_properties = get_sub_field('bg_properties');
 		if (apply_filters('mlmi_builder_background_image', true, $bg_properties, $bg_image_id) !== false) {
 			$selector = 'bg-image-'.$bg_image_id;
 			$section_classes[] = $selector;
+			$has_background_image = $bg_image_id;
 			the_background_image($selector, $bg_image_id, $bg_properties);
 		}
+	} else {
+		$bg_properties = [];
 	}
 	
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
@@ -168,7 +172,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$rows = get_sub_field('rows');
 	$rows_count = $rows ? count($rows) : 0;
 	$row_index = 0;
-	if (have_rows('rows')):
+	$display_section = have_rows('rows') || $has_background_image;
+	$display_section = apply_filters('mlmi_builder_display_section', $display_section);
+	if ($display_section):
 		
 		/* Display section */
 		echo '<div'.$section_attributes_output.'>';

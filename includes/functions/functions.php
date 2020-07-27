@@ -36,6 +36,8 @@ function the_grid($post_id = NULL) {
 * Main output background image
 */
 function the_background_image($selector, $attachment_id, $bg_properties) {
+  /* Background properties */
+  $bg_properties = apply_filters('mlmi_builder_background_properties', $bg_properties);
   $bg_image = get_attachment($attachment_id);
   $bg_mobile = false;
   if ($bg_mobile_id = get_field('mobile_image', $attachment_id)) {
@@ -80,6 +82,7 @@ function the_background_image($selector, $attachment_id, $bg_properties) {
       } else if ($bg_size == 'auto-width') {
         $general_styles['background-size'] = 'auto 100%';
       }
+      $general_styles = apply_filters('mlmi_builder_section_background_general_styles', $general_styles, $bg_properties);
       register_dynamic_style('.page-section.'.$selector, $general_styles);
     }
     if ($previous_image != $image['sizes'][$bg_source]) {
@@ -104,6 +107,7 @@ function the_background_image($selector, $attachment_id, $bg_properties) {
         }
         $styles['height'] = $height_value.$height_unit;
       }
+      $styles = apply_filters('mlmi_builder_section_background_source_styles', $styles, $bg_properties);
       register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
       $previous_image = $image['sizes'][$bg_source];
       if ($use_ratio) {
@@ -111,9 +115,11 @@ function the_background_image($selector, $attachment_id, $bg_properties) {
       }
     }
     if (isset($image['sizes'][$bg_source.'_2x']) && $previous_image_retina != $image['sizes'][$bg_source.'_2x']) {
-      register_dynamic_style('.'.$selector, [
+      $retina_styles = [
         'background-image' => "url('".$image['sizes'][$bg_source.'_2x']."')",
-      ], ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
+      ];
+      $retina_styles = apply_filters('mlmi_builder_section_background_retina_styles', $retina_styles, $bg_properties);
+      register_dynamic_style('.'.$selector, $retina_styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
       $previous_image_retina = $image['sizes'][$bg_source.'_2x'];
     }
     $min_width = $image['sizes'][$bg_source.'-width'] + 1;
