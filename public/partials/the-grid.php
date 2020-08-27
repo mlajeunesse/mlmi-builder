@@ -303,8 +303,17 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 								$column_classes[] = 'd-md-block';
 							}
 							
-							/* Content attributes */
+							/* Content classes */
 							$content_classes = ['text-content'];
+							
+							/* Column background color */
+							if ($background_color = $column['column_bg_color']) {
+								if ($background_color != 'transparent') {
+									$content_classes[] = 'bg-'.$background_color;
+								}
+							}
+							
+							/* Content attributes */
 							$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
 							$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
 							$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);

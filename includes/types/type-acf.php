@@ -118,6 +118,7 @@ if (function_exists('acf_add_local_field_group')) {
     $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
     $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
     $use_bg_image = apply_filters('mlmi_builder_use_bg_image', true);
+    $use_column_bg_color = apply_filters('mlmi_builder_use_column_bg_color', false);
     $use_gallery_row = apply_filters('mlmi_builder_use_gallery_row', false);
     $use_subtitle = apply_filters('mlmi_builder_use_subtitle', false);
     
@@ -562,6 +563,31 @@ if (function_exists('acf_add_local_field_group')) {
         'default_value' => 2,
         'return_format' => 'value',
       ],
+      'column_bg_color' => [
+        'key' => 'column_bg_color',
+        'label' => __('Couleur d\'arrière-plan', 'mlmi-builder'),
+        'name' => 'column_bg_color',
+        'type' => 'radio',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '50',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'choices' => apply_filters('mlmi_builder_background_color_options', [
+          'transparent' => '<span class="badge badge-transparent">'.__('transparent', 'mlmi-builder').'</span>',
+          'white' => '<span class="badge badge-white">'.__('blanc', 'mlmi-builder').'</span>',
+          'black' => '<span class="badge badge-black">'.__('noir', 'mlmi-builder').'</span>',
+        ]),
+        'default_value' => 'transparent',
+        'return_format' => 'value',
+        'allow_null' => false,
+        'other_choice' => false,
+        'save_other_choice' => false,
+        'layout' => 'vertical',
+      ],
       'column_options' => [
         'key' => 'column_options',
         'label' => '',
@@ -572,7 +598,7 @@ if (function_exists('acf_add_local_field_group')) {
         'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
-          'width' => '',
+          'width' => $use_column_bg_color ? 50 : 100,
           'class' => '',
           'id' => '',
         ],
@@ -585,6 +611,10 @@ if (function_exists('acf_add_local_field_group')) {
         'return_format' => 'value',
       ],
     ];
+    if (!$use_column_bg_color) {
+      unset($column_group_option_fields['column_bg_color']);
+    }
+    $column_group_option_fields = apply_filters('mlmi_builder_column_fields', $column_group_option_fields);
     
     /*
     * Standard row fields

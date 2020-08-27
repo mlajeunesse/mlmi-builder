@@ -80,10 +80,15 @@
   padding: 8px !important;
 }
 
+.mlmi-builder-section .acf-fields>.acf-field.no-group.mlmi-builder-column-option label {
+  white-space: nowrap;
+}
+
 .mlmi-builder-section .acf-fields>.acf-field.no-group.mlmi-builder-column-option .acf-fields.-border {
   background-color: #f5f5ff;
   border-radius: 5px;
   padding: 5px !important;
+  overflow-x: auto;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field.acf-field-code-row-field-shortcode {
