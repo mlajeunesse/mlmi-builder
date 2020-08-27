@@ -117,6 +117,7 @@ if (function_exists('acf_add_local_field_group')) {
     */
     $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
     $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
+    $use_bg_image = apply_filters('mlmi_builder_use_bg_image', true);
     $use_gallery_row = apply_filters('mlmi_builder_use_gallery_row', false);
     $use_subtitle = apply_filters('mlmi_builder_use_subtitle', false);
     
@@ -1768,7 +1769,11 @@ if (function_exists('acf_add_local_field_group')) {
     if ($use_tabs_system) {
       $section_fields = array_merge($section_fields, $tabs_fields);
     }
-    $section_fields = apply_filters('mlmi_section_fields', $section_fields);
+    if (!$use_bg_image) {
+      unset($section_fields['mlmi_builder_field_section_bg_image']);
+      unset($section_fields['mlmi_builder_field_section_bg_properties']);
+    }
+    $section_fields = apply_filters('mlmi_builder_section_fields', $section_fields);
     
     /*
     * MLMI Builder
