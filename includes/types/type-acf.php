@@ -484,7 +484,7 @@ if (function_exists('acf_add_local_field_group')) {
       'transparent' => '<span class="badge badge-transparent">'.__('transparent', 'mlmi-builder').'</span>',
       'white' => '<span class="badge badge-white">'.__('blanc', 'mlmi-builder').'</span>',
       'black' => '<span class="badge badge-black">'.__('noir', 'mlmi-builder').'</span>',
-    ]);
+    ], 'section');
     if (apply_filters('mlmi_builder_background_color_custom_choice', false) === true) {
       $background_color_options['custom'] = '<span class="badge badge-transparent">'.__('personnalisé', 'mlmi-builder').'</span>';
     }
@@ -580,7 +580,7 @@ if (function_exists('acf_add_local_field_group')) {
           'transparent' => '<span class="badge badge-transparent">'.__('transparent', 'mlmi-builder').'</span>',
           'white' => '<span class="badge badge-white">'.__('blanc', 'mlmi-builder').'</span>',
           'black' => '<span class="badge badge-black">'.__('noir', 'mlmi-builder').'</span>',
-        ]),
+        ], 'column'),
         'default_value' => 'transparent',
         'return_format' => 'value',
         'allow_null' => false,
