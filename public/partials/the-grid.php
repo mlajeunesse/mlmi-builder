@@ -217,7 +217,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
 			
 			/* Using container element */
-			if ($use_container && !$container_is_open):
+			if ($use_container && !$container_is_open && !$break_container):
 				$container_classes = apply_filters('mlmi_builder_container_classes', [$use_container]);
 				$container_attributes_output = mlmi_builder_attributes_inline([], $container_classes);
 				echo '<div'.$container_attributes_output.'>';
@@ -225,7 +225,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			endif;
 			
 			/* Breaking container */
-			if ($break_container && $container_is_open) {
+			if ($break_container && $container_is_open && !$is_first_row) {
 				echo '</div>';
 				$container_is_open = false;
 			}

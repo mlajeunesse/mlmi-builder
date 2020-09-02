@@ -1,7 +1,7 @@
 {
   "name": "mlajeunesse/mlmi-builder",
   "description": "Outil de construction avancé et extensible de pages Wordpress utilisant l'éditeur WYSIWYG classique.",
-  "version" : "0.13.27",
+  "version" : "0.13.28",
   "type": "wordpress-plugin",
   "authors": [
     {
