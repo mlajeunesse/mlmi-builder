@@ -10,7 +10,7 @@ global $row_id, $row_classes;
 global $is_first_section, $is_last_section;
 global $is_first_row, $is_last_row;
 global $section_index, $row_index, $column_index;
-global $use_container;
+global $use_container, $container_is_open;
 global $builder_tabs, $bg_properties;
 
 /* Filtered settings */
@@ -108,6 +108,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$is_first_section = $section_index === 1;
 	$is_last_section = $section_index === $sections_count;
 	$section_attributes = ["id" => $section_id];
+	$container_is_open = false;
 	
 	/* Section attributes */
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
@@ -187,6 +188,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$is_first_row = $row_index === 1;
 			$is_last_row = $row_index === $rows_count;
 			$use_row = apply_filters('mlmi_builder_use_row', true);
+			$break_container = apply_filters('mlmi_builder_break_container', false);
 			
 			/* Row attributes */
 			$row_id = get_sub_field('row_id');
@@ -215,11 +217,18 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$row_attributes_output = mlmi_builder_attributes_inline($row_attributes, $row_classes);
 			
 			/* Using container element */
-			if ($use_container && $is_first_row):
+			if ($use_container && !$container_is_open):
 				$container_classes = apply_filters('mlmi_builder_container_classes', [$use_container]);
 				$container_attributes_output = mlmi_builder_attributes_inline([], $container_classes);
 				echo '<div'.$container_attributes_output.'>';
+				$container_is_open = true;
 			endif;
+			
+			/* Breaking container */
+			if ($break_container && $container_is_open) {
+				echo '</div>';
+				$container_is_open = false;
+			}
 			
 			/* Hook before row */
 			do_action('mlmi_builder_before_row');
@@ -307,7 +316,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							$content_classes = ['text-content'];
 							
 							/* Column background color */
-							if ($background_color = $column['column_bg_color']) {
+							if (isset($column['column_bg_color']) && $background_color = $column['column_bg_color']) {
 								if ($background_color != 'transparent') {
 									$content_classes[] = 'bg-'.$background_color;
 								}
