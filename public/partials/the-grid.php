@@ -115,17 +115,13 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$bg_properties = get_sub_field('bg_properties');
 	$pt = get_sub_field('padding_top');
 	$pt_md = get_sub_field('padding_top_md');
-	if ($pt) {
-		$section_classes[] = 'pt-'.$pt;
-	}
+	$section_classes[] = 'pt-'.$pt;
 	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
 		$section_classes[] = 'pt-md-'.$pt_md;
 	}
 	$pb = get_sub_field('padding_bottom');
 	$pb_md = get_sub_field('padding_bottom_md');
-	if ($pb) {
-		$section_classes[] = 'pb-'.$pb;
-	}
+	$section_classes[] = 'pb-'.$pb;
 	if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
 		$section_classes[] = 'pb-md-'.$pb_md;
 	}
