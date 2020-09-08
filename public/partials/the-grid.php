@@ -195,17 +195,13 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$row_classes = array_filter(array_merge(["row", str_replace('_', '-', get_row_layout())], array_map('trim', explode(" ", get_sub_field('row_class')))));
 			$pt = get_sub_field('padding_top');
 			$pt_md = get_sub_field('padding_top_md');
-			if ($pt) {
-				$row_classes[] = 'pt-'.$pt;
-			}
+			$row_classes[] = 'pt-'.$pt;
 			if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
 				$row_classes[] = 'pt-md-'.$pt_md;
 			}
 			$pb = get_sub_field('padding_bottom');
 			$pb_md = get_sub_field('padding_bottom_md');
-			if ($pb) {
-				$row_classes[] = 'pb-'.$pb;
-			}
+			$row_classes[] = 'pb-'.$pb;
 			if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
 				$row_classes[] = 'pb-md-'.$pb_md;
 			}
