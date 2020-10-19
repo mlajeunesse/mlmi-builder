@@ -175,7 +175,7 @@ let mlmi_builder = {
 		}();
 	}
 	
-	if (typeof acf !== 'undefined') {
+	if (typeof acf !== 'undefined' && typeof acf.add_action !== 'undefined') {
 		mlmi_builder.builder = $(".mlmi-builder-section").MLMI_Builder();
 	}
 })(jQuery);
