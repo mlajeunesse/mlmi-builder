@@ -23,6 +23,9 @@ $sections = get_field('sections', $post_id);
 $sections_count = $sections ? count($sections) : 0;
 $section_index = 0;
 
+/* Before grid */
+do_action('mlmi_builder_before_grid');
+
 /* Loop for tabs */
 if ($use_tabs_system && $sections) {
 	/* Add action */
@@ -323,7 +326,6 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 							$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
 							$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
 							$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
-							
 							/* Display column */
 							echo '<div'.$column_attributes_output.'>';
 							if ($content):
@@ -362,7 +364,6 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 						
 				/* Display custom row */
 				else:
-						
 					do_action('mlmi_builder_'.get_row_layout().'_output');
 						
 				endif;
