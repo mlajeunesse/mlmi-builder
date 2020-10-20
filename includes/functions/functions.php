@@ -215,6 +215,7 @@ function mlmi_builder_unique_id($string) {
 * Tabs opening actions
 */
 function mlmi_builder_tabs_open($tabs = []) {
+  $use_legacy_grid = defined('MLMI_BUILDER_USE_LEGACY_GRID') && MLMI_BUILDER_USE_LEGACY_GRID == true;
   $is_first_tab = false;
   if (isset($tabs['display_tabs']) && $tabs['display_tabs']) {
     $is_first_tab = true;
@@ -227,8 +228,23 @@ function mlmi_builder_tabs_open($tabs = []) {
       $tabset_manual_class = explode(' ', $tabset_manual_class);
       $tabset_classes = array_merge($tabset_classes, $tabset_manual_class);
     }
-    $tabset_classes[] = get_sub_field('tabset_padding_top');
-  	$tabset_classes[] = get_sub_field('tabset_padding_bottom');
+    if ($use_legacy_grid) {
+      $tabset_classes[] = get_sub_field('tabset_padding_top');
+    	$tabset_classes[] = get_sub_field('tabset_padding_bottom');
+    } else {
+      $pt = get_sub_field('tabset_padding_top');
+    	$pt_md = get_sub_field('tabset_padding_top_md');
+    	$tabset_classes[] = 'pt-'.$pt;
+    	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
+    		$tabset_classes[] = 'pt-md-'.$pt_md;
+    	}
+    	$pb = get_sub_field('tabset_padding_bottom');
+    	$pb_md = get_sub_field('tabset_padding_bottom_md');
+    	$tabset_classes[] = 'pb-'.$pb;
+    	if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
+    		$tabset_classes[] = 'pb-md-'.$pb_md;
+    	}
+    }
     if ($tabset_id = get_sub_field('tabset_id')) {
       $tabset_attributes['id'] = $tabset_id;
     }
