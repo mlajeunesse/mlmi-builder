@@ -17,6 +17,8 @@ global $builder_tabs, $bg_properties;
 $desktop_prefix = apply_filters('mlmi_builder_desktop_prefix', 'md');
 $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
 $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
+$use_row_options = apply_filters('mlmi_builder_use_row_options', false);
+$use_section_options = apply_filters('mlmi_builder_use_section_options', false);
 
 /* Prepare sections loop */
 $sections = get_field('sections', $post_id);
@@ -116,6 +118,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	/* Section attributes */
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 	$bg_properties = get_sub_field('bg_properties');
+	if ($use_section_options) {
+		$section_classes = array_merge($section_classes, get_sub_field('section_options'));
+	}
 	$pt = get_sub_field('padding_top');
 	$pt_md = get_sub_field('padding_top_md');
 	$section_classes[] = 'pt-'.$pt;
@@ -192,6 +197,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			/* Row attributes */
 			$row_id = get_sub_field('row_id');
 			$row_classes = array_filter(array_merge(["row", str_replace('_', '-', get_row_layout())], array_map('trim', explode(" ", get_sub_field('row_class')))));
+			if ($use_row_options) {
+				$row_classes = array_merge($row_classes, get_sub_field('row_options'));
+			}
 			$pt = get_sub_field('padding_top');
 			$pt_md = get_sub_field('padding_top_md');
 			$row_classes[] = 'pt-'.$pt;

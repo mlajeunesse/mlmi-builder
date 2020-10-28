@@ -216,6 +216,7 @@ function mlmi_builder_unique_id($string) {
 */
 function mlmi_builder_tabs_open($tabs = []) {
   $use_legacy_grid = defined('MLMI_BUILDER_USE_LEGACY_GRID') && MLMI_BUILDER_USE_LEGACY_GRID == true;
+  $use_tabs_options = apply_filters('mlmi_builder_use_tabs_options', false);
   $is_first_tab = false;
   if (isset($tabs['display_tabs']) && $tabs['display_tabs']) {
     $is_first_tab = true;
@@ -235,6 +236,9 @@ function mlmi_builder_tabs_open($tabs = []) {
       $pt = get_sub_field('tabset_padding_top');
     	$pt_md = get_sub_field('tabset_padding_top_md');
     	$tabset_classes[] = 'pt-'.$pt;
+      if ($use_tabs_options) {
+				$tabset_classes = array_merge($tabset_classes, get_sub_field('tabset_options'));
+			}
     	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
     		$tabset_classes[] = 'pt-md-'.$pt_md;
     	}

@@ -117,10 +117,13 @@ if (function_exists('acf_add_local_field_group')) {
     */
     $grid_system_base = apply_filters('mlmi_builder_grid_columns', 12);
     $use_tabs_system = apply_filters('mlmi_builder_use_tabs_system', false);
+    $use_tabs_options = apply_filters('mlmi_builder_use_tabs_options', false);
     $use_bg_image = apply_filters('mlmi_builder_use_bg_image', true);
     $use_column_bg_color = apply_filters('mlmi_builder_use_column_bg_color', false);
     $use_gallery_row = apply_filters('mlmi_builder_use_gallery_row', false);
     $use_subtitle = apply_filters('mlmi_builder_use_subtitle', false);
+    $use_row_options = apply_filters('mlmi_builder_use_row_options', false);
+    $use_section_options = apply_filters('mlmi_builder_use_section_options', false);
     
     /*
     * Padding options
@@ -525,6 +528,38 @@ if (function_exists('acf_add_local_field_group')) {
         'maxlength' => '',
       ],
     ];
+    if ($use_tabs_options) {
+      array_insert_before('mlmi_builder_tabset_padding_top', $tabs_fields, 'mlmi_builder_tabset_options', [
+        'key' => 'mlmi_builder_tabset_options',
+        'label' => 'Options',
+        'name' => 'tabset_options',
+        'type' => 'checkbox',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'mlmi_builder_tab_cycle',
+              'operator' => '==',
+              'value' => 'tab_group',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'choices' => apply_filters('mlmi_builder_tabs_options', []),
+        'default_value' => [],
+        'layout' => 'horizontal',
+        'toggle' => 0,
+        'return_format' => 'value',
+        'allow_custom' => 0,
+        'save_custom' => 0,
+      ]);
+    }
     
     /*
     * Content Type: Standard Row
@@ -1005,7 +1040,7 @@ if (function_exists('acf_add_local_field_group')) {
     $additional_standard_row_fields = apply_filters('mlmi_builder_standard_row_add_fields', []);
     $additional_standard_row_group = apply_filters('mlmi_builder_standard_row_add_group', '');
     $standard_row_fields = array_merge($standard_row_fields, $additional_standard_row_fields);
-    if ($additional_standard_row_group){
+    if ($additional_standard_row_group) {
       $standard_row_fields['mlmi_builder_cloned_'.$additional_standard_row_group] = [
         'key' => 'mlmi_builder_cloned_'.$additional_standard_row_group,
         'type' => 'clone',
@@ -1057,8 +1092,32 @@ if (function_exists('acf_add_local_field_group')) {
         ]
       ]);
     }
-    $content_type_text_row = apply_filters('mlmi_builder_content_type_text_row', $content_type_text_row);
     
+    if ($use_row_options) {
+      array_insert_before('text_row_field_padding_top', $content_type_text_row['fields'], 'text_row_field_row_options', [
+        'key' => 'text_row_field_row_options',
+        'label' => 'Options',
+        'name' => 'row_options',
+        'type' => 'checkbox',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'choices' => apply_filters('mlmi_builder_row_options', []),
+        'default_value' => [],
+        'layout' => 'horizontal',
+        'toggle' => 0,
+        'return_format' => 'value',
+        'allow_custom' => 0,
+        'save_custom' => 0,
+      ]);
+    }
+    $content_type_text_row = apply_filters('mlmi_builder_content_type_text_row', $content_type_text_row);
     acf_add_local_field_group($content_type_text_row);
     
     /*
@@ -1114,7 +1173,7 @@ if (function_exists('acf_add_local_field_group')) {
       $additional_gallery_row_fields = apply_filters('mlmi_builder_gallery_row_add_fields', []);
       $additional_gallery_row_group = apply_filters('mlmi_builder_gallery_row_add_group', '');
       $gallery_row_fields = array_merge($gallery_row_fields, $additional_gallery_row_fields);
-      if ($additional_gallery_row_group){
+      if ($additional_gallery_row_group) {
         $gallery_row_fields['mlmi_builder_cloned_'.$additional_gallery_row_group] = [
           'key' => 'mlmi_builder_cloned_'.$additional_gallery_row_group,
           'type' => 'clone',
@@ -1854,7 +1913,7 @@ if (function_exists('acf_add_local_field_group')) {
     if ($additional_section_fields) {
       $section_fields = array_merge($section_fields, $additional_section_fields);
     }
-    if ($additional_section_group){
+    if ($additional_section_group) {
       $cloned_fields = mlmi_builder_cloned_group($additional_section_group);
       array_splice($section_fields, 3, 0, [$cloned_fields]);
     }
@@ -1864,6 +1923,30 @@ if (function_exists('acf_add_local_field_group')) {
     if (!$use_bg_image) {
       unset($section_fields['mlmi_builder_field_section_bg_image']);
       unset($section_fields['mlmi_builder_field_section_bg_properties']);
+    }
+    if ($use_section_options) {
+      array_insert_before('mlmi_builder_field_section_padding_top', $section_fields, 'mlmi_builder_field_section_options', [
+        'key' => 'mlmi_builder_field_section_options',
+        'label' => 'Options',
+        'name' => 'section_options',
+        'type' => 'checkbox',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'choices' => apply_filters('mlmi_builder_section_options', []),
+        'default_value' => [],
+        'layout' => 'horizontal',
+        'toggle' => 0,
+        'return_format' => 'value',
+        'allow_custom' => 0,
+        'save_custom' => 0,
+      ]);
     }
     $section_fields = apply_filters('mlmi_builder_section_fields', $section_fields);
     
