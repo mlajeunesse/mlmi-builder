@@ -237,7 +237,9 @@ function mlmi_builder_tabs_open($tabs = []) {
     	$pt_md = get_sub_field('tabset_padding_top_md');
     	$tabset_classes[] = 'pt-'.$pt;
       if ($use_tabs_options) {
-				$tabset_classes = array_merge($tabset_classes, get_sub_field('tabset_options'));
+        if ($tabs_options = get_sub_field('tabset_options')) {
+          $tabset_classes = array_merge($tabset_classes, $tabs_options);
+        }
 			}
     	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
     		$tabset_classes[] = 'pt-md-'.$pt_md;

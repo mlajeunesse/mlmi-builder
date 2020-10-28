@@ -119,7 +119,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
 	$bg_properties = get_sub_field('bg_properties');
 	if ($use_section_options) {
-		$section_classes = array_merge($section_classes, get_sub_field('section_options'));
+		if ($section_options = get_sub_field('section_options')) {
+			$section_classes = array_merge($section_classes, $section_options);
+		}
 	}
 	$pt = get_sub_field('padding_top');
 	$pt_md = get_sub_field('padding_top_md');
@@ -198,7 +200,9 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$row_id = get_sub_field('row_id');
 			$row_classes = array_filter(array_merge(["row", str_replace('_', '-', get_row_layout())], array_map('trim', explode(" ", get_sub_field('row_class')))));
 			if ($use_row_options) {
-				$row_classes = array_merge($row_classes, get_sub_field('row_options'));
+				if ($row_options = get_sub_field('row_options')) {
+					$row_classes = array_merge($row_classes, $row_options);
+				}
 			}
 			$pt = get_sub_field('padding_top');
 			$pt_md = get_sub_field('padding_top_md');
