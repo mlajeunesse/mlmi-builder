@@ -1220,6 +1220,23 @@ if (function_exists('acf_add_local_field_group')) {
       }
     }
     $code_row_fields = [
+      'code_row_tab_content' => [
+        'key' => 'code_row_tab_content',
+        'label' => '<span class="dashicons dashicons-editor-code"></span>',
+        'name' => '',
+        'type' => 'tab',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => 0,
+        'wrapper' => [
+          'width' => '',
+          'class' => '',
+          'id' => '',
+        ],
+        'placement' => 'left',
+        'endpoint' => 0,
+      ],
       'code_row_field_template_item' => [
         'key' => 'code_row_field_template_item',
         'label' => __('Item', 'mlmi-builder'),
@@ -1331,7 +1348,7 @@ if (function_exists('acf_add_local_field_group')) {
       'code_row' => [
         'label' => __('Rangée programmée', 'mlmi-builder'),
         'group' => 'mlmi_builder_layout_code_row',
-        'options' => false,
+        'options' => apply_filters('mlmi_builder_use_code_row_options', false),
       ],
     ];
     if ($use_gallery_row) {

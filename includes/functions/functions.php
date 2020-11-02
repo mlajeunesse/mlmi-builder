@@ -134,27 +134,52 @@ function the_background_image($selector, $attachment_id, $bg_properties) {
 if (!function_exists('mlmi_builder_get_grid_content')) {
   function mlmi_builder_get_grid_content($post_id) {
     $grid_content = "";
-    if (have_rows('sections')): while (have_rows('sections')): the_row();
-    if (have_rows('rows')): while (have_rows('rows')): the_row();
-    if (get_row_layout() == "text_row") {
-      for ($i = 0; $i < get_sub_field('cols_num'); $i++) {
-        $column_content = trim(strip_tags(get_sub_field('col_'.($i+1)), '<em><sup>'));
-        if ($column_content) {
-          $grid_content .= $column_content;
-          $grid_content .= PHP_EOL.PHP_EOL;
-        }
-      }
-    } else {
-      $custom_grid_content = apply_filters('mlmi_builder_get_grid_content', '');
-      if ($custom_grid_content) {
-        $grid_content .= $custom_grid_content;
-        $grid_content .= PHP_EOL.PHP_EOL;
-      }
-    }
-  endwhile; endif;
-endwhile; endif;
-return $grid_content;
+    if (have_rows('sections')): 
+      while (have_rows('sections')): the_row();
+        if (have_rows('rows')): 
+          while (have_rows('rows')): the_row();
+            if (get_row_layout() == "text_row") {
+              for ($i = 0; $i < get_sub_field('cols_num'); $i++) {
+                $column_content = trim(strip_tags(get_sub_field('col_'.($i+1)), '<em><sup>'));
+                if ($column_content) {
+                  $grid_content .= $column_content;
+                  $grid_content .= PHP_EOL.PHP_EOL;
+                }
+              }
+            } else {
+              $custom_grid_content = apply_filters('mlmi_builder_get_grid_content', '');
+              if ($custom_grid_content) {
+                $grid_content .= $custom_grid_content;
+                $grid_content .= PHP_EOL.PHP_EOL;
+              }
+            }
+          endwhile;
+        endif;
+      endwhile;
+    endif;
+    return $grid_content;
+  }
 }
+
+/*
+* Get row classes according to row options
+*/
+function mlmi_builder_get_row_classes($row_classes = []) {
+  $row_classes = array_filter(array_merge($row_classes, array_map('trim', explode(" ", get_sub_field('row_class')))));
+  $pt = get_sub_field('padding_top');
+  $pt_md = get_sub_field('padding_top_md');
+  $row_classes[] = 'pt-'.$pt;
+  if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
+    $row_classes[] = 'pt-md-'.$pt_md;
+  }
+  $pb = get_sub_field('padding_bottom');
+  $pb_md = get_sub_field('padding_bottom_md');
+  $row_classes[] = 'pb-'.$pb;
+  if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
+    $row_classes[] = 'pb-md-'.$pb_md;
+  }
+  $row_classes = apply_filters('mlmi_builder_row_classes', $row_classes);
+  return $row_classes;
 }
 
 /*
