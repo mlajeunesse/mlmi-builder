@@ -1081,11 +1081,11 @@ if (function_exists('acf_add_local_field_group')) {
         'label' => 'Tag HTML',
         'name' => 'row_subtitle_tag',
         'type' => 'select',
-        'choices' => [
-          'h2' => 'Sous-titre h2',
-          'h3' => 'Sous-titre h3',
-          'h4' => 'Sous-titre h4',
-        ],
+        'choices' => apply_filters('mlmi_builder_subtitle_tag_choices', [
+          'h2' => __('Sous-titre h2', 'mlmi-builder'),
+          'h3' => __('Sous-titre h3', 'mlmi-builder'),
+          'h4' => __('Sous-titre h4', 'mlmi-builder'),
+        ]),
         'wrapper' => [
           'width' => 20,
           'class' => 'no-label',
