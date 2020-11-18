@@ -165,6 +165,7 @@ if (!function_exists('mlmi_builder_get_grid_content')) {
 * Get row classes according to row options
 */
 function mlmi_builder_get_row_classes($row_classes = []) {
+  $use_row_options = apply_filters('mlmi_builder_use_row_options', false);
   $row_classes = array_filter(array_merge($row_classes, array_map('trim', explode(" ", get_sub_field('row_class')))));
   $pt = get_sub_field('padding_top');
   $pt_md = get_sub_field('padding_top_md');
@@ -177,6 +178,9 @@ function mlmi_builder_get_row_classes($row_classes = []) {
   $row_classes[] = 'pb-'.$pb;
   if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
     $row_classes[] = 'pb-md-'.$pb_md;
+  }
+  if ($row_options = get_sub_field('row_options')) {
+    $row_classes = array_merge($row_classes, $row_options);
   }
   $row_classes = apply_filters('mlmi_builder_row_classes', $row_classes);
   return $row_classes;
