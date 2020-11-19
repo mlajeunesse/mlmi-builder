@@ -35,7 +35,18 @@ function the_grid($post_id = NULL) {
 /*
 * Main output background image
 */
-function the_background_image($selector, $attachment_id, $bg_properties) {
+function the_background_image($selector, $attachment_id, $bg_properties = []) {
+  /* Default properties */
+  $bg_default_properties = [
+    'height_basis' => 'ratio',
+    'horizontal_align' => 'center',
+    'vertical_align' => 'center',
+    'height_value' => 'auto',
+    'height_unit' => '',
+    'size' => 'natural',
+  ];
+  $bg_properties = array_merge($bg_default_properties, $bg_properties);
+  
   /* Background properties */
   $bg_properties = apply_filters('mlmi_builder_background_properties', $bg_properties);
   $bg_image = get_attachment($attachment_id);
