@@ -201,16 +201,22 @@ function mlmi_builder_get_row_classes($row_classes = []) {
 * Inline attributes for output in the grid.
 */
 function mlmi_builder_attributes_inline($attributes = [], $classes = []) {
-  $attributes_output = "";
+  $attributes_output = '';
+  $props = [];
   if ($attributes) {
     foreach ($attributes as $key => $value) {
-      if ($value) {
+      if ($value === true) {
+        $props[] = $key;
+      } else if ($value) {
         $attributes_output .= " ".$key.'="'.$value.'"';
       }
     }
   }
   if ($classes) {
     $attributes_output .= ' class="'.trim(implode(" ", $classes)).'"';
+  }
+  foreach ($props as $prop) {
+    $attributes_output .= ' '.$prop;
   }
   return $attributes_output;
 }
