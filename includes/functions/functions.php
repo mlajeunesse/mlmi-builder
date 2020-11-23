@@ -303,17 +303,37 @@ function mlmi_builder_tabs_open($tabs = []) {
     if ($tabset_id = get_sub_field('tabset_id')) {
       $tabset_attributes['id'] = $tabset_id;
     }
+    $tabset_classes = apply_filters('mlmi_builder_tabset_classes', $tabset_classes, $tabs);
+    $tabset_attributes = apply_filters('mlmi_builder_tabset_attributes', $tabset_attributes, $tabs);
     echo '<div'.mlmi_builder_attributes_inline($tabset_attributes, $tabset_classes).'">';
     echo '<div class="tabs__wrapper">';
     echo '<div class="tabs__list" role="tablist">';
     foreach ($tabs['display_tabs'] as $index => $tab) {
-      echo '<button class="tabs__item" role="tab" tabindex="-1" aria-selected="'.($index == 0 ? 'true' : 'false').'" aria-controls="panel-'.$tab['id'].'" id="tab-'.$tab['id'].'">'.$tab['label'].'</button>';
+      $tab_classes = apply_filters('mlmi_builder_tab_classes', ['tabs__item'], $tab);
+      $tab_attributes = apply_filters('mlmi_builder_tab_attributes', [
+        'role' => 'tab',
+        'tabindex' => '-1',
+        'aria-selected' => $index == 0 ? 'true' : 'false',
+        'aria-controls' => 'panel-'.$tab['id'],
+        'id' => 'tab-'.$tab['id'],
+      ], $tab);
+      echo '<button '.mlmi_builder_attributes_inline($tab_attributes, $tab_classes).'>'.$tab['label'].'</button>';
     }
     echo '</div>';
-    echo '<div class="tabs__panels-list">';
+    $tabset_panels_list_classes = apply_filters('mlmi_builder_tabset_panels_classes', ['tabs__panels-list'], $tabs);
+    $tabset_panels_list_attributes = apply_filters('mlmi_builder_tabset_panels_classes', ['tabs__panels-list'], $tabs);
+    echo '<div '.mlmi_builder_attributes_inline($tabset_panels_list_attributes, $tabset_panels_list_classes).'>';
   }
   if (isset($tabs['open_tab']) && $tabs['open_tab']) {
-    echo '<div role="tabpanel" tabindex="0" class="tabs__panel" id="panel-'.$tabs['open_tab'].'" aria-labelledby="tab-'.$tabs['open_tab'].'"'.($is_first_tab ? '' : ' hidden').'>';
+    $tab_panel_classes = apply_filters('mlmi_builder_tabpanel_classes', ['tabs__panel'], $tabs);
+    $tab_panel_attributes = apply_filters('mlmi_builder_tabpanel_attributes', [
+      'role' => 'tabpanel',
+      'tabindex' => '0',
+      'id' => 'panel-'.$tabs['open_tab'],
+      'aria-labelledby' => 'tab-'.$tabs['open_tab'],
+      'hidden' => !$is_first_tab ? true : false,
+    ], $tabs);
+    echo '<div '.mlmi_builder_attributes_inline($tab_panel_attributes, $tab_panel_classes).'>';
   }
 }
 
