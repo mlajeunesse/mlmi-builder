@@ -317,7 +317,9 @@ function mlmi_builder_tabs_open($tabs = []) {
         'aria-controls' => 'panel-'.$tab['id'],
         'id' => 'tab-'.$tab['id'],
       ], $tab);
-      echo '<button '.mlmi_builder_attributes_inline($tab_attributes, $tab_classes).'>'.$tab['label'].'</button>';
+      echo '<button '.mlmi_builder_attributes_inline($tab_attributes, $tab_classes).'>';
+      echo apply_filters('mlmi_builder_tab_label', $tab['label'], $tab);
+      echo '</button>';
     }
     echo '</div>';
     $tabset_panels_list_classes = apply_filters('mlmi_builder_tabset_panels_classes', ['tabs__panels-list'], $tabs);
