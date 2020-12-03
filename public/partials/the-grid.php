@@ -189,6 +189,12 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 
 		/* Loop rows */
 		while (have_rows('rows')): the_row();
+			/* Skip row */
+			$skip_row = apply_filters('mlmi_builder_skip_row', false);
+			if ($skip_row) {
+				continue;
+			}
+		
 			/* Row status */
 			$row_index += 1;
 			$is_first_row = $row_index === 1;
