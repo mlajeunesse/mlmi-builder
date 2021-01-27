@@ -35,7 +35,7 @@ function the_grid($post_id = NULL) {
 /*
 * Main output background image
 */
-function the_background_image($selector, $attachment_id, $bg_properties = []) {
+function the_background_image($selector, $bg_image, $bg_properties = []) {
   /* Default properties */
   $bg_default_properties = [
     'height_basis' => 'ratio',
@@ -46,16 +46,18 @@ function the_background_image($selector, $attachment_id, $bg_properties = []) {
     'size' => 'natural',
   ];
   $bg_properties = array_merge($bg_default_properties, $bg_properties);
-  
+
   /* Background properties */
   $bg_properties = apply_filters('mlmi_builder_background_properties', $bg_properties);
-  $bg_image = get_attachment($attachment_id);
+  if (is_numeric($bg_image)) {
+    $bg_image = get_attachment($bg_image);
+  }
   $bg_mobile = false;
-  if ($bg_mobile_id = get_field('mobile_image', $attachment_id)) {
+  if ($bg_mobile_id = get_field('mobile_image', $bg_image['ID'])) {
     $bg_mobile = get_attachment($bg_mobile_id);
   }
   $bg_sources = apply_filters('mlmi_builder_background_image_sources', ['large'], $bg_properties);
-  
+
   /* Get background properties */
   $use_ratio = in_array($bg_properties['height_basis'], ['ratio', 'min', 'max']);
   $use_exact = $bg_properties['height_basis'] == 'exact';
@@ -65,17 +67,17 @@ function the_background_image($selector, $attachment_id, $bg_properties = []) {
   $bg_align_vertical = $bg_properties['vertical_align'];
   $bg_size = $bg_properties['size'];
   $height_values = explode('.', $bg_properties['height_value']);
-  
+
   /* Register background styles */
   $min_width = 0;
   $previous_image = '';
   $previous_image_retina = '';
   $previous_ratio = 0;
   $previous_height = 0;
-  
+
   /* Action */
   do_action('mlmi_builder_before_background_image', $bg_properties, $selector, $bg_image);
-  
+
   foreach ($bg_sources as $bg_source) {
     do_action('mlmi_builder_before_background_image_source', $bg_properties, $selector, $bg_image, $bg_source);
     $image = $min_width < 768 && $bg_mobile ? $bg_mobile : $bg_image;
@@ -145,9 +147,9 @@ function the_background_image($selector, $attachment_id, $bg_properties = []) {
 if (!function_exists('mlmi_builder_get_grid_content')) {
   function mlmi_builder_get_grid_content($post_id) {
     $grid_content = "";
-    if (have_rows('sections')): 
+    if (have_rows('sections')):
       while (have_rows('sections')): the_row();
-        if (have_rows('rows')): 
+        if (have_rows('rows')):
           while (have_rows('rows')): the_row();
             if (get_row_layout() == "text_row") {
               for ($i = 0; $i < get_sub_field('cols_num'); $i++) {
@@ -238,7 +240,7 @@ function mlmi_builder_cloned_group($group_key) {
 }
 
 /*
-* Get unique sanitized 
+* Get unique sanitized
 */
 $mlmi_builder_unique_ids = [];
 function mlmi_builder_unique_id($string) {
