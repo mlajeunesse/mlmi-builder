@@ -798,7 +798,7 @@ if (function_exists('acf_add_local_field_group')) {
       ],
       'text_row_tab_options' => [
         'key' => 'text_row_tab_options',
-        'label' => '<span class="dashicons dashicons-desktop"></span>',
+        'label' => '<span class="dashicons dashicons-admin-generic"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -905,23 +905,6 @@ if (function_exists('acf_add_local_field_group')) {
         ],
         'layout' => 'block',
         'sub_fields' => $column_group_option_fields,
-      ],
-      'text_row_tab_advanced' => [
-        'key' => 'text_row_tab_advanced',
-        'label' => '<span class="dashicons dashicons-admin-settings"></span>',
-        'name' => '',
-        'type' => 'tab',
-        'instructions' => '',
-        'required' => 0,
-        'wpml_cf_preferences' => 3,
-        'conditional_logic' => 0,
-        'wrapper' => [
-          'width' => '',
-          'class' => '',
-          'id' => '',
-        ],
-        'placement' => 'left',
-        'endpoint' => 0,
       ],
       'text_row_field_padding_top' => [
         'key' => 'text_row_field_padding_top',

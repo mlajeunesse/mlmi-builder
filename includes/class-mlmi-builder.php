@@ -3,23 +3,23 @@
 * MLMI Builder
 */
 class MLMI_Builder {
-	
+
 	/*
 	* The loader that's responsible for maintaining and registering all hooks that power
 	* the plugin.
 	*/
 	protected $loader;
-	
+
 	/*
 	* The unique identifier of this plugin.
 	*/
 	protected $plugin_name;
-	
+
 	/*
 	* The current version of the plugin.
 	*/
 	protected $version;
-	
+
 	/*
 	* Define the core functionality of the plugin.
 	*/
@@ -32,7 +32,7 @@ class MLMI_Builder {
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 	}
-	
+
 	/*
 	* Load the required dependencies for this plugin.
 	*/
@@ -44,6 +44,8 @@ class MLMI_Builder {
 				$legacy_version = MLMI_BUILDER_LEGACY_GRID_VERSION;
 			}
 			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf-v'.$legacy_version.'.php';
+		} else if (!is_plugin_active('mlmi-core/mlmi-core.php')) {
+			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf-v0.13.php';
 		} else {
 			require_once plugin_dir_path(dirname(__FILE__)).'includes/types/type-acf.php';
 		}
@@ -53,7 +55,7 @@ class MLMI_Builder {
 		require_once plugin_dir_path(dirname(__FILE__)).'public/class-mlmi-builder-public.php';
 		$this->loader = new MLMI_Builder_Loader();
 	}
-	
+
 	/*
 	* Define the locale for this plugin for internationalization.
 	*/
@@ -61,7 +63,7 @@ class MLMI_Builder {
 		$plugin_i18n = new MLMI_Builder_i18n();
 		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 	}
-	
+
 	/*
 	*	Define plugin version in database
 	*/
@@ -71,7 +73,7 @@ class MLMI_Builder {
 			update_option('mlmi_builder_version', MLMI_BUILDER_VERSION);
 		}
 	}
-	
+
 	/*
 	* Register all of the hooks related to the admin area functionality.
 	*/
@@ -80,35 +82,35 @@ class MLMI_Builder {
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
 		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
 	}
-	
+
 	/*
 	* Register all of the hooks related to the public-facing functionality.
 	*/
 	private function define_public_hooks() {
 		$plugin_public = new MLMI_Builder_Public($this->get_plugin_name(), $this->get_version());
 	}
-	
+
 	/*
 	* Run the loader to execute all of the hooks with WordPress.
 	*/
 	public function run() {
 		$this->loader->run();
 	}
-	
+
 	/*
 	* The name of the plugin used to uniquely identify it.
 	*/
 	public function get_plugin_name() {
 		return $this->plugin_name;
 	}
-	
+
 	/*
 	* The reference to the class that orchestrates the hooks with the plugin.
 	*/
 	public function get_loader() {
 		return $this->loader;
 	}
-	
+
 	/*
 	* Retrieve the version number of the plugin.
 	*/

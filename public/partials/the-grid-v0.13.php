@@ -204,11 +204,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 
 			/* Row attributes */
 			$row_id = get_sub_field('row_id');
-			$row_class = str_replace('_', '-', get_row_layout());
-			if (strpos($row_class, '-row') === false) {
-				$row_class .= '-row';
-			}
-			$row_classes = array_filter(array_merge(['row', $row_class], array_map('trim', explode(" ", get_sub_field('row_class')))));
+			$row_classes = array_filter(array_merge(["row", str_replace('_', '-', get_row_layout())], array_map('trim', explode(" ", get_sub_field('row_class')))));
 			if ($use_row_options) {
 				if ($row_options = get_sub_field('row_options')) {
 					$row_classes = array_merge($row_classes, $row_options);
