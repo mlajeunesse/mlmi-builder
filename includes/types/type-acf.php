@@ -15,7 +15,8 @@ function mlmi_builder_create_acf_layout($key, $settings) {
     'display' => 'block',
     'group' => 'mlmi_builder_layout_text_row',
     'dashicon' => false,
-    'options' => false,
+    'row_options' => false,
+    'advanced_tab' => true,
     'subtitle' => false,
   ], $settings);
 
@@ -31,9 +32,8 @@ function mlmi_builder_create_acf_layout($key, $settings) {
   $cloned[] = $settings['group'];
 
   // Get cloned options
-  if ($settings['options'] == true && $key != 'text_row') {
+  if ($settings['advanced_tab'] == true && $key != 'text_row') {
     $cloned['text_row_tab_advanced'] = 'text_row_tab_advanced';
-    $cloned['text_row_field_row_options'] = 'text_row_field_row_options';
     $cloned['text_row_field_padding_top'] = 'text_row_field_padding_top';
     $cloned['text_row_field_padding_bottom'] = 'text_row_field_padding_bottom';
     $cloned['text_row_field_padding_top_md'] = 'text_row_field_padding_top_md';
@@ -1114,7 +1114,7 @@ if (function_exists('acf_add_local_field_group')) {
     }
 
     if ($use_row_options) {
-      array_insert_before('text_row_field_padding_top', $content_type_text_row['fields'], 'text_row_field_row_options', [
+      array_insert_before('text_row_tab_advanced', $content_type_text_row['fields'], 'text_row_field_row_options', [
         'key' => 'text_row_field_row_options',
         'label' => 'Options',
         'name' => 'row_options',
