@@ -1071,6 +1071,7 @@ if (function_exists('acf_add_local_field_group')) {
       ];
     }
 
+    $standard_row_fields = apply_filters('mlmi_builder_standard_row_fields', $standard_row_fields);
     $content_type_text_row = [
       'key' => 'mlmi_builder_layout_text_row',
       'fields' => $standard_row_fields,
