@@ -77,7 +77,7 @@ function mlmi_builder_create_acf_layout($key, $settings) {
   if ($settings['dashicon']) {
     array_insert_before('mlmi_builder_cloned_group_'.$key, $layout['sub_fields'], 'tab-'.$settings['dashicon'], [
       'key' => 'tab-'.$settings['dashicon'],
-      'label' => '<span class="dashicons dashicons-'.$settings['dashicon'].'"></span>',
+      'label' => '<span class="dashicons dashicons-'.$settings['dashicon'].'" title="'.__('Contenu', 'mlmi-builder').'"></span>',
       'name' => '',
       'type' => 'tab',
       'instructions' => '',
@@ -240,7 +240,7 @@ if (function_exists('acf_add_local_field_group')) {
     $tabs_fields = [
       'mlmi_builder_tabs_tab' => [
         'key' => 'mlmi_builder_tabs_tab',
-        'label' => '<span class="dashicons dashicons-category"></span>',
+        'label' => '<span class="dashicons dashicons-category" title="'.__('Onglets', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -721,7 +721,7 @@ if (function_exists('acf_add_local_field_group')) {
     $standard_row_fields = [
       'text_row_tab_content' => [
         'key' => 'text_row_tab_content',
-        'label' => '<span class="dashicons dashicons-edit"></span>',
+        'label' => '<span class="dashicons dashicons-edit" title="'.__('Contenu', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -798,7 +798,7 @@ if (function_exists('acf_add_local_field_group')) {
       ],
       'text_row_tab_options' => [
         'key' => 'text_row_tab_options',
-        'label' => '<span class="dashicons dashicons-desktop"></span>',
+        'label' => '<span class="dashicons dashicons-desktop"  title="'.__('Options d\'affichage', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -882,7 +882,7 @@ if (function_exists('acf_add_local_field_group')) {
       ],
       'text_row_tab_advanced' => [
         'key' => 'text_row_tab_advanced',
-        'label' => '<span class="dashicons dashicons-admin-settings"></span>',
+        'label' => '<span class="dashicons dashicons-admin-settings" title="'.__('Options avancées', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -1122,7 +1122,7 @@ if (function_exists('acf_add_local_field_group')) {
       $gallery_row_fields = [
         'text_row_tab_content' => [
           'key' => 'text_row_tab_content',
-          'label' => '<span class="dashicons dashicons-format-gallery"></span>',
+          'label' => '<span class="dashicons dashicons-format-gallery" title="'.__('Images', 'mlmi-builder').'"></span>',
           'name' => '',
           'type' => 'tab',
           'instructions' => '',
@@ -1216,7 +1216,7 @@ if (function_exists('acf_add_local_field_group')) {
     $code_row_fields = [
       'code_row_tab_content' => [
         'key' => 'code_row_tab_content',
-        'label' => '<span class="dashicons dashicons-editor-code"></span>',
+        'label' => '<span class="dashicons dashicons-editor-code" title="'.__('Contenu', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -1416,7 +1416,7 @@ if (function_exists('acf_add_local_field_group')) {
     $section_fields = [
       'mlmi_builder_tab_section' => [
         'key' => 'mlmi_builder_tab_section',
-        'label' => '<span class="dashicons dashicons-editor-table"></span>',
+        'label' => '<span class="dashicons dashicons-editor-table" title="'.__('Rangées de contenu', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -1452,7 +1452,7 @@ if (function_exists('acf_add_local_field_group')) {
       ],
       'mlmi_builder_tab_presentation' => [
         'key' => 'mlmi_builder_tab_presentation',
-        'label' => '<span class="dashicons dashicons-desktop"></span>',
+        'label' => '<span class="dashicons dashicons-desktop" title="'.__('Options d\'affichage', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
@@ -1464,7 +1464,7 @@ if (function_exists('acf_add_local_field_group')) {
           'class' => '',
           'id' => '',
         ],
-        'placement' => 'top',
+        'placement' => 'left',
         'endpoint' => 0,
       ],
       'mlmi_builder_field_section_bg_image' => [
