@@ -844,7 +844,7 @@ if (function_exists('acf_add_local_field_group')) {
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '33.333',
-          'class' => 'no-group column-label mlmi-builder-column-option',
+          'class' => 'no-group column-label clear-left mlmi-builder-column-option',
           'id' => '',
         ],
         'layout' => 'block',
@@ -1072,7 +1072,7 @@ if (function_exists('acf_add_local_field_group')) {
       ]);
       array_insert_after('text_row_field_row_subtitle', $content_type_text_row['fields'], 'text_row_field_row_subtitle_tag', [
         'key' => 'text_row_field_row_subtitle_tag',
-        'label' => 'Tag HTML',
+        'label' => __('Tag HTML', 'mlmi-builder'),
         'name' => 'row_subtitle_tag',
         'type' => 'select',
         'choices' => apply_filters('mlmi_builder_subtitle_tag_choices', [
@@ -1088,9 +1088,9 @@ if (function_exists('acf_add_local_field_group')) {
     }
 
     if ($use_row_options) {
-      array_insert_before('text_row_tab_advanced', $content_type_text_row['fields'], 'text_row_field_row_options', [
+      array_insert_after('text_row_field_cols_num', $content_type_text_row['fields'], 'text_row_field_row_options', [
         'key' => 'text_row_field_row_options',
-        'label' => 'Options',
+        'label' => __('Options de rangée', 'mlmi-builder'),
         'name' => 'row_options',
         'type' => 'checkbox',
         'instructions' => '',
@@ -1098,8 +1098,8 @@ if (function_exists('acf_add_local_field_group')) {
         'wpml_cf_preferences' => 3,
         'conditional_logic' => 0,
         'wrapper' => [
-          'width' => '',
-          'class' => 'no-label',
+          'width' => '50',
+          'class' => '',
           'id' => '',
         ],
         'choices' => apply_filters('mlmi_builder_row_options', []),
@@ -1493,7 +1493,7 @@ if (function_exists('acf_add_local_field_group')) {
       ],
       'mlmi_builder_field_section_bg_properties' => [
         'key' => 'mlmi_builder_field_section_bg_properties',
-        'label' => 'Propriétés de l\'image d\'arrière-plan',
+        'label' => __('Propriétés de l\'image d\'arrière-plan', 'mlmi-builder'),
         'name' => 'bg_properties',
         'type' => 'group',
         'instructions' => '',
@@ -1938,7 +1938,7 @@ if (function_exists('acf_add_local_field_group')) {
     if ($use_section_options) {
       array_insert_before('mlmi_builder_field_section_padding_top', $section_fields, 'mlmi_builder_field_section_options', [
         'key' => 'mlmi_builder_field_section_options',
-        'label' => 'Options',
+        'label' => __('Options de section', 'mlmi-builder'),
         'name' => 'section_options',
         'type' => 'checkbox',
         'instructions' => '',
