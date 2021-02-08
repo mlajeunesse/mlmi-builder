@@ -123,17 +123,39 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$section_classes = array_merge($section_classes, $section_options);
 		}
 	}
-	$pt = get_sub_field('padding_top');
-	$pt_md = get_sub_field('padding_top_md');
-	$section_classes[] = 'pt-'.$pt;
-	if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
-		$section_classes[] = 'pt-md-'.$pt_md;
+	// $pt = get_sub_field('padding_top');
+	// $pt_md = get_sub_field('padding_top_md');
+	// $section_classes[] = 'pt-'.$pt;
+	// if (($pt == 'default' || $pt_md != 'default') && $pt_md != $pt) {
+	// 	$section_classes[] = 'pt-md-'.$pt_md;
+	// }
+	// $pb = get_sub_field('padding_bottom');
+	// $pb_md = get_sub_field('padding_bottom_md');
+	// $section_classes[] = 'pb-'.$pb;
+	// if (($pb == 'default' || $pb_md != 'default') && $pb_md != $pb) {
+	// 	$section_classes[] = 'pb-md-'.$pb_md;
+	// }
+
+	$spacings = get_sub_field('spacings');
+	$section_classes[] = 'mt-'.$spacings['margin_top'];
+	if ($spacings['margin_top_md'] != $spacings['margin_top']) {
+		$section_classes[] = 'mt-md-'.$spacings['margin_top_md'];
 	}
-	$pb = get_sub_field('padding_bottom');
-	$pb_md = get_sub_field('padding_bottom_md');
-	$section_classes[] = 'pb-'.$pb;
-	if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
-		$section_classes[] = 'pb-md-'.$pb_md;
+	if ($spacings['padding_top'] != 'default' || $spacings['padding_top_md'] != 'default') {
+		$section_classes[] = 'pt-'.$spacings['padding_top'];
+	}
+	if ($spacings['padding_top_md'] != $spacings['padding_top']) {
+		$section_classes[] = 'pt-md-'.$spacings['padding_top_md'];
+	}
+	$section_classes[] = 'mb-'.$spacings['margin_bottom'];
+	if ($spacings['margin_bottom_md'] != $spacings['margin_bottom']) {
+		$section_classes[] = 'mb-md-'.$spacings['margin_bottom_md'];
+	}
+	if ($spacings['padding_bottom'] != 'default' || $spacings['padding_bottom_md'] != 'default') {
+		$section_classes[] = 'pb-'.$spacings['padding_bottom'];
+	}
+	if ($spacings['padding_bottom_md'] != $spacings['padding_bottom']) {
+		$section_classes[] = 'pb-md-'.$spacings['padding_bottom_md'];
 	}
 	if ($justify_content = get_sub_field('justify_content')) {
 		if ($justify_content != 'justify-content-center') {
@@ -214,17 +236,26 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 					$row_classes = array_merge($row_classes, $row_options);
 				}
 			}
-			$pt = get_sub_field('padding_top');
-			$pt_md = get_sub_field('padding_top_md');
-			$row_classes[] = 'pt-'.$pt;
-			if (($pt == 'auto' || $pt_md != 'auto') && $pt_md != $pt) {
-				$row_classes[] = 'pt-md-'.$pt_md;
+			$spacings = get_sub_field('spacings');
+			$row_classes[] = 'mt-'.$spacings['margin_top'];
+			if ($spacings['margin_top_md'] != $spacings['margin_top']) {
+				$row_classes[] = 'mt-md-'.$spacings['margin_top_md'];
 			}
-			$pb = get_sub_field('padding_bottom');
-			$pb_md = get_sub_field('padding_bottom_md');
-			$row_classes[] = 'pb-'.$pb;
-			if (($pb == 'auto' || $pb_md != 'auto') && $pb_md != $pb) {
-				$row_classes[] = 'pb-md-'.$pb_md;
+			if ($spacings['padding_top'] != 'default') {
+				$row_classes[] = 'pt-'.$spacings['padding_top'];
+			}
+			if ($spacings['padding_top_md'] != $spacings['padding_top']) {
+				$row_classes[] = 'pt-md-'.$spacings['padding_top_md'];
+			}
+			$row_classes[] = 'mb-'.$spacings['margin_bottom'];
+			if ($spacings['margin_bottom_md'] != $spacings['margin_bottom']) {
+				$row_classes[] = 'mb-md-'.$spacings['margin_bottom_md'];
+			}
+			if ($spacings['padding_bottom'] != 'default') {
+				$row_classes[] = 'pb-'.$spacings['padding_bottom'];
+			}
+			if ($spacings['padding_bottom_md'] != $spacings['padding_bottom']) {
+				$row_classes[] = 'pb-md-'.$spacings['padding_bottom_md'];
 			}
 			$row_classes = apply_filters('mlmi_builder_row_classes', $row_classes);
 			$row_attributes = apply_filters('mlmi_builder_row_attributes', ['id' => $row_id]);

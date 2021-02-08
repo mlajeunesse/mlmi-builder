@@ -30,16 +30,9 @@
   left: 1px;
   width: calc(100% - 2px);
   height: 100%;
-  background-image: repeating-linear-gradient(35deg, transparent, transparent 5px, #f8f8f8 5px, #f8f8f8 10px);
+  background-image: repeating-linear-gradient(-45deg, transparent, transparent 5px, #f8f8f8 5px, #f8f8f8 10px);
   background-size: 200% 200%;
-  animation: barberpole 10s linear infinite;
   border-radius: 3px;
-}
-
-@keyframes barberpole {
-  100% {
-    background-position: 100% 100%;
-  }
 }
 
 #acf-mlmi_builder_main .inside.acf-fields.-top {
@@ -157,10 +150,6 @@
   outline: 0;
   box-shadow: none;
   text-align: center;
-}
-
-.mlmi-builder-section .acf-field-text-row-field-padding-top {
-  clear: both !important;
 }
 
 .mlmi-builder-section .acf-row-handle,
@@ -282,8 +271,8 @@
 
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group .acf-label label {
   text-align: center;
-  margin-top: 4px;
-  margin-bottom: 5px;
+  margin-top: 6px;
+  margin-bottom: 3px;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field {
@@ -307,7 +296,7 @@
   padding-bottom: 8px !important;
 }
 
-.mlmi-builder-section .acf-fields>.acf-field.spacing-grou select {
+.mlmi-builder-section .acf-fields>.acf-field.spacing-group select {
   margin-bottom: 0px !important;
 }
 
@@ -338,7 +327,7 @@
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(4),
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(7),
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(8) {
-  padding-top: 8px !important;
+  padding-top: 7px !important;
 }
 
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(3),
@@ -347,18 +336,6 @@
 .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(6) {
   background-color: #f5f5ff;
 }
-
-/* .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(7),
-.mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(8),
-.mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field:nth-child(9) {
-  padding-top: 16px !important;
-} */
-
-/* .mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field[data-name="padding_bottom"].acf-hidden + .acf-field,
-.mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field[data-name="padding_bottom"].acf-hidden + .acf-field + .acf-field,
-.mlmi-builder-section .acf-fields>.acf-field.spacing-group > .acf-input .acf-field[data-name="padding_bottom"].acf-hidden + .acf-field + .acf-field + .acf-field {
-  margin-top: -2px;
-} */
 
 /*
 * Other ACF helper classes
