@@ -1897,7 +1897,7 @@ if (function_exists('acf_add_local_field_group')) {
   				'mlmi_builder_section_id' => [
   					'key' => 'mlmi_builder_section_id',
   					'label' => __('ID / ancre de section', 'mlmi-builder'),
-  					'name' => 'row_id',
+  					'name' => 'section_id',
   					'type' => 'text',
   					'instructions' => '',
   					'required' => 0,

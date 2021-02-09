@@ -112,29 +112,19 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	$section_index += 1;
 	$is_first_section = $section_index === 1;
 	$is_last_section = $section_index === $sections_count;
-	$section_attributes = ["id" => $section_id];
 	$container_is_open = false;
 
 	/* Section attributes */
-	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(" ", get_sub_field('section_class')))));
+	$section_advanced_options = get_sub_field('advanced_options');
+	$section_id = $section_advanced_options['section_id'];
+	$section_attributes = ['id' => $section_id];
+	$section_classes = array_filter(array_merge(['page-section'], array_map('trim', explode(' ', $section_advanced_options['section_class']))));
 	$bg_properties = get_sub_field('bg_properties');
 	if ($use_section_options) {
 		if ($section_options = get_sub_field('section_options')) {
 			$section_classes = array_merge($section_classes, $section_options);
 		}
 	}
-	// $pt = get_sub_field('padding_top');
-	// $pt_md = get_sub_field('padding_top_md');
-	// $section_classes[] = 'pt-'.$pt;
-	// if (($pt == 'default' || $pt_md != 'default') && $pt_md != $pt) {
-	// 	$section_classes[] = 'pt-md-'.$pt_md;
-	// }
-	// $pb = get_sub_field('padding_bottom');
-	// $pb_md = get_sub_field('padding_bottom_md');
-	// $section_classes[] = 'pb-'.$pb;
-	// if (($pb == 'default' || $pb_md != 'default') && $pb_md != $pb) {
-	// 	$section_classes[] = 'pb-md-'.$pb_md;
-	// }
 
 	$spacings = get_sub_field('spacings');
 	$section_classes[] = 'mt-'.$spacings['margin_top'];
@@ -184,7 +174,6 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 	}
 
 	$section_classes = apply_filters('mlmi_builder_section_classes', $section_classes);
-	$section_id = get_sub_field('section_id');
 	$section_attributes = apply_filters('mlmi_builder_section_attributes', $section_attributes);
 	$section_attributes_output = mlmi_builder_attributes_inline($section_attributes, $section_classes);
 	$use_container = apply_filters('mlmi_builder_use_container', get_sub_field('use_container'));
@@ -225,12 +214,13 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			$break_container = apply_filters('mlmi_builder_break_container', false);
 
 			/* Row attributes */
-			$row_id = get_sub_field('row_id');
+			$row_advanced_options = get_sub_field('advanced_options');
+			$row_id = $row_advanced_options['row_id'];
 			$row_class = str_replace('_', '-', get_row_layout());
 			if (strpos($row_class, '-row') === false) {
 				$row_class .= '-row';
 			}
-			$row_classes = array_filter(array_merge(['row', $row_class], array_map('trim', explode(" ", get_sub_field('row_class')))));
+			$row_classes = array_filter(array_merge(['row', $row_class], array_map('trim', explode(' ', $row_advanced_options['row_class']))));
 			if ($use_row_options) {
 				if ($row_options = get_sub_field('row_options')) {
 					$row_classes = array_merge($row_classes, $row_options);
@@ -285,7 +275,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 			endif;
 
 				/* Display standard row */
-				if (get_row_layout() == "text_row"):
+				if (get_row_layout() == 'text_row'):
 
 					/* Columns configuration */
 					$columns_count = get_sub_field('cols_num');
@@ -381,7 +371,7 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 					}
 
 				/* Display shortcode row */
-				elseif (get_row_layout() == "code_row"):
+				elseif (get_row_layout() == 'code_row'):
 
 					$template_item = get_sub_field('template_item');
 					if ($template_item && $template_item != 'shortcode' && function_exists('get_template_item')):
@@ -390,20 +380,14 @@ if (have_rows('sections', $post_id)): while (have_rows('sections', $post_id)) : 
 
 					else:
 
-						$custom_code_row_layout = apply_filters('mlmi_builder_code_row_template', "plugin-template");
-						if ($custom_code_row_layout == "plugin-template"):
+						$custom_code_row_layout = apply_filters('mlmi_builder_code_row_template', 'plugin-template');
+						if ($custom_code_row_layout == 'plugin-template'):
 							require plugin_dir_path(dirname(__FILE__)).'../public/partials/code-row.php';
 						elseif ($custom_code_row_layout != false):
 							require locate_template($custom_code_row_layout, false, false);
 						endif;
 
 					endif;
-
-				/* Display gallery row */
-				elseif (get_row_layout() == "gallery_row"):
-
-					$gallery_images = get_sub_field('gallery');
-					do_action('mlmi_builder_gallery_row_output', $gallery_images);
 
 				/* Display custom row */
 				else:
