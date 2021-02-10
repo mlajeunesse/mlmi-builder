@@ -6,8 +6,72 @@ let mlmi_builder = {
 	ready: false,
 };
 
+function builder_make_uid(length) {
+   var result = '';
+   var characters  = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+   var charactersLength = characters.length;
+   for (var i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+   }
+   return result;
+}
+
 (function($) {
 	'use strict';
+
+	$.fn.MLMI_Shortcode = function() {
+		let self = this;
+		if (self.data('shortcode')) {
+			return self
+		}
+
+		self.initialize = function() {
+			let layout = self.closest('.layout'),
+			layout_type = layout.data('layout');
+
+			/* Layout type */
+			if (layout_type == 'text_row') {
+				layout_type = 'row';
+			}
+			self.find('.shortcode-type-cell').text(layout_type);
+
+			/* Update UID */
+			layout.find('.acf-field[data-name="row_id"] input[type="text"]').on('change keyup', self.update);
+			self.update();
+		}
+
+		self.update = function() {
+			let layout = self.closest('.layout'),
+			layout_uid_field = layout.find('.acf-field[data-name="row_uid"] input[type="text"]'),
+			layout_id_field = layout.find('.acf-field[data-name="row_id"] input[type="text"]');
+
+			/* Layout UID */
+			if (!layout_uid_field.val()) {
+				layout_uid_field.val(builder_make_uid(6));
+			}
+			let layout_uid = layout_uid_field.val();
+			if (layout_id_field.val()) {
+				layout_uid = layout_id_field.val();
+			}
+			self.find('.shortcode-uid-cell').text(layout_uid);
+		}
+
+		self.clicked = function() {
+			let textarea = $('<textarea>');
+			self.append(textarea);
+			textarea.val(self.find('.badge-shortcode').text()).focus().select();
+    	document.execCommand("Copy");
+			textarea.remove()
+			self.find('.shortcode-copied').finish().show().delay(750).fadeOut(750);
+		}
+
+		return function() {
+			self.find('.badge-shortcode').on('click', self.clicked);
+			self.initialize();
+			self.data('shortcode', self);
+			return self;
+		}();
+	}
 
 	/*
 	*	MLMI Builder
@@ -21,6 +85,12 @@ let mlmi_builder = {
 			text_rows.each(function(index, element) {
 				self.register(element);
 				self.columns(element)
+			});
+
+			/* Add behavior for all rows */
+			let all_rows = self.find(".layout:not(.acf-clone)");
+			all_rows.each(function(index, element) {
+				self.shortcodes(element);
 			});
 
 			/* Always reset to first tab */
@@ -97,12 +167,17 @@ let mlmi_builder = {
 			}
 		};
 
+		self.shortcodes = function(row) {
+			$(row).find('.shortcode-container').MLMI_Shortcode();
+		}
+
 		return function() {
 			acf.addAction('ready', function() {
 				self.init();
 			});
 			acf.addAction('append', self.register);
 			acf.addAction('append', self.columns);
+			acf.addAction('append', self.shortcodes);
 			return self;
 		}();
 	}

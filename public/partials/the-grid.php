@@ -389,7 +389,7 @@ if (have_rows('sections', $post_id)) {
 				}
 			} else {
 				/* Display custom row */
-				do_action('mlmi_builder_'.get_row_layout().'_output');
+				do_action('mlmi_builder_row_output', get_row_layout());
 			}
 
 			/* Hook after row */

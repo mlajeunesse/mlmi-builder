@@ -338,6 +338,21 @@
 }
 
 /*
+* Shortcode
+*/
+
+.mlmi-builder-row .shortcode-container .badge-shortcode {
+  border: 1px solid #abacab;
+  cursor: pointer;
+  user-select: none;
+}
+
+.mlmi-builder-row .shortcode-container .shortcode-copied {
+  user-select: none;
+  display: none;
+}
+
+/*
 * Other ACF helper classes
 */
 
