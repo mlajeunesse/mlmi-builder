@@ -1864,7 +1864,7 @@ if (function_exists('acf_add_local_field_group')) {
   						'id' => '',
   					],
   					'choices' => [
-  						'skip_row' => __('Cacher la section', 'mlmi-builder'),
+  						'skip_section' => __('Cacher la section', 'mlmi-builder'),
   					],
   					'allow_custom' => 0,
   					'default_value' => array(
