@@ -1298,7 +1298,7 @@ if (function_exists('acf_add_local_field_group')) {
     $code_row_fields = [
       'code_row_tab_content' => [
         'key' => 'code_row_tab_content',
-        'label' => '<span class="dashicons dashicons-editor-code" title="'.__('Contenu', 'mlmi-builder').'"></span>',
+        'label' => '<span class="dashicons dashicons-shortcode" title="'.__('Contenu', 'mlmi-builder').'"></span>',
         'name' => '',
         'type' => 'tab',
         'instructions' => '',
