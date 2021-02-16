@@ -209,6 +209,8 @@ if (have_rows('sections', $post_id)) {
 			/* Skip row */
 			$row_advanced_options = get_sub_field('advanced_options');
 			$skip_row = apply_filters('mlmi_builder_skip_row', in_array('skip_row', $row_advanced_options['advanced_options']));
+			$use_as_shortcode = apply_filters('mlmi_builder_use_as_shortcode', in_array('use_as_shortcode', $row_advanced_options['advanced_options']));
+
 			if ($skip_row) {
 				continue;
 			}
@@ -275,7 +277,7 @@ if (have_rows('sections', $post_id)) {
 			do_action('mlmi_builder_before_row');
 
 			/* Using row element */
-			if ($use_row) {
+			if ($use_row && !$use_as_shortcode) {
 				echo '<div'.$row_attributes_output.'>';
 				do_action('mlmi_builder_begin_row');
 			}
@@ -396,7 +398,7 @@ if (have_rows('sections', $post_id)) {
 			do_action('mlmi_builder_after_row');
 
 			/* Closing row element */
-			if ($use_row) {
+			if ($use_row && !$use_as_shortcode) {
 				echo '</div>';
 			}
 
