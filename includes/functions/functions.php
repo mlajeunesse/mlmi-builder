@@ -85,8 +85,8 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
     $image = $min_width < 768 && $bg_mobile ? $bg_mobile : $bg_image;
     $height_value = ($min_width >= 768 && count($height_values) == 2) ? $height_values[1] : $height_values[0];
     $height_unit = $bg_properties['height_unit'];
+    $general_styles = [];
     if ($use_exact || $use_min || $use_max) {
-      $general_styles = [];
       if ($bg_align_horizontal != 'center' || $bg_align_vertical != 'center') {
         $general_styles['background-position'] = $bg_align_vertical.' '.$bg_align_horizontal;
       }
@@ -96,9 +96,17 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
         $general_styles['background-size'] = '100% auto';
       } else if ($bg_size == 'auto-width') {
         $general_styles['background-size'] = 'auto 100%';
+      } else if ($bg_size == 'cover') {
+        $general_styles['background-size'] = 'cover';
       }
-      $general_styles = apply_filters('mlmi_builder_section_background_general_styles', $general_styles, $bg_properties);
-      register_dynamic_style('.page-section.'.$selector, $general_styles);
+    } else {
+      if ($bg_size == 'cover') {
+        $general_styles['background-size'] = 'cover';
+      }
+    }
+    $general_styles = apply_filters('mlmi_builder_section_background_general_styles', $general_styles, $bg_properties);
+    if ($general_styles) {
+      register_dynamic_style('.'.$selector, $general_styles);
     }
     if ($previous_image != $image['sizes'][$bg_source]) {
       $styles = [

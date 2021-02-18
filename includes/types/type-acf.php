@@ -567,13 +567,6 @@ if (function_exists('acf_add_local_field_group')) {
     }
 
     /*
-    * Background image options
-    */
-    $background_image_options = apply_filters('mlmi_builder_background_image_options', [
-      'bg-container' => __('Appliquer au conteneur', 'mlmi-builder'),
-    ]);
-
-    /*
     * Column options
     */
     $column_choices = [];
@@ -1745,27 +1738,6 @@ if (function_exists('acf_add_local_field_group')) {
             'ajax' => 0,
             'placeholder' => '',
           ],
-          'mlmi_builder_bg_options' => [
-            'key' => 'mlmi_builder_bg_options',
-            'label' => __('Options', 'mlmi-builder'),
-            'name' => 'options',
-            'type' => 'checkbox',
-            'instructions' => '',
-            'required' => 0,
-            'conditional_logic' => get_background_image_conditional_logic('options', $background_image_types),
-            'wrapper' => [
-              'width' => '',
-              'class' => 'no-label',
-              'id' => '',
-            ],
-            'choices' => $background_image_options,
-            'allow_custom' => 0,
-            'default_value' => [],
-            'layout' => 'horizontal',
-            'toggle' => 0,
-            'return_format' => 'value',
-            'save_custom' => 0,
-          ],
         ],
       ],
       'mlmi_builder_section_bg_color' => [
@@ -2172,6 +2144,34 @@ if (function_exists('acf_add_local_field_group')) {
     if (!$use_bg_image) {
       unset($section_fields['mlmi_builder_section_bg_image']);
       unset($section_fields['mlmi_builder_section_bg_properties']);
+    } else {
+      /*
+      * Background image options
+      */
+      $background_image_options = apply_filters('mlmi_builder_background_image_options', []);
+      if ($background_image_options) {
+        $section_fields['mlmi_builder_section_bg_properties']['sub_fields']['mlmi_builder_bg_options'] = [
+          'key' => 'mlmi_builder_bg_options',
+          'label' => __('Options', 'mlmi-builder'),
+          'name' => 'options',
+          'type' => 'checkbox',
+          'instructions' => '',
+          'required' => 0,
+          'conditional_logic' => get_background_image_conditional_logic('options', $background_image_types),
+          'wrapper' => [
+            'width' => '',
+            'class' => 'no-label',
+            'id' => '',
+          ],
+          'choices' => $background_image_options,
+          'allow_custom' => 0,
+          'default_value' => [],
+          'layout' => 'horizontal',
+          'toggle' => 0,
+          'return_format' => 'value',
+          'save_custom' => 0,
+        ];
+      }
     }
     if ($use_section_options) {
       array_insert_before('mlmi_builder_section_padding_top', $section_fields, 'mlmi_builder_section_options', [
