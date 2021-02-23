@@ -106,7 +106,7 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
     }
     $general_styles = apply_filters('mlmi_builder_section_background_general_styles', $general_styles, $bg_properties);
     if ($general_styles) {
-      register_dynamic_style('.'.$selector, $general_styles);
+      register_style('.'.$selector, $general_styles);
     }
     if ($previous_image != $image['sizes'][$bg_source]) {
       $styles = [
@@ -131,7 +131,7 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
         $styles['height'] = $height_value.$height_unit;
       }
       $styles = apply_filters('mlmi_builder_section_background_source_styles', $styles, $bg_properties);
-      register_dynamic_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
+      register_style('.'.$selector, $styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (max-resolution: 191dpi)' : false);
       $previous_image = $image['sizes'][$bg_source];
       if ($use_ratio) {
         $previous_ratio = $image_ratio;
@@ -142,7 +142,7 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
         'background-image' => "url('".$image['sizes'][$bg_source.'_2x']."')",
       ];
       $retina_styles = apply_filters('mlmi_builder_section_background_retina_styles', $retina_styles, $bg_properties);
-      register_dynamic_style('.'.$selector, $retina_styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
+      register_style('.'.$selector, $retina_styles, ($min_width > 0) ? '(min-width: '.$min_width.'px) and (min-resolution: 192dpi)' : '(min-resolution: 192dpi)');
       $previous_image_retina = $image['sizes'][$bg_source.'_2x'];
     }
     $min_width = $image['sizes'][$bg_source.'-width'] + 1;

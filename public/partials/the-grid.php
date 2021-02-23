@@ -162,7 +162,7 @@ if (have_rows('sections', $post_id)) {
 
 		/* Support for background image with mlmi-theme */
 		$has_background_image = false;
-		if (function_exists('register_dynamic_style') && $bg_image_id = get_sub_field('bg_image')) {
+		if (function_exists('register_style') && $bg_image_id = get_sub_field('bg_image')) {
 			if (apply_filters('mlmi_builder_background_image', true, $bg_properties, $bg_image_id) !== false) {
 				$selector = 'bg-image-'.$bg_image_id;
 				$section_classes[] = $selector;
