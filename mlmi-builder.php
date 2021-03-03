@@ -10,7 +10,7 @@
 * Domain Path:       /languages
 */
 
-define('MLMI_BUILDER_VERSION', '0.14.8');
+define('MLMI_BUILDER_VERSION', '0.14.9');
 
 // If this file is called directly, abort.
 if (!defined('WPINC')) {
