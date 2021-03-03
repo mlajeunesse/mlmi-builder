@@ -45,7 +45,7 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
     'vertical_align' => 'center',
     'height_value' => 'auto',
     'height_unit' => '',
-    'size' => 'natural',
+    'size' => 'cover',
   ];
   $bg_properties = array_merge($bg_default_properties, $bg_properties);
 
