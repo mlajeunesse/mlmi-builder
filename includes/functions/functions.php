@@ -379,18 +379,18 @@ if (!function_exists('register_dynamic_style')) {
 /*
 * TinyMCE plugins
 */
-add_action('init', function() {
+add_action('admin_init', function() {
   $use_tinymce_table = apply_filters('mlmi_builder_use_tinymce_table', false);
 
-  if($use_tinymce_table){
-    add_filter( 'mce_external_plugins', function ( $plugins ) {
+  if ($use_tinymce_table) {
+    add_filter('mce_external_plugins', function ($plugins) {
       $plugins['table'] = plugin_dir_url(dirname(__FILE__)).'../admin/js/tinymce-table.min.js';
       return $plugins;
-    } );
+    });
 
-    add_filter( 'mlmi_core_editor_buttons', function ( $buttons ) {
-      array_splice( $buttons, count($button)-2, 0, 'table' );
+    add_filter('mlmi_core_editor_buttons', function ($buttons) {
+      array_splice($buttons, count($buttons) - 2, 0, 'table');
       return $buttons;
-    } );
+    });
   }
 });
