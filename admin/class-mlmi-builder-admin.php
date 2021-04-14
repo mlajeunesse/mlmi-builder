@@ -42,6 +42,10 @@ class MLMI_Builder_Admin {
 		if (!defined('MLMI_BUILDER_LOAD_ADMIN_JS') || MLMI_BUILDER_LOAD_ADMIN_JS){
 			if (is_plugin_active('mlmi-core/mlmi-core.php')) {
 				wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__).'js/mlmi-builder-admin.js', ['jquery'], $this->version, true);
+				wp_localize_script($this->plugin_name, 'mlmi_builder_l10n', [
+			    'EXPORT_ROW' => __('Exporter la rangée', 'mlmi-builder'),
+					'COPIED_ROW' => __('Rangée copiée', 'mlmi-builder'),
+			  ]);
 			} else {
 				wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__).'js/mlmi-builder-admin-v0.13.js', ['jquery'], $this->version, true);
 			}
