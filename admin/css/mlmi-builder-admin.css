@@ -66,11 +66,48 @@
   overflow: hidden;
 }
 
+.mlmi-builder-row .layout.used-as-shortcode {
+  border-color: #dedee4 !important;
+}
+
 .mlmi-builder-row .layout > .acf-fc-layout-handle {
   background: #abc !important;
   color: #fff !important;
   border-bottom: 0 !important;
   user-select: none;
+}
+
+.mlmi-builder-row .layout.used-as-shortcode > .acf-fc-layout-handle {
+  background: #dedee4 !important;
+  color: #3c434a !important;
+}
+
+.mlmi-builder-row .layout > .acf-fc-layout-handle > .acf-fc-layout-order {
+  border-radius: 4px !important;
+  width: auto !important;
+  min-width: 22px !important;
+  padding: 0 1px 0 3px !important;
+  background: #fff !important;
+  border: 1px solid #f1f1f1 !important;
+  color: #3c434a !important;
+  letter-spacing: .14em;
+  opacity: .9;
+}
+
+.mlmi-builder-row .layout.used-as-shortcode > .acf-fc-layout-handle > .acf-fc-layout-order::before {
+  display: inline;
+  opacity: .85;
+  content: '[';
+  font-weight: 700;
+  color: #abc;
+}
+
+.mlmi-builder-row .layout.used-as-shortcode > .acf-fc-layout-handle > .acf-fc-layout-order::after {
+  display: inline;
+  opacity: .85;
+  content: ']';
+  font-weight: 700;
+  color: #abc;
 }
 
 .mlmi-builder-row .layout .layout > .acf-fc-layout-handle {

@@ -24,18 +24,25 @@ function builder_make_uid(length) {
 		if (self.data('builder_row')) {
 			return self.data('builder_row')
 		}
-		self.shortcode = $(row).find('.shortcode-container');
+		self.shortcode_checkbox = $(row).find('input[value="use_as_shortcode"]');
 		self.skip_checkbox = $(row).find('input[value="skip_row"]');
 
 		self.skipped = function() {
-			$(row).css('opacity', self.skip_checkbox.prop('checked') ? 0.6 : 1);
+			$(row).css('opacity', self.skip_checkbox.prop('checked') ? 0.5 : 1);
+		}
+
+		self.shortcoded = function() {
+			$(row).toggleClass('used-as-shortcode', self.shortcode_checkbox.prop('checked'));
+		}
 		}
 
 		return function() {
-			self.shortcode.MLMI_Shortcode()
-			self.skip_checkbox.on('change', self.skipped)
-			self.skipped()
-			self.data('builder_row', self)
+			$(row).find('.shortcode-container').MLMI_Shortcode()
+			self.skip_checkbox.on('change', self.skipped);
+			self.skipped();
+			self.shortcode_checkbox.on('change', self.shortcoded);
+			self.shortcoded();
+			self.data('builder_row', self);
 			return self
 		}()
 	}

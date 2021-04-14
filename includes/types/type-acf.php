@@ -932,7 +932,7 @@ if (function_exists('acf_add_local_field_group')) {
   						'id' => '',
   					],
   					'default_value' => '',
-  					'message' => '<span class="badge badge-shortcode">[<span class="shortcode-type-cell">row</span> id=&#x22;<span class="shortcode-uid-cell"></span>&#x22;]</span> <span class="shortcode-copied">'.__('Shortcode copié!', 'mlmi-builder').'</span>',
+  					'message' => '<span class="badge badge-shortcode">[<span class="shortcode-type-cell">row</span> id=&#x22;<span class="shortcode-uid-cell"></span>&#x22;]</span> <span class="shortcode-copied">'.__('Shortcode copié', 'mlmi-builder').'</span>',
       			'new_lines' => '',
       			'esc_html' => 0,
   				],
