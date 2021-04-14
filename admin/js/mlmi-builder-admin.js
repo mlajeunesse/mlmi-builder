@@ -24,6 +24,7 @@ function builder_make_uid(length) {
 		if (self.data('builder_row')) {
 			return self.data('builder_row')
 		}
+		self.is_new = ($(row).data('id') && $(row).data('id').substr(0, 4) != 'row-');
 		self.shortcode_checkbox = $(row).find('input[value="use_as_shortcode"]');
 		self.skip_checkbox = $(row).find('input[value="skip_row"]');
 
@@ -34,6 +35,26 @@ function builder_make_uid(length) {
 		self.shortcoded = function() {
 			$(row).toggleClass('used-as-shortcode', self.shortcode_checkbox.prop('checked'));
 		}
+
+		self.initialize_export = function() {
+			self.export_button = $('<a>').addClass('acf-icon -export small light acf-js-tooltip').attr('href', '#').attr('title', mlmi_builder_l10n.EXPORT_ROW);
+			self.export_button.on('click', self.export_row);
+			$(row).find('.acf-fc-layout-controls > .acf-icon.-duplicate').after(self.export_button);
+		}
+
+		self.export_row = function() {
+			var data = {
+				action: 'import-row',
+				page: $('input[name="post_ID"]').val() + '',
+				section: ($(row).parents('tr.acf-row').index() + 1) + '',
+				row: ($(row).index() + 1) + '',
+			};
+			let textarea = $('<textarea>');
+			self.append(textarea);
+			textarea.val(JSON.stringify(data)).focus().select();
+    	document.execCommand("Copy");
+			textarea.remove()
+			acf.newTooltip({text: mlmi_builder_l10n.COPIED_ROW, target: $(this), timeout: 500})
 		}
 
 		return function() {
@@ -42,6 +63,9 @@ function builder_make_uid(length) {
 			self.skipped();
 			self.shortcode_checkbox.on('change', self.shortcoded);
 			self.shortcoded();
+			if (!self.is_new) {
+				self.initialize_export();
+			}
 			self.data('builder_row', self);
 			return self
 		}()

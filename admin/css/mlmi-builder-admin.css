@@ -70,6 +70,39 @@
   border-color: #dedee4 !important;
 }
 
+.mlmi-builder-row .layout .acf-icon.-collapse {
+  display: none !important
+}
+
+.mlmi-builder-row .layout .acf-icon.-export {
+  visibility: hidden !important;
+}
+
+.mlmi-builder-row .layout .acf-icon.-export::before {
+  content: "\f504";
+  font-family: 'dashicons';
+  display: inline-block;
+  line-height: 1.2;
+  font-weight: 400;
+  font-style: normal;
+  speak: none;
+  text-decoration: inherit;
+  text-transform: none;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  width: 1.2em;
+  height: 1.2em;
+  font-size: 1.1em;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.mlmi-builder-row .layout.-hover .acf-icon.-export,
+.mlmi-builder-row .layout:hover .acf-icon.-export {
+  visibility: visible !important;
+}
+
 .mlmi-builder-row .layout > .acf-fc-layout-handle {
   background: #abc !important;
   color: #fff !important;
@@ -319,6 +352,11 @@
 .acf-field[data-name='bg_image'] .acf-image-uploader.has-value img {
   width: 125px;
   height: 125px;
+}
+
+.acf-field[data-name='html_code'] textarea,
+.acf-field[data-name='action_code'] textarea {
+  font-family: monospace;
 }
 
 /*

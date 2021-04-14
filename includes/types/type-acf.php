@@ -1283,6 +1283,7 @@ if (function_exists('acf_add_local_field_group')) {
     */
     $shortcode_items = apply_filters('mlmi_builder_shortcode_items', [
       'shortcode' => __('Shortcode', 'mlmi-builder'),
+      'import-row' => __('Importer une rangée', 'mlmi-builder'),
       'html' => __('Code HTML', 'mlmi-builder'),
     ]);
     $shortcode_groups = [];
@@ -1392,6 +1393,34 @@ if (function_exists('acf_add_local_field_group')) {
         'placeholder' => '',
         'maxlength' => '',
         'rows' => 6,
+        'new_lines' => '',
+      ],
+      'code_row_field_action_code' => [
+        'key' => 'code_row_field_action_code',
+        'label' => __('Code', 'mlmi-builder'),
+        'name' => 'action_code',
+        'type' => 'textarea',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'code_row_field_template_item',
+              'operator' => '==',
+              'value' => 'import-row',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'default_value' => '',
+        'placeholder' => '',
+        'maxlength' => '',
+        'rows' => 1,
         'new_lines' => '',
       ],
     ];
