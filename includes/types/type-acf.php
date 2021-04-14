@@ -1283,6 +1283,7 @@ if (function_exists('acf_add_local_field_group')) {
     */
     $shortcode_items = apply_filters('mlmi_builder_shortcode_items', [
       'shortcode' => __('Shortcode', 'mlmi-builder'),
+      'html' => __('Code HTML', 'mlmi-builder'),
     ]);
     $shortcode_groups = [];
     foreach ($shortcode_items as $key => $item) {
@@ -1364,6 +1365,34 @@ if (function_exists('acf_add_local_field_group')) {
         'prepend' => '',
         'append' => '',
         'maxlength' => '',
+      ],
+      'code_row_field_html_code' => [
+        'key' => 'code_row_field_html_code',
+        'label' => __('Code HTML', 'mlmi-builder'),
+        'name' => 'html_code',
+        'type' => 'textarea',
+        'instructions' => '',
+        'required' => 0,
+        'wpml_cf_preferences' => 3,
+        'conditional_logic' => [
+          [
+            [
+              'field' => 'code_row_field_template_item',
+              'operator' => '==',
+              'value' => 'html',
+            ],
+          ],
+        ],
+        'wrapper' => [
+          'width' => '',
+          'class' => 'no-label',
+          'id' => '',
+        ],
+        'default_value' => '',
+        'placeholder' => '',
+        'maxlength' => '',
+        'rows' => 6,
+        'new_lines' => '',
       ],
     ];
     $additional_code_row_fields = apply_filters('mlmi_builder_code_row_add_fields', []);

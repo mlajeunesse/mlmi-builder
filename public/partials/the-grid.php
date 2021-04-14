@@ -379,15 +379,17 @@ if (have_rows('sections', $post_id)) {
 			} else if (get_row_layout() == 'code_row') {
 				/* Display shortcode row */
 				$template_item = get_sub_field('template_item');
-				if ($template_item && $template_item != 'shortcode' && function_exists('get_template_item')) {
-					echo get_template_item($template_item);
-				} else {
+				if ($template_item == 'shortcode') {
 					$custom_code_row_layout = apply_filters('mlmi_builder_code_row_template', 'plugin-template');
 					if ($custom_code_row_layout == 'plugin-template') {
 						require plugin_dir_path(dirname(__FILE__)).'../public/partials/code-row.php';
 					} else if ($custom_code_row_layout != false) {
 						require locate_template($custom_code_row_layout, false, false);
 					}
+				} else if ($template_item == 'html') {
+					require plugin_dir_path(dirname(__FILE__)).'../public/partials/html-row.php';
+				} else if (function_exists('get_template_item')) {
+					echo get_template_item($template_item);
 				}
 			} else {
 				/* Display custom row */
