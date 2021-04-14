@@ -19,6 +19,27 @@ function builder_make_uid(length) {
 (function($) {
 	'use strict';
 
+	$.fn.MLMI_BuilderRow = function(row) {
+		let self = this
+		if (self.data('builder_row')) {
+			return self.data('builder_row')
+		}
+		self.shortcode = $(row).find('.shortcode-container');
+		self.skip_checkbox = $(row).find('input[value="skip_row"]');
+
+		self.skipped = function() {
+			$(row).css('opacity', self.skip_checkbox.prop('checked') ? 0.6 : 1);
+		}
+
+		return function() {
+			self.shortcode.MLMI_Shortcode()
+			self.skip_checkbox.on('change', self.skipped)
+			self.skipped()
+			self.data('builder_row', self)
+			return self
+		}()
+	}
+
 	$.fn.MLMI_Shortcode = function() {
 		let self = this;
 		if (self.data('shortcode')) {
@@ -90,7 +111,7 @@ function builder_make_uid(length) {
 			/* Add behavior for all rows */
 			let all_rows = self.find(".layout:not(.acf-clone)");
 			all_rows.each(function(index, element) {
-				self.shortcodes(element);
+				self.rows(element);
 			});
 
 			/* Always reset to first tab */
@@ -167,8 +188,8 @@ function builder_make_uid(length) {
 			}
 		};
 
-		self.shortcodes = function(row) {
-			$(row).find('.shortcode-container').MLMI_Shortcode();
+		self.rows = function(row) {
+			$(row).MLMI_BuilderRow(row);
 		}
 
 		return function() {
@@ -177,7 +198,7 @@ function builder_make_uid(length) {
 			});
 			acf.addAction('append', self.register);
 			acf.addAction('append', self.columns);
-			acf.addAction('append', self.shortcodes);
+			acf.addAction('append', self.rows);
 			return self;
 		}();
 	}
