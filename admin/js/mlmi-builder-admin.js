@@ -24,7 +24,7 @@ function builder_make_uid(length) {
 		if (self.data('builder_row')) {
 			return self.data('builder_row')
 		}
-		self.is_new = ($(row).data('id') && $(row).data('id').substr(0, 4) != 'row-');
+		self.is_new = ($(row) && $(row)['data'] != undefined && typeof $(row)['data'] == 'function' && $(row).data('id') && $(row).data('id').substr(0, 4) != 'row-');
 		self.shortcode_checkbox = $(row).find('input[value="use_as_shortcode"]');
 		self.skip_checkbox = $(row).find('input[value="skip_row"]');
 
