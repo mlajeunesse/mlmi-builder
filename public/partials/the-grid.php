@@ -360,18 +360,24 @@ if (have_rows('sections', $post_id)) {
 						/* Content attributes */
 						$content_attributes = apply_filters('mlmi_builder_content_attributes', []);
 						$content_classes = apply_filters('mlmi_builder_content_classes', $content_classes);
+						$content_tag = apply_filters('mlmi_builder_content_tag', 'div', $column);
 						$content_attributes_output = mlmi_builder_attributes_inline($content_attributes, $content_classes);
 
 						/* Column attributes */
 						$column_attributes = apply_filters('mlmi_builder_column_attributes', []);
 						$column_classes = apply_filters('mlmi_builder_column_classes', $column_classes);
 						$column_attributes_output = mlmi_builder_attributes_inline($column_attributes, $column_classes);
+
 						/* Display column */
 						echo '<div'.$column_attributes_output.'>';
 						if ($content) {
-							echo '<div'.$content_attributes_output.'>';
+							if ($content_tag) {
+								echo '<'.$content_tag.''.$content_attributes_output.'>';
+							}
 							echo apply_filters('the_builder_content', $content);
-							echo '</div>';
+							if ($content_tag) {
+								echo '</'.$content_tag.'>';
+							}
 						}
 						echo '</div>';
 					}
