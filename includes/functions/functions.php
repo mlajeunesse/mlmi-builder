@@ -402,34 +402,36 @@ add_action('acf/save_post', function($post_id) {
   $old_sections = get_fields($post_id);
   $new_sections = $old_sections;
   $has_imported_rows = false;
-  foreach ($old_sections['sections'] as $section_index => $section) {
-    foreach ($section['rows'] as $row_index => $row) {
-      if ($row_index == 0) {
-        $new_sections['sections'][$section_index]['rows'] = [];
-      }
-      if ($row['acf_fc_layout'] == 'code_row' && $row['template_item'] == 'import-row') {
-        $import_action = json_decode($row['action_code']);
-        if (isset($import_action->action) && $import_action->action == 'import-row') {
-          $has_imported_rows = true;
-          $copied_page = get_fields($import_action->page);
-          $copied_section = intval($import_action->section) - 1;
-          $copied_rows = explode(',', $import_action->row);
-          foreach ($copied_rows as $copied_row_index) {
-            $copied_row = intval(trim($copied_row_index)) - 1;
-            $copied_data = $copied_page['sections'][$copied_section]['rows'][$copied_row];
-            $copied_data['advanced_options']['advanced_options'][] = 'skip_row';
-            $new_sections['sections'][$section_index]['rows'][] = $copied_data;
-          }
+  if (isset($old_sections['sections'])) {
+    foreach ($old_sections['sections'] as $section_index => $section) {
+      foreach ($section['rows'] as $row_index => $row) {
+        if ($row_index == 0) {
+          $new_sections['sections'][$section_index]['rows'] = [];
         }
-      } else {
-        $new_sections['sections'][$section_index]['rows'][] = $row;
+        if ($row['acf_fc_layout'] == 'code_row' && $row['template_item'] == 'import-row') {
+          $import_action = json_decode($row['action_code']);
+          if (isset($import_action->action) && $import_action->action == 'import-row') {
+            $has_imported_rows = true;
+            $copied_page = get_fields($import_action->page);
+            $copied_section = intval($import_action->section) - 1;
+            $copied_rows = explode(',', $import_action->row);
+            foreach ($copied_rows as $copied_row_index) {
+              $copied_row = intval(trim($copied_row_index)) - 1;
+              $copied_data = $copied_page['sections'][$copied_section]['rows'][$copied_row];
+              $copied_data['advanced_options']['advanced_options'][] = 'skip_row';
+              $new_sections['sections'][$section_index]['rows'][] = $copied_data;
+            }
+          }
+        } else {
+          $new_sections['sections'][$section_index]['rows'][] = $row;
+        }
       }
     }
-  }
-  if ($has_imported_rows) {
-	  delete_field('sections', $post_id);
-    foreach ($new_sections['sections'] as $new_section) {
-			add_row('sections', $new_section, $post_id);
+    if ($has_imported_rows) {
+  	  delete_field('sections', $post_id);
+      foreach ($new_sections['sections'] as $new_section) {
+  			add_row('sections', $new_section, $post_id);
+      }
     }
   }
 });
