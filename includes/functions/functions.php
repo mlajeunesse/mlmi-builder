@@ -154,33 +154,34 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
 /*
 * Get all text rows content as one text string.
 */
-if (!function_exists('mlmi_builder_get_grid_content')) {
-  function mlmi_builder_get_grid_content($post_id) {
-    $grid_content = "";
+if (!function_exists('mlmi_builder_get_text_content')) {
+  function mlmi_builder_get_text_content($post_id) {
+    $text_content = '';
     if (have_rows('sections')):
       while (have_rows('sections')): the_row();
         if (have_rows('rows')):
           while (have_rows('rows')): the_row();
-            if (get_row_layout() == "text_row") {
+            if (get_row_layout() == 'text_row') {
               for ($i = 0; $i < get_sub_field('cols_num'); $i++) {
-                $column_content = trim(strip_tags(get_sub_field('col_'.($i+1)), '<em><sup>'));
+                $column_content = html_entity_decode(trim(strip_tags(get_sub_field('col_'.($i+1)), '<em><sup>')));
                 if ($column_content) {
-                  $grid_content .= $column_content;
-                  $grid_content .= PHP_EOL.PHP_EOL;
+                  $text_content .= $column_content;
+                  $text_content .= PHP_EOL;
                 }
               }
             } else {
-              $custom_grid_content = apply_filters('mlmi_builder_get_grid_content', '');
-              if ($custom_grid_content) {
-                $grid_content .= $custom_grid_content;
-                $grid_content .= PHP_EOL.PHP_EOL;
+              $row_content = apply_filters('mlmi_builder_text_content', '');
+              $row_content = html_entity_decode(trim(strip_tags($row_content, '<em><sup>')));
+              if ($row_content) {
+                $text_content .= $row_content;
+                $text_content .= PHP_EOL;
               }
             }
           endwhile;
         endif;
       endwhile;
     endif;
-    return $grid_content;
+    return $text_content;
   }
 }
 
@@ -189,7 +190,7 @@ if (!function_exists('mlmi_builder_get_grid_content')) {
 */
 function mlmi_builder_get_row_classes($row_classes = []) {
   $use_row_options = apply_filters('mlmi_builder_use_row_options', false);
-  $row_classes = array_filter(array_merge($row_classes, array_map('trim', explode(" ", get_sub_field('row_class')))));
+  $row_classes = array_filter(array_merge($row_classes, array_map('trim', explode(' ', get_sub_field('row_class')))));
   $pt = get_sub_field('padding_top');
   $pt_md = get_sub_field('padding_top_md');
   $row_classes[] = 'pt-'.$pt;
@@ -220,7 +221,7 @@ function mlmi_builder_attributes_inline($attributes = [], $classes = []) {
       if ($value === true) {
         $props[] = $key;
       } else if ($value) {
-        $attributes_output .= " ".$key.'="'.$value.'"';
+        $attributes_output .= ' '.$key.'="'.$value.'"';
       }
     }
   }
