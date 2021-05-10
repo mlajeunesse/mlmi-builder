@@ -413,7 +413,13 @@ add_action('acf/save_post', function($post_id) {
           $import_action = json_decode($row['action_code']);
           if (isset($import_action->action) && $import_action->action == 'import-row') {
             $has_imported_rows = true;
+            if (isset($import_action->site) && $import_action->site) {
+              set_site_id($import_action->site);
+            }
             $copied_page = get_fields($import_action->page);
+            if (isset($import_action->site) && $import_action->site) {
+              reset_site();
+            }
             $copied_section = intval($import_action->section) - 1;
             $copied_rows = explode(',', $import_action->row);
             foreach ($copied_rows as $copied_row_index) {

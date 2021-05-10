@@ -49,6 +49,9 @@ function builder_make_uid(length) {
 				section: ($(row).parents('tr.acf-row').index() + 1) + '',
 				row: ($(row).index() + 1) + '',
 			};
+			if (mlmi_builder_l10n.IS_MULTISITE == '1') {
+				data.site = mlmi_builder_l10n.MULTISITE_ID;
+			}
 			let textarea = $('<textarea>');
 			self.append(textarea);
 			textarea.val(JSON.stringify(data)).focus().select();
