@@ -28,7 +28,7 @@ function the_grid($post_id = NULL) {
   } else if (!is_plugin_active('mlmi-core/mlmi-core.php')) {
     require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v0.13.php';
   } else {
-    require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid.php';
+    require plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid.php';
   }
   $grid_output = ob_get_clean();
   echo apply_filters('mlmi_builder_output', $grid_output);
