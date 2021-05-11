@@ -381,6 +381,7 @@ if (!function_exists('register_dynamic_style')) {
 * TinyMCE plugins
 */
 add_action('admin_init', function() {
+  /* Tables */
   $use_tinymce_table = apply_filters('mlmi_builder_use_tinymce_table', false);
 
   if ($use_tinymce_table) {
@@ -391,6 +392,39 @@ add_action('admin_init', function() {
 
     add_filter('mlmi_core_editor_buttons', function ($buttons) {
       array_splice($buttons, count($buttons) - 2, 0, 'table');
+      return $buttons;
+    });
+  }
+  /* Blockquotes */
+  $use_tinymce_blockquote = apply_filters('mlmi_builder_use_tinymce_blockquote', false);
+
+  if ($use_tinymce_blockquote) {
+    add_action( 'admin_enqueue_scripts', function() {
+  		wp_localize_script( 'editor', 'mlmi_blockquote',
+      [
+  			'add_blockquote'  => __( 'Ajouter une citation', 'mlmi-builder' ),
+  			'blockquote'  => __( 'Citation', 'mlmi-builder' ),
+  			'quote'  => __( 'Citation', 'mlmi-builder' ),
+  			'author'  => __( 'Auteur', 'mlmi-builder' ),
+  			'source'  => __( 'Nom de la source', 'mlmi-builder' ),
+  			'source_link'  => __( 'Lien de la source', 'mlmi-builder' ),
+  			'class' => __( 'Style', 'mlmi-builder' ),
+        'remove_formating' => __( 'Supprimer la mise en forme', 'mlmi-builder' ),
+  			'class_options' => apply_filters( 'mlmi_builder_blockquote_classes', false )
+  		]);
+  	});
+
+    add_filter('mce_external_plugins', function ($plugins) {
+      $plugins['mlmi_blockquote'] = plugin_dir_url(dirname(__FILE__)).'../admin/js/tinymce-blockquote.js';
+      return $plugins;
+    });
+
+    add_filter('mlmi_core_editor_buttons', function ($buttons) {
+      // Removes the default blockquote button
+  		if ( false !== ( $key = array_search( 'blockquote', $buttons ) ) ) {
+  			unset( $buttons[$key] );
+  		}
+      array_splice($buttons, count($buttons) - 2, 0, 'mlmi_blockquote');
       return $buttons;
     });
   }
