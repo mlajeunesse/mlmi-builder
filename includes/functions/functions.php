@@ -125,7 +125,12 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
       } else if ($use_exact && $previous_height != $height_value) {
         $previous_height = $height_value;
         if ($height_unit == 'px') {
-          $height_value /= 16;
+          global $theme_variables;
+          $base_size = 16;
+          if (isset($theme_variables['Base font sizes']['$font-size-base'])) {
+            $base_size = $theme_variables['Base font sizes']['$font-size-base'];
+          }
+          $height_value /= $base_size;
           $height_unit = 'rem';
         }
         $styles['height'] = $height_value.$height_unit;
