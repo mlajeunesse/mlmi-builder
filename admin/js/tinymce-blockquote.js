@@ -140,6 +140,7 @@
 
               if(editing) {
                 blockquote_object.remove();
+                blockquote_object = jQuery(blockquote);
               }
               editor.insertContent(blockquote);
             }
