@@ -3,8 +3,10 @@
       editor.on('click', function(e) {
         if(jQuery(e.target).closest('.mlmi-blockquote').length > 0){
           blockquote_object = jQuery(e.target).closest('.mlmi-blockquote');
-          editor.buttons.mlmi_blockquote.onclick();
+          jQuery(editor.buttons.mlmi_blockquote).addClass('active');
+          //editor.buttons.mlmi_blockquote.onclick();
         }else{
+          jQuery(editor.buttons.mlmi_blockquote).removeClass('active');
           blockquote_object = null;
         }
       });
@@ -19,9 +21,9 @@
           var selection_source = '';
           var selection_source_url = '';
           var selection_style = '';
-          if ( editor.selection.getContent() ) {
-            selection = editor.selection.getContent();
-          }else if(blockquote_object != null){
+          content = editor.getContent();
+
+          if (blockquote_object != null) {
             selection = blockquote_object.find('.mlmi-blockquote__quote p').html();
             selection_author = blockquote_object.find('.mlmi-blockquote__author').html();
             selection_source = blockquote_object.find('.mlmi-blockquote__source').html();
@@ -33,8 +35,9 @@
               }
             }
             editing = true;
+          }else if( editor.selection.getContent()){
+            selection = editor.selection.getContent();
           }
-
           var body = [
     		    {
               type: 'textbox',
@@ -104,6 +107,17 @@
               var style = '';
               var quote = e.data.quote;
               var blockquote = '';
+              if(editing) {
+                quote_classes = blockquote_object.find('.mlmi-blockquote__quote__p').attr('class');
+                caption_classes = blockquote_object.find('.mlmi-blockquote__caption__p').attr('class');
+                quote_styles = ' style="' + blockquote_object.find('.mlmi-blockquote__quote__p').attr('style') + '"';
+                caption_styles = ' style="' + blockquote_object.find('.mlmi-blockquote__caption__p').attr('style') + '"';
+              }else{
+                quote_classes = 'mlmi-blockquote__quote__p';
+                caption_classes = 'mlmi-blockquote__caption__p';
+                quote_styles = '';
+                caption_styles = '';
+              }
               if(e.data.cite){
                 cite = '<cite class="mlmi-blockquote__source">' + e.data.cite + '</cite>';
               }
@@ -117,16 +131,19 @@
                 author = '<span class="mlmi-blockquote__author">' + e.data.author + '</span>';
               }
               if(e.data.author || e.data.cite){
-                caption = '<figcaption>' + author + cite + '</figcaption>';
+                caption = '<figcaption><p class="'+caption_classes+'"'+caption_styles+'>' + author + cite + '</p></figcaption>';
               }
               if(e.data.style){
                 style = ' mlmi-blockquote--' + e.data.style;
               }
 
-              var blockquote = '<figure class="mlmi-blockquote' + style + '"><blockquote class="mlmi-blockquote__quote"' + link + '><p>' + quote + '</p></blockquote>' + caption + '</figure>';
+              var blockquote = '<figure class="mlmi-blockquote' + style + '"><blockquote class="mlmi-blockquote__quote"' + link + '><p class="'+quote_classes+'"'+quote_styles+'>' + quote + '</p></blockquote>' + caption + '</figure>';
+
               if(editing) {
+                //content = $(editor.getContent());
                 blockquote_object.remove();
               }
+              //blockquote_object = jQuery(blockquote);
               editor.insertContent(blockquote);
             }
     			});
