@@ -4,7 +4,6 @@
         if(jQuery(e.target).closest('.mlmi-blockquote').length > 0){
           blockquote_object = jQuery(e.target).closest('.mlmi-blockquote');
           jQuery(editor.buttons.mlmi_blockquote).addClass('active');
-          //editor.buttons.mlmi_blockquote.onclick();
         }else{
           jQuery(editor.buttons.mlmi_blockquote).removeClass('active');
           blockquote_object = null;
@@ -85,7 +84,7 @@
 
           if(editing) {
             body.push({
-              type: 'button', // component type
+              type: 'button',
               text: mlmi_blockquote.remove_formating,
               onclick: function () {
                 text_format = blockquote_object.text();
@@ -140,10 +139,8 @@
               var blockquote = '<figure class="mlmi-blockquote' + style + '"><blockquote class="mlmi-blockquote__quote"' + link + '><p class="'+quote_classes+'"'+quote_styles+'>' + quote + '</p></blockquote>' + caption + '</figure>';
 
               if(editing) {
-                //content = $(editor.getContent());
                 blockquote_object.remove();
               }
-              //blockquote_object = jQuery(blockquote);
               editor.insertContent(blockquote);
             }
     			});
