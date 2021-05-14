@@ -2248,7 +2248,7 @@ if (function_exists('acf_add_local_field_group')) {
       }
     }
     if ($use_section_options) {
-      array_insert_before('mlmi_builder_section_padding_top', $section_fields, 'mlmi_builder_section_options', [
+      array_insert_after('mlmi_builder_section_justify_content', $section_fields, 'mlmi_builder_section_options', [
         'key' => 'mlmi_builder_section_options',
         'label' => __('Options de section', 'mlmi-builder'),
         'name' => 'section_options',
@@ -2259,7 +2259,7 @@ if (function_exists('acf_add_local_field_group')) {
         'conditional_logic' => 0,
         'wrapper' => [
           'width' => '',
-          'class' => 'no-label',
+          'class' => '',
           'id' => '',
         ],
         'choices' => apply_filters('mlmi_builder_section_options', []),
