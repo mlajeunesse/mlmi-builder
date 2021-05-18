@@ -105,6 +105,7 @@ function the_background_image($selector, $bg_image, $bg_properties = []) {
       }
     }
     $general_styles = apply_filters('mlmi_builder_section_background_general_styles', $general_styles, $bg_properties);
+    $selector = apply_filters('mlmi_builder_section_background_image_selector', $selector, $bg_properties);
     if ($general_styles) {
       register_style('.'.$selector, $general_styles);
     }
