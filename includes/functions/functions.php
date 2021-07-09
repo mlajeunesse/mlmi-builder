@@ -24,9 +24,9 @@ function the_grid($post_id = NULL) {
     if (defined('MLMI_BUILDER_LEGACY_GRID_VERSION')) {
       $legacy_version = MLMI_BUILDER_LEGACY_GRID_VERSION;
     }
-    require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v'.$legacy_version.'.php';
+    require plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v'.$legacy_version.'.php';
   } else if (!is_plugin_active('mlmi-core/mlmi-core.php')) {
-    require_once plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v0.13.php';
+    require plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid-v0.13.php';
   } else {
     require plugin_dir_path(dirname(__FILE__)).'../public/partials/the-grid.php';
   }
